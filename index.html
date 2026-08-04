@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RS Bhayangkara Akademi Kepolisian</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: {
+                            DEFAULT: '#FAFAEE',
+                            light: '#FCFDF7',
+                        },
+                        maroon: {
+                            DEFAULT: '#B81414',
+                            hover: '#9E0E0E',
+                            light: '#FFF5F5',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-cream font-sans text-gray-800 antialiased flex flex-col min-h-screen">
+
+    <!-- NAVBAR -->
+    <header class="bg-white sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            
+            <!-- Logo RS Bhayangkara -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="showPage('home')">
+                <div class="w-10 h-10 flex-shrink-0">
+                    <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-sm">
+                        <!-- Perisai Kuning Keemasan khas Polri/Bhayangkara -->
+                        <path d="M50 5 L88 22 V50 C88 72 50 95 50 95 C50 95 12 72 12 50 V22 Z" fill="#D97706" stroke="#92400E" stroke-width="3"/>
+                        <!-- Inner Shield Merah Maroon -->
+                        <path d="M50 12 L80 26 V48 C80 66 50 85 50 85 C50 85 20 66 20 48 V26 Z" fill="#B81414"/>
+                        <!-- Palang Merah Medis / Lambang Kesehatan (Putih) -->
+                        <rect x="42" y="28" width="16" height="42" rx="3" fill="#FFFFFF"/>
+                        <rect x="29" y="41" width="42" height="16" rx="3" fill="#FFFFFF"/>
+                        <!-- Bintang Emas di Atas -->
+                        <polygon points="50,16 52,21 57,21 53,24 55,29 50,26 45,29 47,24 43,21 48,21" fill="#FBBF24"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg text-gray-900 leading-tight">RS Bhayangkara</h1>
+                    <p class="text-xs text-gray-500">Akademi Kepolisian</p>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="hidden lg:flex items-center space-x-8 text-sm font-semibold text-gray-600">
+                <button onclick="showPage('home')" id="nav-home" class="nav-link text-maroon border-b-2 border-maroon pb-1">Home</button>
+                
+                <!-- Dropdown Profil -->
+                <div class="relative group">
+                    <button id="nav-profil" class="nav-link hover:text-maroon transition flex items-center space-x-1 py-2">
+                        <span>Profil</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </button>
+                    <div class="absolute left-0 mt-0 w-48 bg-white border border-gray-100 rounded-xl shadow-lg py-2 hidden group-hover:block transition-all z-50">
+                        <button onclick="showPage('profil', 'sejarah')" class="block w-full text-left px-4 py-2 text-xs text-gray-700 hover:bg-red-50 hover:text-maroon font-medium">Sejarah Singkat</button>
+                        <button onclick="showPage('profil', 'visimisi')" class="block w-full text-left px-4 py-2 text-xs text-gray-700 hover:bg-red-50 hover:text-maroon font-medium">Visi & Misi</button>
+                        <button onclick="showPage('profil', 'struktur')" class="block w-full text-left px-4 py-2 text-xs text-gray-700 hover:bg-red-50 hover:text-maroon font-medium">Struktur Organisasi</button>
+                    </div>
+                </div>
+
+                <!-- Dropdown Layanan -->
+                <div class="relative group">
+                    <button id="nav-layanan" class="nav-link hover:text-maroon transition flex items-center space-x-1 py-2">
+                        <span>Layanan</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </button>
+                    <div class="absolute left-0 mt-0 w-52 bg-white border border-gray-100 rounded-xl shadow-lg py-2 hidden group-hover:block transition-all z-50">
+                        <a href="#layanan" onclick="showPage('home')" class="block w-full text-left px-4 py-2 text-xs text-gray-700 hover:bg-red-50 hover:text-maroon font-medium">Rawat Inap</a>
+                        <a href="#layanan" onclick="showPage('home')" class="block w-full text-left px-4 py-2 text-xs text-gray-700 hover:bg-red-50 hover:text-maroon font-medium">IGD 24 Jam</a>
+                        <a href="#layanan" onclick="showPage('home')" class="block w-full text-left px-4 py-2 text-xs text-gray-700 hover:bg-red-50 hover:text-maroon font-medium">Medical Check Up (MCU)</a>
+                        <a href="#layanan" onclick="showPage('home')" class="block w-full text-left px-4 py-2 text-xs text-gray-700 hover:bg-red-50 hover:text-maroon font-medium">Fasilitas Penunjang</a>
+                    </div>
+                </div>
+                
+                <!-- Dropdown Informasi Pasien -->
+                <div class="relative group">
+                    <button id="nav-informasi" class="nav-link hover:text-maroon transition flex items-center space-x-1 py-2">
+                        <span>Informasi Pasien</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </button>
+                    <div class="absolute left-0 mt-0 w-52 bg-white border border-gray-100 rounded-xl shadow-lg py-2 hidden group-hover:block transition-all z-50">
+                        <button onclick="showPage('informasi', 'jadwal')" class="block w-full text-left px-4 py-2 text-xs text-gray-700 hover:bg-red-50 hover:text-maroon font-medium">Jadwal Dokter</button>
+                        <button onclick="showPage('informasi', 'pendaftaran')" class="block w-full text-left px-4 py-2 text-xs text-gray-700 hover:bg-red-50 hover:text-maroon font-medium">Pendaftaran Online</button>
+                    </div>
+                </div>
+
+                <a href="#fasilitas" onclick="showPage('home')" class="hover:text-maroon transition">Fasilitas</a>
+                <a href="#berita" onclick="showPage('home')" class="hover:text-maroon transition">Berita</a>
+                <a href="#kontak" onclick="showPage('home')" class="hover:text-maroon transition">Hubungi Kami</a>
+                <a href="#pengaduan" onclick="showPage('home')" class="hover:text-maroon transition">Pengaduan</a>
+            </nav>
+
+            <!-- Action Button / Login -->
+            <div>
+                <button id="btn-portal-toggle" onclick="handleAuthButtonClick()" class="bg-maroon hover:bg-maroon-hover text-white px-5 py-2.5 rounded-xl font-semibold text-sm flex items-center space-x-2 transition shadow-md shadow-red-100">
+                    <i data-lucide="user" class="w-4 h-4"></i>
+                    <span id="txt-portal-btn">Masuk / Login</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- ==================== VIEW 1: HOME PAGE ==================== -->
+        <div id="view-home" class="space-y-16 pb-16">
+            
+            <!-- HERO SECTION -->
+            <section id="home" class="relative overflow-hidden bg-cream pt-8 pb-12">
+                <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    
+                    <div class="lg:col-span-6 space-y-6 z-10">
+                        <div class="inline-flex items-center space-x-2 bg-maroon-light border border-red-100 px-3 py-1.5 rounded-full">
+                            <i data-lucide="shield-check" class="w-4 h-4 text-maroon"></i>
+                            <span class="text-xs font-bold text-maroon tracking-wide uppercase">RUMAH SAKIT TERAKREDITASI PARIPURNA</span>
+                        </div>
+                        
+                        <h1 class="text-4xl lg:text-5xl font-black text-gray-900 leading-tight">
+                            Pelayanan Kesehatan Profesional untuk <span class="text-maroon">Masyarakat Indonesia</span>
+                        </h1>
+                        
+                        <p class="text-gray-600 text-sm lg:text-base leading-relaxed">
+                            RS Bhayangkara Akademi Kepolisian hadir memberikan pelayanan kesehatan yang cepat, aman, nyaman dan didukung oleh dokter spesialis berpengalaman dengan fasilitas modern.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-4 pt-2">
+                            <button onclick="showPage('informasi', 'jadwal')" class="bg-maroon hover:bg-maroon-hover text-white px-6 py-3 rounded-xl font-bold text-sm flex items-center space-x-2 transition shadow-lg shadow-red-200">
+                                <i data-lucide="calendar" class="w-4 h-4"></i>
+                                <span>Jadwal Dokter</span>
+                            </button>
+                            <a href="#kontak" class="border-2 border-maroon text-maroon hover:bg-maroon hover:text-white px-6 py-3 rounded-xl font-bold text-sm flex items-center space-x-2 transition">
+                                <i data-lucide="phone-call" class="w-4 h-4"></i>
+                                <span>Hubungi Kami</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-6 relative flex justify-center">
+                        <div class="relative w-full max-w-lg lg:max-w-none overflow-hidden rounded-[40px] shadow-2xl border-4 border-white">
+                            <img src="https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?q=80&w=1000&auto=format&fit=crop" alt="RS Bhayangkara Gedung" class="w-full h-[380px] lg:h-[450px] object-cover">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FEATURE STRIP CARD -->
+            <section class="max-w-7xl mx-auto px-6">
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 divide-y md:divide-y-0 md:divide-x divide-gray-100">
+                    <div class="flex items-start space-x-4 pt-4 md:pt-0">
+                        <div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0 text-maroon">
+                            <i data-lucide="heart-pulse" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 text-sm">Dokter Profesional</h4>
+                            <p class="text-xs text-gray-500 mt-1 leading-snug">Dokter spesialis berpengalaman di bidangnya.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4 pt-4 md:pt-0 md:pl-4">
+                        <div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0 text-maroon">
+                            <i data-lucide="clock" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 text-sm">IGD 24 Jam</h4>
+                            <p class="text-xs text-gray-500 mt-1 leading-snug">Layanan gawat darurat siap melayani 24 jam.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4 pt-4 md:pt-0 lg:pl-4">
+                        <div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0 text-maroon">
+                            <i data-lucide="shield-check" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 text-sm">Pelayanan Aman</h4>
+                            <p class="text-xs text-gray-500 mt-1 leading-snug">Mengutamakan keselamatan dan kenyamanan pasien.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4 pt-4 md:pt-0 lg:pl-4">
+                        <div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0 text-maroon">
+                            <i data-lucide="plus-circle" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 text-sm">Fasilitas Lengkap</h4>
+                            <p class="text-xs text-gray-500 mt-1 leading-snug">Peralatan medis modern dan lengkap.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LAYANAN UNGGULAN SECTION -->
+            <section id="layanan" class="max-w-7xl mx-auto px-6 space-y-8">
+                <div class="text-center space-y-2">
+                    <span class="text-xs font-bold text-maroon uppercase tracking-widest">LAYANAN KAMI</span>
+                    <h2 class="text-3xl font-black text-gray-900">Layanan Unggulan</h2>
+                    <div class="w-12 h-1 bg-maroon mx-auto rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                    <!-- Kartu 1: Rawat Jalan -->
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm space-y-4 hover:shadow-md transition">
+                        <div class="w-12 h-12 bg-red-50 text-maroon rounded-xl flex items-center justify-center">
+                            <i data-lucide="stethoscope" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-base">Rawat Jalan</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed">Layanan konsultasi dan pemeriksaan medis komprehensif bersama dokter spesialis tanpa perlu menginap.</p>
+                        <button onclick="showPage('informasi', 'pendaftaran')" class="inline-flex items-center space-x-1 text-xs font-bold text-maroon hover:underline">
+                            <span>Selengkapnya</span>
+                            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+
+                    <!-- Kartu 2: Rawat Inap -->
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm space-y-4 hover:shadow-md transition">
+                        <div class="w-12 h-12 bg-red-50 text-maroon rounded-xl flex items-center justify-center">
+                            <i data-lucide="bed" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-base">Rawat Inap</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed">Perawatan intensif dan pemulihan pasien dengan fasilitas nyaman serta observasi medis berkala.</p>
+                        <button onclick="showPage('informasi', 'pendaftaran')" class="inline-flex items-center space-x-1 text-xs font-bold text-maroon hover:underline">
+                            <span>Selengkapnya</span>
+                            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+
+                    <!-- Kartu 3: IGD 24 Jam -->
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm space-y-4 hover:shadow-md transition">
+                        <div class="w-12 h-12 bg-red-50 text-maroon rounded-xl flex items-center justify-center">
+                            <i data-lucide="ambulance" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-base">IGD 24 Jam</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed">Layanan penanganan medis gawat darurat yang siap melayani dengan cepat dan tanggap 24 jam non-stop.</p>
+                        <button onclick="showPage('informasi', 'pendaftaran')" class="inline-flex items-center space-x-1 text-xs font-bold text-maroon hover:underline">
+                            <span>Selengkapnya</span>
+                            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION PENGADUAN PASIEN -->
+            <section id="pengaduan" class="max-w-7xl mx-auto px-6">
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 space-y-4">
+                    <div class="border-b pb-4">
+                        <h3 class="text-xl font-bold text-gray-900">Pengaduan & Saran Layanan</h3>
+                        <p class="text-xs text-gray-500">Sampaikan masukan atau saran untuk peningkatan kualitas layanan RS Bhayangkara</p>
+                    </div>
+
+                    <form id="form-pengaduan" onsubmit="submitPengaduan(event)" class="space-y-3 text-xs">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block font-semibold mb-1">Nama Pelapor (Opsional)</label>
+                                <input type="text" id="aduan-nama" placeholder="Isi 'Anonim' jika ingin merahasiakan nama" class="w-full p-2.5 bg-gray-50 border rounded-lg focus:outline-none focus:border-maroon">
+                            </div>
+                            <div>
+                                <label class="block font-semibold mb-1">Kategori Laporan</label>
+                                <select id="aduan-kategori" class="w-full p-2.5 bg-gray-50 border rounded-lg focus:outline-none focus:border-maroon">
+                                    <option value="Pelayanan Medis">Pelayanan Medis</option>
+                                    <option value="Fasilitas & Kebersihan">Fasilitas & Kebersihan</option>
+                                    <option value="Administrasi & Loket">Administrasi & Loket</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-1">Detail Keluhan / Saran</label>
+                            <textarea id="aduan-isi" rows="3" required placeholder="Tuliskan masukan Anda secara jelas..." class="w-full p-2.5 bg-gray-50 border rounded-lg focus:outline-none focus:border-maroon"></textarea>
+                        </div>
+                        <button type="submit" class="px-6 py-2.5 bg-maroon text-white font-bold rounded-lg hover:bg-maroon-hover transition">Kirim Pengaduan</button>
+                    </form>
+
+                    <div id="status-pengaduan" class="hidden bg-blue-50 border border-blue-200 p-3 rounded-lg text-xs text-blue-800">
+                        Laporan pengaduan berhasil terkirim. Kode Tiket: <span id="tiket-aduan-id" class="font-bold text-maroon"></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION KONTAK / HUBUNGI KAMI -->
+            <section id="kontak" class="max-w-7xl mx-auto px-6">
+                <div class="bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-gray-100 space-y-6">
+                    <div class="border-b pb-4">
+                        <span class="text-xs font-bold text-maroon uppercase tracking-widest">LOKASI & KONTAK</span>
+                        <h2 class="text-2xl lg:text-3xl font-black text-gray-900 mt-1">Hubungi Kami</h2>
+                        <p class="text-xs text-gray-500 mt-1">Temukan lokasi RS Bhayangkara Akpol atau hubungi kami untuk informasi lebih lanjut</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                        <!-- Peta Google Maps Embed -->
+                        <div class="lg:col-span-7 h-[350px] lg:h-auto min-h-[300px] rounded-2xl overflow-hidden border border-gray-200 shadow-inner">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.03831885915!2d110.4172553!3d-7.0282987!2m3!1f0!0f0!0f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708ba1f4c71853%3A0x289728cb1ef4dfef!2sPolice%20Hospitals%20Akpol!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+                                width="100%" 
+                                height="100%" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+
+                        <!-- Detail Informasi Kontak -->
+                        <div class="lg:col-span-5 flex flex-col justify-center space-y-6 divide-y divide-gray-100">
+                            <!-- Alamat -->
+                            <div class="flex items-start space-x-4 pt-2">
+                                <div class="w-12 h-12 rounded-full bg-gray-900 text-white flex items-center justify-center flex-shrink-0 shadow-md">
+                                    <i data-lucide="map-pin" class="w-6 h-6"></i>
+                                </div>
+                                <div class="text-xs space-y-1">
+                                    <h4 class="font-bold text-gray-900 text-sm">Alamat Lengkap</h4>
+                                    <p class="text-gray-600 leading-relaxed">
+                                        Jl. Sultan Agung No.131, Candi Baru, Kec. Gajahmungkur, Kota Semarang, Jawa Tengah 50232
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Email Pengaduan -->
+                            <div class="flex items-start space-x-4 pt-6">
+                                <div class="w-12 h-12 rounded-full bg-gray-900 text-white flex items-center justify-center flex-shrink-0 shadow-md">
+                                    <i data-lucide="mail" class="w-6 h-6"></i>
+                                </div>
+                                <div class="text-xs space-y-1">
+                                    <h4 class="font-bold text-gray-900 text-sm uppercase tracking-wide">LAYANAN PENGADUAN</h4>
+                                    <a href="mailto:rumkit.akpol@gmail.com" class="text-maroon font-semibold hover:underline block text-sm">
+                                        rumkit.akpol@gmail.com
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Nomor Telepon -->
+                            <div class="flex items-start space-x-4 pt-6">
+                                <div class="w-12 h-12 rounded-full bg-gray-900 text-white flex items-center justify-center flex-shrink-0 shadow-md">
+                                    <i data-lucide="phone" class="w-6 h-6"></i>
+                                </div>
+                                <div class="text-xs space-y-1">
+                                    <h4 class="font-bold text-gray-900 text-sm">Telepon / WhatsApp</h4>
+                                    <a href="https://wa.me/6285727040773" target="_blank" class="text-maroon font-extrabold text-base hover:underline block">
+                                        085727040773
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- ==================== VIEW 2: HALAMAN INFORMASI PASIEN (TAB) ==================== -->
+        <div id="view-informasi" class="hidden max-w-7xl mx-auto px-6 py-10 space-y-8">
+            <div class="flex items-center space-x-2 text-xs text-gray-500">
+                <button onclick="showPage('home')" class="hover:text-maroon font-medium">Home</button>
+                <span>/</span>
+                <span class="text-maroon font-bold">Informasi Pasien</span>
+            </div>
+
+            <div class="flex justify-center border-b border-gray-200">
+                <button id="tab-btn-jadwal" onclick="switchInfoTab('jadwal')" class="py-3 px-8 text-sm font-bold border-b-2 border-maroon text-maroon transition flex items-center space-x-2">
+                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                    <span>Jadwal Dokter</span>
+                </button>
+                <button id="tab-btn-pendaftaran" onclick="switchInfoTab('pendaftaran')" class="py-3 px-8 text-sm font-bold border-b-2 border-transparent text-gray-500 hover:text-maroon transition flex items-center space-x-2">
+                    <i data-lucide="file-text" class="w-4 h-4"></i>
+                    <span>Pendaftaran Online</span>
+                </button>
+            </div>
+
+            <!-- TAB 1: JADWAL DOKTER -->
+            <div id="tab-content-jadwal" class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 space-y-6">
+                <div class="border-b pb-4">
+                    <h3 class="text-xl font-bold text-gray-900">Jadwal Dokter Praktik</h3>
+                    <p class="text-xs text-gray-500">Cari jadwal dokter spesialis RS Bhayangkara Akpol</p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <input type="text" id="search-dokter" placeholder="Cari nama dokter / spesialis..." class="flex-grow p-2.5 bg-gray-50 border rounded-xl text-xs focus:outline-none focus:border-maroon">
+                    <select id="filter-hari" class="p-2.5 bg-gray-50 border rounded-xl text-xs focus:outline-none focus:border-maroon">
+                        <option value="">Semua Hari</option>
+                        <option value="Senin">Senin</option>
+                        <option value="Selasa">Selasa</option>
+                        <option value="Rabu">Rabu</option>
+                        <option value="Kamis">Kamis</option>
+                        <option value="Jumat">Jumat</option>
+                        <option value="Sabtu">Sabtu</option>
+                    </select>
+                </div>
+
+                <div id="grid-dokter" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            </div>
+
+            <!-- TAB 2: PENDAFTARAN ONLINE -->
+            <div id="tab-content-pendaftaran" class="hidden max-w-2xl mx-auto bg-white rounded-2xl p-6 shadow-sm border border-gray-100 space-y-6">
+                <div class="border-b pb-4">
+                    <h3 class="text-xl font-bold text-gray-900">Pendaftaran Online</h3>
+                    <p class="text-xs text-gray-500">Isi data untuk mengambil nomor antrean berobat</p>
+                </div>
+
+                <form id="form-pendaftaran" onsubmit="submitPendaftaran(event)" class="space-y-4 text-xs">
+                    <div>
+                        <label class="block font-semibold mb-1">Nama Lengkap Pasien</label>
+                        <input type="text" id="reg-nama" required placeholder="Contoh: Budi Santoso" class="w-full p-2.5 bg-gray-50 border rounded-lg focus:outline-none focus:border-maroon">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1">NIK / NRP</label>
+                        <input type="text" id="reg-nik" required placeholder="Masukkan NIK KTP atau NRP" class="w-full p-2.5 bg-gray-50 border rounded-lg focus:outline-none focus:border-maroon">
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block font-semibold mb-1">Kategori</label>
+                            <select id="reg-kategori" class="w-full p-2.5 bg-gray-50 border rounded-lg focus:outline-none focus:border-maroon">
+                                <option value="Umum">Masyarakat Umum</option>
+                                <option value="Anggota Polri">Anggota Polri</option>
+                                <option value="Taruna Akpol">Taruna Akpol</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-1">Pembayaran</label>
+                            <select id="reg-bayar" class="w-full p-2.5 bg-gray-50 border rounded-lg focus:outline-none focus:border-maroon">
+                                <option value="Umum">Umum / Mandiri</option>
+                                <option value="BPJS">BPJS Kesehatan</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1">Pilih Dokter Spesialis</label>
+                        <select id="reg-dokter" required class="w-full p-2.5 bg-gray-50 border rounded-lg focus:outline-none focus:border-maroon"></select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1">Tanggal Kunjungan</label>
+                        <input type="date" id="reg-tanggal" required class="w-full p-2.5 bg-gray-50 border rounded-lg focus:outline-none focus:border-maroon">
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-maroon hover:bg-maroon-hover text-white rounded-xl font-bold transition shadow-md">Daftar Sekarang</button>
+                </form>
+
+                <div id="tiket-pendaftaran" class="hidden bg-emerald-50 border border-emerald-200 p-4 rounded-xl space-y-2">
+                    <p class="text-xs font-bold text-emerald-800">✓ Pendaftaran Berhasil!</p>
+                    <p class="text-[10px] text-emerald-600">Silakan tunjukkan nomor antrean ini ke loket pendaftaran:</p>
+                    <div class="bg-white p-3 rounded-lg border text-center">
+                        <p class="text-[10px] text-gray-400">Nomor Antrean Anda</p>
+                        <p id="tiket-no" class="text-2xl font-black text-maroon">A-000</p>
+                        <p id="tiket-info" class="text-[10px] text-gray-500 mt-1"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== VIEW 3: HALAMAN PROFIL ==================== -->
+        <div id="view-profil" class="hidden max-w-7xl mx-auto px-6 py-10 space-y-12">
+            <div class="flex items-center space-x-2 text-xs text-gray-500">
+                <button onclick="showPage('home')" class="hover:text-maroon font-medium">Home</button>
+                <span>/</span>
+                <span class="text-maroon font-bold">Profil RS</span>
+            </div>
+
+            <!-- SEJARAH SINGKAT -->
+            <section id="sejarah" class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm space-y-6">
+                <div class="space-y-1 border-b pb-4">
+                    <span class="text-xs font-bold text-maroon uppercase tracking-widest">PROFIL RS</span>
+                    <h2 class="text-3xl font-black text-gray-900">Sejarah Singkat</h2>
+                    <div class="w-12 h-1 bg-maroon rounded-full mt-2"></div>
+                </div>
+
+                <div class="space-y-4 text-sm text-gray-600 leading-relaxed">
+                    <p>
+                        <strong class="text-gray-900">Rumah Sakit Bhayangkara TK. III Akpol</strong> adalah Rumah Sakit milik Kepolisian Negara Republik Indonesia di bawah Pusdokkes Mabes Polri, yang awal berdirinya disebut dengan <strong class="text-gray-900">KSA (Kamar Sakit Asrama)</strong> yang digunakan untuk tempat berobat dan dirawatnya para Taruna Akpol, Anggota Polri, maupun Pegawai Negeri Sipil pada Akpol. Pada tahun 2013, berdasarkan Surat Keputusan Kapolri, Rumah Sakit Bhayangkara TK. III Akpol ditetapkan sebagai salah satu Rumkit Bhayangkara yang menjadi Unit Pelaksana Teknis (UPT) di lingkungan Kepolisian Negara Republik Indonesia.
+                    </p>
+                    <p>
+                        Rumkit Bhayangkara merupakan UPT Pusdokkes Polri yang berkedudukan di bawah Kapusdokkes Polri selaku pembina fungsi teknis kedokteran kepolisian dan kesehatan kepolisian. Untuk pelaksanaan teknis operasional dan administratif, rumah sakit ini bertanggung jawab kepada Kepala Kesatuan Wilayah dan/atau Kepala Unit Organisasi yang bersesuaian. Pembinaan operasional dan administrasi Rumkit Bhayangkara Tingkat II, Tingkat III, dan Tingkat IV yang berkedudukan di Lemdik Polri berada di bawah Kalemdiklat Polri melalui Gubernur Akpol/Kasespimma/Kasetukpa/Kapusdik.
+                    </p>
+
+                    <div class="pt-2">
+                        <h3 class="font-bold text-gray-900 text-base mb-3 flex items-center space-x-2">
+                            <i data-lucide="scale" class="w-5 h-5 text-maroon"></i>
+                            <span>Payung Hukum & Dasar Pendirian</span>
+                        </h3>
+                        <p class="mb-3">
+                            Sebagai payung hukum dalam penyelenggaraan pelayanan kesehatan kepada masyarakat, perkembangan Rumah Sakit Bhayangkara TK. III Akpol secara yuridis didukung dengan produk-produk hukum sebagai berikut:
+                        </p>
+                        <ul class="space-y-2.5 list-none pl-0">
+                            <li class="flex items-start space-x-3 bg-gray-50 p-3 rounded-lg border border-gray-100 text-xs text-gray-700">
+                                <i data-lucide="file-check-2" class="w-4 h-4 text-maroon flex-shrink-0 mt-0.5"></i>
+                                <span><strong>Peraturan Kapolri No. 11 Tahun 2011 (30 Juni 2011)</strong> – Tentang Susunan Organisasi dan Tata Kerja Rumah Sakit Bhayangkara Kepolisian Negara Republik Indonesia.</span>
+                            </li>
+                            <li class="flex items-start space-x-3 bg-gray-50 p-3 rounded-lg border border-gray-100 text-xs text-gray-700">
+                                <i data-lucide="file-check-2" class="w-4 h-4 text-maroon flex-shrink-0 mt-0.5"></i>
+                                <span><strong>Keputusan Kapolri No: Kep/458/VI/2013 (27 Juni 2013)</strong> – Tentang 7 (tujuh) Rumah Sakit Bhayangkara sebagai Unit Pelaksana Teknis (UPT) di lingkungan Kepolisian Negara Republik Indonesia.</span>
+                            </li>
+                            <li class="flex items-start space-x-3 bg-gray-50 p-3 rounded-lg border border-gray-100 text-xs text-gray-700">
+                                <i data-lucide="award" class="w-4 h-4 text-maroon flex-shrink-0 mt-0.5"></i>
+                                <span><strong>Sertifikat Akreditasi RS No: KARS-SERT/559/VI/2012 (15 Juni 2012)</strong> – Pengakuan rumah sakit telah memenuhi standar akreditasi rumah sakit dan dinyatakan lulus tingkat DASAR.</span>
+                            </li>
+                            <li class="flex items-start space-x-3 bg-gray-50 p-3 rounded-lg border border-gray-100 text-xs text-gray-700">
+                                <i data-lucide="award" class="w-4 h-4 text-maroon flex-shrink-0 mt-0.5"></i>
+                                <span><strong>Sertifikat Akreditasi RS No: KARS-SERT/1488/VIII/2021 (31 Agustus 2021)</strong> – Pengakuan rumah sakit telah memenuhi standar akreditasi rumah sakit dan dinyatakan lulus tingkat PERDANA.</span>
+                            </li>
+                            <li class="flex items-start space-x-3 bg-gray-50 p-3 rounded-lg border border-gray-100 text-xs text-gray-700">
+                                <i data-lucide="file-badge-2" class="w-4 h-4 text-maroon flex-shrink-0 mt-0.5"></i>
+                                <span><strong>Surat Kepala Dinkes Kota Semarang No: B/2362/050/II/2022 (7 Februari 2022)</strong> – Berita acara visitasi penilaian kesesuaian izin berusaha Rumah Sakit Bhayangkara Akpol sebagai Rumah Sakit Umum Kelas C.</span>
+                            </li>
+                            <li class="flex items-start space-x-3 bg-gray-50 p-3 rounded-lg border border-gray-100 text-xs text-gray-700">
+                                <i data-lucide="file-badge-2" class="w-4 h-4 text-maroon flex-shrink-0 mt-0.5"></i>
+                                <span><strong>Surat Walikota Semarang No. Izin: 19112100341440001 (16 Februari 2022)</strong> – Perizinan Berbasis Risiko.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VISI & MISI -->
+            <section id="visimisi" class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm space-y-6">
+                <div class="space-y-1 border-b pb-4">
+                    <span class="text-xs font-bold text-maroon uppercase tracking-widest">KOMITMEN KAMI</span>
+                    <h2 class="text-3xl font-black text-gray-900">Visi & Misi</h2>
+                    <div class="w-12 h-1 bg-maroon rounded-full mt-2"></div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Kotak Visi -->
+                    <div class="lg:col-span-5 bg-gradient-to-br from-maroon to-red-900 text-white rounded-2xl p-6 shadow-md flex flex-col justify-between space-y-4">
+                        <div class="space-y-3">
+                            <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                                <i data-lucide="compass" class="w-6 h-6 text-yellow-400"></i>
+                            </div>
+                            <h3 class="text-xl font-bold tracking-wide">VISI</h3>
+                            <p class="text-sm font-semibold leading-relaxed text-red-50">
+                                Terwujudnya pelayanan kedokteran kepolisian dan kesehatan kepolisian yang prima
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-white/10 text-xs text-red-200 font-medium">
+                            RS Bhayangkara Akpol Semarang
+                        </div>
+                    </div>
+
+                    <!-- Kotak Misi -->
+                    <div class="lg:col-span-7 bg-gray-50 border border-gray-100 rounded-2xl p-6 space-y-4">
+                        <div class="flex items-center space-x-3 border-b pb-3">
+                            <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center text-maroon">
+                                <i data-lucide="target" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">MISI</h3>
+                        </div>
+
+                        <ul class="space-y-3 text-xs text-gray-700">
+                            <li class="flex items-start space-x-3 bg-white p-3.5 rounded-xl border border-gray-100 shadow-sm">
+                                <span class="w-6 h-6 rounded-full bg-maroon text-white font-bold flex items-center justify-center flex-shrink-0 text-[11px]">1</span>
+                                <span class="leading-relaxed">Menyelenggarakan pelayanan kedokteran kepolisian guna mendukung tugas operasional kepolisian dalam harkamtibmas, penegakkan hukum, perlindungan, pengayoman dan pelayanan masyarakat demi terpeliharanya keamanan dalam negeri;</span>
+                            </li>
+                            <li class="flex items-start space-x-3 bg-white p-3.5 rounded-xl border border-gray-100 shadow-sm">
+                                <span class="w-6 h-6 rounded-full bg-maroon text-white font-bold flex items-center justify-center flex-shrink-0 text-[11px]">2</span>
+                                <span class="leading-relaxed">Mendukung pembinaan personel agar dapat tercipta personel yang sehat samapta dan selalu siap dalam melaksanakan tugas;</span>
+                            </li>
+                            <li class="flex items-start space-x-3 bg-white p-3.5 rounded-xl border border-gray-100 shadow-sm">
+                                <span class="w-6 h-6 rounded-full bg-maroon text-white font-bold flex items-center justify-center flex-shrink-0 text-[11px]">3</span>
+                                <span class="leading-relaxed">Menyelenggarakan pelayanan kesehatan paripurna pada masyarakat, Polri dan umum untuk mewujudkan hidup sehat, sejahtera serta fisik, mental dapat timbulkan gangguan kamtibmas;</span>
+                            </li>
+                            <li class="flex items-start space-x-3 bg-white p-3.5 rounded-xl border border-gray-100 shadow-sm">
+                                <span class="w-6 h-6 rounded-full bg-maroon text-white font-bold flex items-center justify-center flex-shrink-0 text-[11px]">4</span>
+                                <span class="leading-relaxed">Mengelola sumber daya Rumah Sakit Bhayangkara Akpol secara profesional, akuntabilitas, efektif, efisien dan modern dalam melaksanakan tugas dan fungsi rumah sakit</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STRUKTUR ORGANISASI -->
+            <section id="struktur" class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm space-y-6">
+                <div class="space-y-1 border-b pb-4">
+                    <span class="text-xs font-bold text-maroon uppercase tracking-widest">STRUKTUR RS</span>
+                    <h2 class="text-3xl font-black text-gray-900">Struktur Organisasi</h2>
+                    <div class="w-12 h-1 bg-maroon rounded-full mt-2"></div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <!-- Diagram Bagan Struktur Organisasi -->
+                    <div class="lg:col-span-5 bg-gray-50 border border-gray-200 rounded-xl p-4 flex flex-col items-center justify-center space-y-3">
+                        <img src="http://rsb.akpol.ac.id/wp-content/uploads/2021/03/Struktur-Organisasi.jpg" alt="Bagan Struktur Organisasi Rumkit Bhayangkara Akpol" class="w-full h-auto rounded-lg shadow-sm border border-gray-200 bg-white p-2">
+                        <span class="text-[11px] text-gray-500 font-medium text-center">Bagan Struktur Organisasi Rumkit Bhayangkara Akpol (Peraturan Kapolri Nomor 11 Tahun 2011)</span>
+                    </div>
+
+                    <!-- Daftar Pejabat Struktural -->
+                    <div class="lg:col-span-7 space-y-4">
+                        <h3 class="text-lg font-bold text-gray-900 border-b pb-2 flex items-center space-x-2">
+                            <i data-lucide="users" class="w-5 h-5 text-maroon"></i>
+                            <span>PEJABAT STRUKTURAL</span>
+                        </h3>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-xs text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-red-50 text-maroon font-bold border-b border-red-100">
+                                        <th class="py-2.5 px-3 w-12 text-center">No</th>
+                                        <th class="py-2.5 px-3 w-44">Jabatan</th>
+                                        <th class="py-2.5 px-3">Nama & Gelar</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100 text-gray-700">
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-3 text-center font-semibold">1</td><td class="py-2 px-3 font-semibold text-gray-900">Karumkit</td><td class="py-2 px-3">Kompol dr. Purwadi, Sp.THT KL.,M.M.</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-3 text-center font-semibold">2</td><td class="py-2 px-3 font-semibold text-gray-900">Wakarumkit</td><td class="py-2 px-3">Pembina dr. Utami Dewi</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-3 text-center font-semibold">3</td><td class="py-2 px-3 font-semibold text-gray-900">Kasubbagwaintern</td><td class="py-2 px-3">AKP Titin Utami</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-3 text-center font-semibold">4</td><td class="py-2 px-3 font-semibold text-gray-900">Kaurwasbin</td><td class="py-2 px-3">Ipda Nawar Masansan, S.Ikom</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-3 text-center font-semibold">5</td><td class="py-2 px-3 font-semibold text-gray-900">Kaurwasopyan</td><td class="py-2 px-3">Penda Tk.I dr. Mega Yuni Ari Susanti</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-3 text-center font-semibold">6</td><td class="py-2 px-3 font-semibold text-gray-900">Kasubbagrenmin</td><td class="py-2 px-3">Iptu Pepin Dwi Harsanto, S.H.</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-3 text-center font-semibold">7</td><td class="py-2 px-3 font-semibold text-gray-900">Kaurmin</td><td class="py-2 px-3">Iptu Djumi Jati</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-3 text-center font-semibold">8</td><td class="py-2 px-3 font-semibold text-gray-900">Kaurtu</td><td class="py-2 px-3">Ipda Rikha Astriani</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-3 text-center font-semibold">9</td><td class="py-2 px-3 font-semibold text-gray-900">Kaurren</td><td class="py-2 px-3">Penata Tk.I Diah Kartika S, S.E.</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-3 text-center font-semibold">10</td><td class="py-2 px-3 font-semibold text-gray-900">Kaurkeu</td><td class="py-2 px-3">Penata Irawati, A.Md</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-3 text-center font-semibold">11</td><td class="py-2 px-3 font-semibold text-gray-900">Kasubbagbinfung</td><td class="py-2 px-3">AKP Istikomah, S.H.</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-3 text-center font-semibold">12</td><td class="py-2 px-3 font-semibold text-gray-900">Kaursim-RM</td><td class="py-2 px-3">Ipda Titik Mei, S.H.</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-3 text-center font-semibold">13</td><td class="py-2 px-3 font-semibold text-gray-900">Kaurdiklit</td><td class="py-2 px-3">Penda Endang Poncowati, S.Kep</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-3 text-center font-semibold">14</td><td class="py-2 px-3 font-semibold text-gray-900">Kasubbidyanmeddokpol</td><td class="py-2 px-3">Iptu dr. Andromedae</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-3 text-center font-semibold">15</td><td class="py-2 px-3 font-semibold text-gray-900">Kauryanmed</td><td class="py-2 px-3">Ipda dr. Henry, Sp.PD</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-3 text-center font-semibold">16</td><td class="py-2 px-3 font-semibold text-gray-900">Kauryanwat</td><td class="py-2 px-3">Ipda Yunita Purnama Sari, A.Mk</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-3 text-center font-semibold">17</td><td class="py-2 px-3 font-semibold text-gray-900">Kouryandokpol</td><td class="py-2 px-3">Penata Sonaji, Amf</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-3 text-center font-semibold">18</td><td class="py-2 px-3 font-semibold text-gray-900">Kasubbidjangmedum</td><td class="py-2 px-3">AKP Sri Rejeki</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-3 text-center font-semibold">19</td><td class="py-2 px-3 font-semibold text-gray-900">Kaurjangmed</td><td class="py-2 px-3">Penata Sri Lestari Rita F, A.Md.Keb</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-3 text-center font-semibold">20</td><td class="py-2 px-3 font-semibold text-gray-900">Kaurjangum</td><td class="py-2 px-3">Iptu Dwi Nanang S, S.H.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== VIEW 4: PORTAL INTERNAL ADMIN ==================== -->
+        <div id="view-internal" class="hidden max-w-7xl mx-auto px-6 py-8 space-y-6">
+            <div class="bg-maroon text-white p-6 rounded-2xl flex justify-between items-center shadow-lg">
+                <div>
+                    <h2 class="text-2xl font-bold">Dashboard Admin RS Bhayangkara</h2>
+                    <p class="text-xs text-red-200">Panel Kelola Data Pendaftaran & Pengaduan Pasien</p>
+                </div>
+                <span class="px-3 py-1 bg-red-900 rounded-full text-xs font-mono text-yellow-300">ADMINISTRATOR</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
+                    <p class="text-xs text-gray-500 font-semibold uppercase">Total Pendaftaran Masuk</p>
+                    <p id="stat-total-pendaftaran" class="text-3xl font-black text-maroon mt-1">0</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
+                    <p class="text-xs text-gray-500 font-semibold uppercase">Total Pengaduan Masuk</p>
+                    <p id="stat-total-pengaduan" class="text-3xl font-black text-amber-600 mt-1">0</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm space-y-4">
+                <h3 class="font-bold text-maroon text-base">Data Antrean Pendaftaran Pasien</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead>
+                            <tr class="bg-gray-50 border-b">
+                                <th class="p-3">No. Antrean</th>
+                                <th class="p-3">Nama Pasien</th>
+                                <th class="p-3">Kategori</th>
+                                <th class="p-3">Dokter Tujuan</th>
+                                <th class="p-3">Tgl Kunjungan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabel-internal-pendaftaran" class="divide-y divide-gray-100"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm space-y-4">
+                <h3 class="font-bold text-maroon text-base">Data Pengaduan / Masukan Pasien</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead>
+                            <tr class="bg-gray-50 border-b">
+                                <th class="p-3">ID Tiket</th>
+                                <th class="p-3">Pelapor</th>
+                                <th class="p-3">Kategori</th>
+                                <th class="p-3">Isi Pengaduan</th>
+                                <th class="p-3">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabel-internal-pengaduan" class="divide-y divide-gray-100"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- MODAL AUTH POPUP -->
+    <div id="modal-login" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-gray-100 space-y-4 relative">
+            <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 font-bold">✕</button>
+
+            <!-- FORM LOGIN -->
+            <div id="box-login">
+                <h3 class="text-xl font-bold text-gray-900 text-center mb-1">Masuk Akun</h3>
+                <p class="text-xs text-gray-500 text-center mb-4">Silakan masuk menggunakan email Anda</p>
+
+                <form onsubmit="submitLogin(event)" class="space-y-3 text-xs">
+                    <div>
+                        <label class="block font-semibold mb-1 text-gray-700">Email</label>
+                        <input type="email" id="login-email" required placeholder="nama@email.com" class="w-full p-2.5 bg-gray-50 border rounded-lg focus:outline-none focus:border-maroon">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-gray-700">Password</label>
+                        <input type="password" id="login-password" required placeholder="••••••••" class="w-full p-2.5 bg-gray-50 border rounded-lg focus:outline-none focus:border-maroon">
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-maroon hover:bg-maroon-hover text-white rounded-xl font-bold transition shadow-md">Masuk</button>
+                </form>
+
+                <p class="text-center text-xs text-gray-500 mt-4">
+                    Belum punya akun? 
+                    <button type="button" onclick="toggleAuthForm('register')" class="text-maroon font-bold underline hover:text-maroon-hover">Daftar Sekarang</button>
+                </p>
+            </div>
+
+            <!-- FORM REGISTER -->
+            <div id="box-register" class="hidden">
+                <h3 class="text-xl font-bold text-gray-900 text-center mb-1">Daftar Akun Baru</h3>
+                <p class="text-xs text-gray-500 text-center mb-4">Lengkapi data untuk membuat akun baru</p>
+
+                <form onsubmit="submitRegister(event)" class="space-y-3 text-xs">
+                    <div>
+                        <label class="block font-semibold mb-1 text-gray-700">Nama Lengkap</label>
+                        <input type="text" id="reg-nama-user" required placeholder="Masukkan nama Anda" class="w-full p-2.5 bg-gray-50 border rounded-lg focus:outline-none focus:border-maroon">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-gray-700">Email</label>
+                        <input type="email" id="reg-email-user" required placeholder="nama@email.com" class="w-full p-2.5 bg-gray-50 border rounded-lg focus:outline-none focus:border-maroon">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-gray-700">Password</label>
+                        <input type="password" id="reg-pass-user" required placeholder="••••••••" class="w-full p-2.5 bg-gray-50 border rounded-lg focus:outline-none focus:border-maroon">
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-maroon hover:bg-maroon-hover text-white rounded-xl font-bold transition shadow-md">Daftar Akun</button>
+                </form>
+
+                <p class="text-center text-xs text-gray-500 mt-4">
+                    Sudah punya akun? 
+                    <button type="button" onclick="toggleAuthForm('login')" class="text-maroon font-bold underline hover:text-maroon-hover">Masuk di sini</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-white mt-12 py-8 border-t-4 border-maroon">
+        <div class="max-w-7xl mx-auto px-6 text-xs text-gray-400 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <p class="font-bold text-white text-sm">RS Bhayangkara Akademi Kepolisian</p>
+                <p class="mt-1">Jl. Sultan Agung No.131, Candi Baru, Kec. Gajahmungkur, Kota Semarang, Jawa Tengah 50232</p>
+            </div>
+            <div class="text-right">
+                <p>&copy; 2026 RS Bhayangkara Akpol. All rights reserved.</p>
+                <p class="text-[10px] text-gray-500 mt-0.5">Email: rumkit.akpol@gmail.com | Telp: 085727040773</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Init Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+    <script src="app.js"></script>
+</body>
+</html>
