@@ -17,19 +17,19 @@ const dokterList = [
     { id: 15, nama: "dr. JOSE TYMOTHY MANUPUTTY, Sp.OG", spesialis: "SPESIALIS KANDUNGAN & KEBIDANAN", hari: "Senin, Selasa, Rabu, Kamis, Jumat, Sabtu", jam: "Senin & Kamis: 18.00-19.30 | Selasa: 15.00-17.00 | Rabu: 19.00-20.00 | Jumat: 09.00-11.00 | Sabtu: 15.30-17.30" }
 ];
 
-// DATA STATE LOCALSTORAGE[cite: 4]
+// DATA STATE LOCALSTORAGE
 let pendaftaranData = JSON.parse(localStorage.getItem('rs_pendaftaran')) || [];
 let pengaduanData = JSON.parse(localStorage.getItem('rs_pengaduan')) || [];
 let currentUser = JSON.parse(localStorage.getItem('rs_current_user')) || null;
 
-// INIT PAGE[cite: 4]
+// INIT PAGE
 document.addEventListener("DOMContentLoaded", () => {
     renderDokter();
     populateSelectDokter();
     renderInternalTables();
     applyUserSession(currentUser);
 
-    // Event filter jadwal dokter[cite: 4]
+    // Event filter jadwal dokter
     document.getElementById("search-dokter")?.addEventListener("input", filterDokter);
     document.getElementById("filter-hari")?.addEventListener("change", filterDokter);
 });
@@ -122,7 +122,7 @@ function showPage(page, subTabOrSection = null) {
     }
 }
 
-// LOGIKA RENDER JADWAL DOKTER TERPISAH[cite: 4]
+// LOGIKA RENDER JADWAL DOKTER TERPISAH
 function renderDokter(filtered = dokterList) {
     const grid = document.getElementById("grid-dokter");
     if (!grid) return;
@@ -180,7 +180,7 @@ function populateSelectDokter() {
     });
 }
 
-// HANDLER PENDAFTARAN ONLINE[cite: 4]
+// HANDLER PENDAFTARAN ONLINE
 function submitPendaftaran(e) {
     e.preventDefault();
     const nama = document.getElementById("reg-nama").value;
@@ -204,7 +204,7 @@ function submitPendaftaran(e) {
     renderInternalTables();
 }
 
-// HANDLER PENGADUAN[cite: 4]
+// HANDLER PENGADUAN
 function submitPengaduan(e) {
     e.preventDefault();
     const nama = document.getElementById("aduan-nama").value || "Anonim";
@@ -223,7 +223,7 @@ function submitPengaduan(e) {
     renderInternalTables();
 }
 
-// RENDER TABEL DASHBOARD INTERNAL (ADMIN)[cite: 4]
+// RENDER TABEL DASHBOARD INTERNAL (ADMIN)
 function renderInternalTables() {
     const tbodyPendaftaran = document.getElementById("tabel-internal-pendaftaran");
     const tbodyPengaduan = document.getElementById("tabel-internal-pengaduan");
@@ -264,7 +264,7 @@ function hapusPengaduan(index) {
     renderInternalTables();
 }
 
-// LOGIKA AUTHENTICATION & POPUP MODAL[cite: 4]
+// LOGIKA AUTHENTICATION & POPUP MODAL
 
 function openLoginModal() {
     const modal = document.getElementById('modal-login');
