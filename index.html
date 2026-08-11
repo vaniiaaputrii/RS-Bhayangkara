@@ -239,39 +239,85 @@
                 </div>
             </section>
 
-            <!-- FITUR BARU: INFORMASI REAL-TIME KETERSEDIAAN KAMAR (BED AVAILABILITY) -->
-            <section class="max-w-7xl mx-auto px-6">
-                <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 space-y-4">
-                    <div class="flex justify-between items-center border-b dark:border-gray-700 pb-3">
-                        <div>
-                            <h3 class="font-bold text-gray-900 dark:text-white text-sm flex items-center space-x-2">
-                                <i data-lucide="activity" class="w-4 h-4 text-maroon"></i>
-                                <span>Informasi Ketersediaan Kamar Rawat Inap Real-time</span>
-                            </h3>
-                            <p class="text-[11px] text-gray-500 dark:text-gray-400">Update status sisa bed rawat inap hari ini</p>
-                        </div>
-                        <span class="text-[10px] bg-emerald-100 text-emerald-700 font-bold px-2.5 py-1 rounded-full animate-pulse">Live Update</span>
-                    </div>
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
-                        <div class="bg-gray-50 dark:bg-gray-700/50 p-3 rounded-xl border dark:border-gray-700">
-                            <p class="text-xs text-gray-500 dark:text-gray-400 font-semibold">VIP / VVIP</p>
-                            <p class="text-xl font-black text-maroon dark:text-red-400">4 <span class="text-xs font-normal text-gray-500">Bed</span></p>
-                        </div>
-                        <div class="bg-gray-50 dark:bg-gray-700/50 p-3 rounded-xl border dark:border-gray-700">
-                            <p class="text-xs text-gray-500 dark:text-gray-400 font-semibold">Kelas I</p>
-                            <p class="text-xl font-black text-emerald-600 dark:text-emerald-400">8 <span class="text-xs font-normal text-gray-500">Bed</span></p>
-                        </div>
-                        <div class="bg-gray-50 dark:bg-gray-700/50 p-3 rounded-xl border dark:border-gray-700">
-                            <p class="text-xs text-gray-500 dark:text-gray-400 font-semibold">Kelas II & III</p>
-                            <p class="text-xl font-black text-emerald-600 dark:text-emerald-400">15 <span class="text-xs font-normal text-gray-500">Bed</span></p>
-                        </div>
-                        <div class="bg-gray-50 dark:bg-gray-700/50 p-3 rounded-xl border dark:border-gray-700">
-                            <p class="text-xs text-gray-500 dark:text-gray-400 font-semibold">ICU / HCU</p>
-                            <p class="text-xl font-black text-amber-600 dark:text-amber-400">2 <span class="text-xs font-normal text-gray-500">Bed</span></p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <!-- ================= KETERSEDIAAN KAMAR REAL-TIME ================= -->
+
+<section class="max-w-7xl mx-auto px-6">
+
+    <div class="bg-white dark:bg-gray-800 rounded-2xl p-6
+        shadow-sm border border-gray-100 dark:border-gray-700 space-y-4">
+
+        <!-- HEADER -->
+        <div class="flex justify-between items-center
+            border-b dark:border-gray-700 pb-3">
+
+            <div>
+
+                <h3 class="font-bold text-gray-900 dark:text-white
+                    text-sm flex items-center space-x-2">
+
+                    <i data-lucide="activity"
+                        class="w-4 h-4 text-maroon">
+                    </i>
+
+                    <span>
+                        Informasi Ketersediaan Kamar Rawat Inap Real-time
+                    </span>
+
+                </h3>
+
+                <p class="text-[11px] text-gray-500 dark:text-gray-400">
+                    Update status sisa bed rawat inap hari ini
+                </p>
+
+            </div>
+
+
+            <!-- LIVE UPDATE -->
+            <button
+                onclick="updateKetersediaanPublik()"
+                id="btn-live-update"
+                class="text-[10px] bg-emerald-100
+                text-emerald-700 font-bold px-3 py-1.5
+                rounded-full hover:bg-emerald-200
+                transition flex items-center gap-1">
+
+                <span class="w-2 h-2 bg-emerald-500
+                    rounded-full animate-pulse">
+                </span>
+
+                Live Update
+
+            </button>
+
+        </div>
+
+
+        <!-- DATA KAMAR -->
+        <div
+            id="public-ketersediaan-kamar"
+            class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+
+            <!-- Diisi otomatis JavaScript -->
+
+        </div>
+
+
+        <!-- LAST UPDATE -->
+        <div class="text-right">
+
+            <span
+                id="ketersediaan-last-update"
+                class="text-[9px] text-gray-400">
+
+                Memuat data...
+
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
 
             <!-- LAYANAN UNGGULAN SECTION -->
             <section id="layanan" class="max-w-7xl mx-auto px-6 space-y-8">
@@ -2961,6 +3007,274 @@ function logoutAdmin() {
                 btnTxt.innerText = "Masuk / Login";
             }
         }
+// =====================================================
+// DATA KAMAR & BED - SUMBER DATA BERSAMA
+// =====================================================
+
+const DEFAULT_KAMAR_BED = [
+    {
+        id: 1,
+        kelas: 'VIP',
+        nama: 'Mawar VIP',
+        kapasitas: 4,
+        terisi: 2
+    },
+    {
+        id: 2,
+        kelas: 'Kelas I',
+        nama: 'Melati 1',
+        kapasitas: 6,
+        terisi: 3
+    },
+    {
+        id: 3,
+        kelas: 'Kelas II',
+        nama: 'Melati 2',
+        kapasitas: 8,
+        terisi: 5
+    },
+    {
+        id: 4,
+        kelas: 'Kelas III',
+        nama: 'Anggrek',
+        kapasitas: 10,
+        terisi: 7
+    }
+];
+
+
+// =====================================================
+// AMBIL DATA KAMAR
+// =====================================================
+
+function getDataKamarBed() {
+
+    let data = localStorage.getItem('rs_kamar_bed');
+
+    if (!data) {
+
+        localStorage.setItem(
+            'rs_kamar_bed',
+            JSON.stringify(DEFAULT_KAMAR_BED)
+        );
+
+        return DEFAULT_KAMAR_BED;
+
+    }
+
+    try {
+
+        return JSON.parse(data);
+
+    } catch (error) {
+
+        console.error('Data kamar rusak:', error);
+
+        return DEFAULT_KAMAR_BED;
+
+    }
+}
+
+
+// =====================================================
+// SIMPAN DATA KAMAR
+// =====================================================
+
+function simpanDataKamarBed(data) {
+
+    localStorage.setItem(
+        'rs_kamar_bed',
+        JSON.stringify(data)
+    );
+
+    // Update halaman publik
+    updateKetersediaanPublik();
+
+}
+// =====================================================
+// TAMPILKAN KETERSEDIAAN KAMAR DI WEBSITE
+// =====================================================
+
+function updateKetersediaanPublik() {
+
+    const container =
+        document.getElementById('public-ketersediaan-kamar');
+
+    if (!container) return;
+
+
+    const dataKamar = getDataKamarBed();
+
+
+    container.innerHTML = '';
+
+
+    if (dataKamar.length === 0) {
+
+        container.innerHTML = `
+            <div class="col-span-full
+                text-center text-gray-400
+                text-xs py-5">
+
+                Data ketersediaan kamar belum tersedia.
+
+            </div>
+        `;
+
+        return;
+    }
+
+
+    dataKamar.forEach(function(kamar) {
+
+        const kapasitas =
+            Number(kamar.kapasitas) || 0;
+
+        const terisi =
+            Number(kamar.terisi) || 0;
+
+        const tersedia =
+            Math.max(kapasitas - terisi, 0);
+
+
+        // Warna berdasarkan jumlah bed
+        let warna = 'emerald';
+
+        if (tersedia === 0) {
+
+            warna = 'red';
+
+        } else if (tersedia <= 2) {
+
+            warna = 'amber';
+
+        }
+
+
+        container.innerHTML += `
+
+            <div
+                class="bg-gray-50 dark:bg-gray-700/50
+                p-3 rounded-xl
+                border dark:border-gray-700">
+
+                <p class="text-xs
+                    text-gray-500 dark:text-gray-400
+                    font-semibold">
+
+                    ${kamar.kelas}
+
+                </p>
+
+
+                <p class="text-[10px]
+                    text-gray-400 mt-1">
+
+                    ${kamar.nama}
+
+                </p>
+
+
+                <p class="text-xl font-black
+                    mt-1
+                    ${warna === 'emerald'
+                        ? 'text-emerald-600 dark:text-emerald-400'
+                        : warna === 'amber'
+                            ? 'text-amber-500'
+                            : 'text-red-600 dark:text-red-400'
+                    }">
+
+                    ${tersedia}
+
+                    <span
+                        class="text-xs font-normal
+                        text-gray-500">
+
+                        Bed
+
+                    </span>
+
+                </p>
+
+
+                <p class="text-[9px]
+                    text-gray-400 mt-1">
+
+                    ${terisi} terisi dari ${kapasitas}
+
+                </p>
+
+
+                <span
+                    class="inline-block mt-1
+                    px-2 py-0.5 rounded-full
+                    text-[9px] font-bold
+                    ${tersedia === 0
+                        ? 'bg-red-100 text-red-700'
+                        : tersedia <= 2
+                            ? 'bg-amber-100 text-amber-700'
+                            : 'bg-emerald-100 text-emerald-700'
+                    }">
+
+                    ${
+                        tersedia === 0
+                            ? 'Penuh'
+                            : 'Tersedia'
+                    }
+
+                </span>
+
+            </div>
+
+        `;
+
+    });
+
+
+    // Waktu update
+    const waktu =
+        document.getElementById('ketersediaan-last-update');
+
+    if (waktu) {
+
+        const sekarang = new Date();
+
+        waktu.innerText =
+            'Update terakhir: ' +
+            sekarang.toLocaleTimeString('id-ID');
+
+    }
+
+
+    if (typeof lucide !== 'undefined') {
+
+        lucide.createIcons();
+
+    }
+
+}
+// =====================================================
+// LIVE UPDATE OTOMATIS
+// =====================================================
+
+// Update setiap 1 detik
+setInterval(function() {
+
+    updateKetersediaanPublik();
+
+}, 1000);
+
+
+// Update ketika data localStorage berubah
+window.addEventListener('storage', function(event) {
+
+    if (event.key === 'rs_kamar_bed') {
+
+        updateKetersediaanPublik();
+
+    }
+
+});
 
         // 6. MANAGEMENT ADMIN DASHBOARD
         function renderInternalTables() {
@@ -2998,6 +3312,7 @@ function logoutAdmin() {
                 }
             }
 
+            
             // Table Dokter
             const tbodyDokter = document.getElementById('tabel-internal-dokter');
             if (tbodyDokter) {
@@ -3032,8 +3347,32 @@ function logoutAdmin() {
                                 <td class="p-3"><span class="px-2 py-0.5 rounded bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300 text-[10px] font-bold">${p.kategori}</span></td>
                                 <td class="p-3 text-gray-600 dark:text-gray-300 max-w-xs truncate">${p.isi}</td>
                                 <td class="p-3 text-center">
-                                    <button onclick="hapusPengaduan('${p.id}')" class="text-red-500 hover:text-red-700 font-bold text-[11px]">Hapus</button>
-                                </td>
+    <div class="flex items-center justify-center gap-2">
+
+        <!-- Tombol Tanggapi -->
+        <button
+            onclick="tanggapiPengaduan('${p.id}')"
+            class="text-blue-600 hover:text-blue-800 font-bold text-[11px] flex items-center gap-1"
+            title="Tanggapi Pengaduan">
+
+            <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+            Tanggapi
+
+        </button>
+
+        <!-- Tombol Hapus -->
+        <button
+            onclick="hapusPengaduan('${p.id}')"
+            class="text-red-500 hover:text-red-700 font-bold text-[11px] flex items-center gap-1"
+            title="Hapus Pengaduan">
+
+            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+            Hapus
+
+        </button>
+
+    </div>
+</td>
                             </tr>
                         `;
                     });
@@ -3047,6 +3386,50 @@ function logoutAdmin() {
             localStorage.setItem('rs_pendaftaran', JSON.stringify(pendaftaranList));
             renderInternalTables();
         }
+
+        function tanggapiPengaduan(id) {
+
+    const pengaduan = pengaduanList.find(p => p.id === id);
+
+    if (!pengaduan) {
+        alert('Data pengaduan tidak ditemukan.');
+        return;
+    }
+
+    const tanggapan = prompt(
+        `Tanggapan untuk pengaduan ${pengaduan.id}\n\n` +
+        `Pelapor: ${pengaduan.nama}\n` +
+        `Kategori: ${pengaduan.kategori}\n` +
+        `Pengaduan: ${pengaduan.isi}\n\n` +
+        `Masukkan tanggapan admin:`,
+        pengaduan.tanggapan || ''
+    );
+
+    // Jika klik Cancel
+    if (tanggapan === null) {
+        return;
+    }
+
+    // Jika tanggapan kosong
+    if (tanggapan.trim() === '') {
+        alert('Tanggapan tidak boleh kosong.');
+        return;
+    }
+
+    // Simpan tanggapan
+    pengaduan.tanggapan = tanggapan.trim();
+
+    pengaduan.status = 'Sudah Ditanggapi';
+
+    localStorage.setItem(
+        'rs_pengaduan',
+        JSON.stringify(pengaduanList)
+    );
+
+    renderInternalTables();
+
+    alert('Tanggapan berhasil disimpan.');
+}
 
         function hapusPengaduan(id) {
             if (!confirm('Hapus pengaduan ini?')) return;
