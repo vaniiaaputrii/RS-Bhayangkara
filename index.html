@@ -348,7 +348,7 @@
                         </div>
                         <h3 class="font-bold text-gray-900 dark:text-white text-base">Rawat Inap</h3>
                         <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Perawatan intensif dan pemulihan pasien dengan fasilitas nyaman serta observasi medis berkala.</p>
-                        <button onclick="showPage('informasi', 'pendaftaran')" class="inline-flex items-center space-x-1 text-xs font-bold text-maroon hover:underline">
+                        <button onclick="showPage('layanan', 'layanan-rawat-inap')" class="inline-flex items-center space-x-1 text-xs font-bold text-maroon hover:underline">
                             <span>Selengkapnya</span>
                             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                         </button>
@@ -361,7 +361,7 @@
                         </div>
                         <h3 class="font-bold text-gray-900 dark:text-white text-base">IGD 24 Jam</h3>
                         <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Layanan penanganan medis gawat darurat yang siap melayani dengan cepat dan tanggap 24 jam non-stop.</p>
-                        <button onclick="showPage('informasi', 'pendaftaran')" class="inline-flex items-center space-x-1 text-xs font-bold text-maroon hover:underline">
+                        <button onclick="showPage('layanan', 'layanan-igd')" class="inline-flex items-center space-x-1 text-xs font-bold text-maroon hover:underline">
                             <span>Selengkapnya</span>
                             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                         </button>
@@ -1439,9 +1439,7 @@
                     <div>
                         <!-- Sidebar Header -->
                         <div class="p-5 border-b border-gray-800 flex items-center space-x-3">
-                            <div class="w-8 h-8 rounded-lg bg-maroon flex items-center justify-center text-white font-bold text-xs shadow-md">
-                                RS
-                            </div>
+                            <img src="logo-akpol.png" alt="Logo RS Bhayangkara" class="w-8 h-8 object-contain">
                             <div>
                                 <h2 class="font-bold text-sm tracking-wide leading-tight">Login</h2>
                                 <p class="text-[10px] text-gray-400">RS Bhayangkara Akpol</p>
@@ -1718,6 +1716,109 @@
                                     <span>Tambah Fasilitas</span>
                                 </button>
                             </form>
+                                <!-- DAFTAR FASILITAS -->
+                            <div class="space-y-3">
+                                <div class="border-b dark:border-gray-700 pb-3">
+                                    <h4 class="font-bold text-gray-900 dark:text-white text-sm">
+                                        Daftar Fasilitas
+                                    </h4>
+                                    <p class="text-xs text-gray-400">
+                                        Kelola fasilitas yang tersedia di rumah sakit
+                                    </p>
+                                </div>
+                                <div id="daftar-fasilitas-admin" class="space-y-3">
+                                    <!-- Fasilitas 1 -->
+                                    <div class="flex items-center justify-between bg-gray-50 dark:bg-gray-700/50 border dark:border-gray-700 rounded-xl p-4">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-10 h-10 bg-red-50 dark:bg-red-950/50 text-maroon rounded-lg flex items-center justify-center">
+                                                <i data-lucide="flask-conical" class="w-5 h-5"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="font-bold text-gray-900 dark:text-white text-sm">
+                                                    Laboratorium 24 Jam
+                                                </h5>
+                                                <p class="text-xs text-gray-400">
+                                                    Dukungan pemeriksaan spesimen patologi klinis dan urinalisis cepat dan akurat.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <button
+                                                type="button"
+                                                onclick="editFasilitas(this)"
+                                                class="px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg text-xs font-bold">
+                                                Edit
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onclick="hapusFasilitas(this)"
+                                                class="px-3 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-bold">
+                                                Hapus
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- Fasilitas 2 -->
+                                    <div class="flex items-center justify-between bg-gray-50 dark:bg-gray-700/50 border dark:border-gray-700 rounded-xl p-4">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-10 h-10 bg-red-50 dark:bg-red-950/50 text-maroon rounded-lg flex items-center justify-center">
+                                                <i data-lucide="pill" class="w-5 h-5"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="font-bold text-gray-900 dark:text-white text-sm">
+                                                    Instalasi Farmasi
+                                                </h5>
+                                                <p class="text-xs text-gray-400">
+                                                    Layanan penebusan resep obat-obatan lengkap siap melayani 24 jam nonstop.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <button
+                                                type="button"
+                                                onclick="editFasilitas(this)"
+                                                class="px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg text-xs font-bold">
+                                                Edit
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onclick="hapusFasilitas(this)"
+                                                class="px-3 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-bold">
+                                                Hapus
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- Fasilitas 3 -->
+                                    <div class="flex items-center justify-between bg-gray-50 dark:bg-gray-700/50 border dark:border-gray-700 rounded-xl p-4">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-10 h-10 bg-red-50 dark:bg-red-950/50 text-maroon rounded-lg flex items-center justify-center">
+                                                <i data-lucide="ambulance" class="w-5 h-5"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="font-bold text-gray-900 dark:text-white text-sm">
+                                                    Ambulans Gawat Darurat
+                                                </h5>
+                                                <p class="text-xs text-gray-400">
+                                                    Armada mobil darurat medis dengan peralatan penunjang hidup yang lengkap.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <button
+                                                type="button"
+                                                onclick="editFasilitas(this)"
+                                                class="px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg text-xs font-bold">
+                                                Edit
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onclick="hapusFasilitas(this)"
+                                                class="px-3 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-bold">
+                                                Hapus
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- SECTION TAB 2: PENGADUAN -->
@@ -3467,33 +3568,113 @@ window.addEventListener('storage', function(event) {
 
         function tambahFasilitasBaru(e) {
             e.preventDefault();
+
             const nama = document.getElementById('add-fasilitas-nama').value;
             const desc = document.getElementById('add-fasilitas-desc').value;
             const icon = document.getElementById('add-fasilitas-icon').value;
+            const id = 'fasilitas-' + Date.now();
 
-            const container = document.getElementById('container-fasilitas');
+            // Tambahkan ke daftar fasilitas Admin
+            const container = document.getElementById('daftar-fasilitas-admin');
             if (container) {
                 container.innerHTML += `
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-start space-x-4 hover:shadow-md transition">
+                    <div id="admin-${id}" class="flex items-center justify-between gap-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-100 dark:border-gray-700 rounded-xl p-4">
+                        <div class="flex items-center gap-4 min-w-0">
+                            <div class="w-12 h-12 bg-red-50 dark:bg-red-950/50 text-maroon rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="${icon}" class="w-6 h-6"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <h5 class="font-bold text-gray-900 dark:text-white">
+                                    ${nama}
+                                </h5>
+                                <p class="text-xs text-gray-400 mt-1">
+                                    ${desc}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 flex-shrink-0">
+                            <button
+                                onclick="editFasilitas(this)"
+                                class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg text-xs font-bold transition">
+                                Edit
+                            </button>
+                            <button
+                                onclick="hapusFasilitas('${id}')"
+                                class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-xs font-bold transition">
+                                Hapus
+                            </button>
+                        </div>
+                    </div>
+                `;
+                lucide.createIcons();
+            }
+
+            // Tetap tambahkan ke bagian website
+            const websiteContainer = document.getElementById('container-fasilitas');
+            if (websiteContainer) {
+                websiteContainer.innerHTML += `
+                    <div id="website-${id}" class="bg-white dark:bg-gray-800 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-start space-x-4 hover:shadow-md transition">
                         <div class="w-12 h-12 bg-red-50 dark:bg-red-950/50 text-maroon rounded-xl flex items-center justify-center flex-shrink-0">
                             <i data-lucide="${icon}" class="w-6 h-6"></i>
                         </div>
                         <div class="space-y-1">
-                            <h4 class="font-bold text-gray-900 dark:text-white text-sm">${nama}</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">${desc}</p>
+                            <h4 class="font-bold text-gray-900 dark:text-white text-sm">
+                                ${nama}
+                            </h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+                                ${desc}
+                            </p>
                         </div>
                     </div>
                 `;
                 lucide.createIcons();
             }
             e.target.reset();
-            alert('Fasilitas baru berhasil ditampilkan di website!');
+            alert('Fasilitas baru berhasil ditambahkan!');
         }
 
-        function toggleStatusOperasional() {
-            statusOperasionalRS = statusOperasionalRS === 'Operational' ? 'Sistem Maintenance' : 'Operational';
-            localStorage.setItem('rs_status_ops', statusOperasionalRS);
-            updateStatusOperasionalUI();
+        function editFasilitas(button) {
+            const item = button.closest('.flex.items-center.justify-between');
+            const namaElement = item.querySelector('h5');
+            const descElement = item.querySelector('p');
+            const namaBaru = prompt(
+                'Masukkan nama fasilitas:',
+                namaElement.innerText
+            );
+            if (namaBaru === null || namaBaru.trim() === '') {
+                return;
+            }
+            const deskripsiBaru = prompt(
+                'Masukkan deskripsi fasilitas:',
+                descElement.innerText
+            );
+            if (deskripsiBaru === null || deskripsiBaru.trim() === '') {
+                return;
+            }
+            namaElement.innerText = namaBaru.trim();
+            descElement.innerText = deskripsiBaru.trim();
+        }
+
+        function hapusFasilitas(fasilitasId) {
+            const yakin = confirm(
+                'Apakah kamu yakin ingin menghapus fasilitas ini?'
+            );
+            if (!yakin) return;
+            // Hapus dari daftar Admin
+            const adminItem = document.getElementById(
+                'admin-' + fasilitasId
+            );
+            if (adminItem) {
+                adminItem.remove();
+            }
+            // Hapus dari bagian Website
+            const websiteItem = document.getElementById(
+                'website-' + fasilitasId
+            );
+            if (websiteItem) {
+                websiteItem.remove();
+            }
+            alert('Fasilitas berhasil dihapus!');
         }
 
         function updateStatusOperasionalUI() {
