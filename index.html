@@ -1765,98 +1765,302 @@
         </div>
     </main>
 
-    <!-- MODAL AUTH GABUNGAN PASIEN & ADMIN -->
-    <div id="modal-login" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-        <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-gray-100 dark:border-gray-700 space-y-4 relative">
-            <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 font-bold">✕</button>
+   <!-- ==================== MODAL LOGIN TUNGGAL ==================== -->
+<div id="modal-login"
+    class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
 
-            <!-- TAB PILIHAN ROLE (PASIEN / ADMIN) -->
-            <div class="flex bg-gray-100 dark:bg-gray-700 p-1 rounded-xl text-xs font-bold text-gray-600 dark:text-gray-300 mb-2">
-                <button id="role-btn-pasien" onclick="switchRoleTab('pasien')" class="flex-1 py-2 rounded-lg bg-white dark:bg-gray-800 shadow-sm text-maroon transition flex items-center justify-center space-x-1">
-                    <i data-lucide="user" class="w-3.5 h-3.5"></i>
-                    <span>Pasien</span>
-                </button>
-                <button id="role-btn-admin" onclick="switchRoleTab('admin')" class="flex-1 py-2 rounded-lg hover:text-maroon transition flex items-center justify-center space-x-1">
-                    <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
-                    <span>Admin</span>
-                </button>
+    <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-gray-100 dark:border-gray-700 relative">
+
+        <!-- Tombol Close -->
+        <button onclick="closeLoginModal()"
+            class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-lg">
+            ✕
+        </button>
+
+        <!-- ================= LOGIN ================= -->
+        <div id="box-login">
+
+            <div class="text-center mb-5">
+
+                <div class="w-14 h-14 bg-red-50 dark:bg-red-950/40 rounded-full mx-auto mb-3 flex items-center justify-center">
+                    <i data-lucide="shield-user" class="w-7 h-7 text-maroon"></i>
+                </div>
+
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                    Login
+                </h3>
+
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    Masuk ke akun Anda untuk melanjutkan
+                </p>
+
             </div>
 
-            <!-- CONTAINER CONTAINER FORM PASIEN -->
-            <div id="role-content-pasien">
-                <!-- FORM LOGIN PASIEN -->
-                <div id="box-login">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white text-center mb-1">Masuk Akun Pasien</h3>
-                    <p class="text-xs text-gray-500 dark:text-gray-400 text-center mb-4">Silakan masuk menggunakan email Anda</p>
+            <form onsubmit="submitLogin(event)" class="space-y-4 text-xs">
 
-                    <form onsubmit="submitLogin(event)" class="space-y-3 text-xs">
-                        <div>
-                            <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">Email</label>
-                            <input type="email" id="login-email" required placeholder="nama@email.com" class="w-full p-2.5 bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg focus:outline-none focus:border-maroon dark:text-white">
-                        </div>
-                        <div>
-                            <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">Password</label>
-                            <input type="password" id="login-password" required placeholder="••••••••" class="w-full p-2.5 bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg focus:outline-none focus:border-maroon dark:text-white">
-                        </div>
-                        <button type="submit" class="w-full py-3 bg-maroon hover:bg-maroon-hover text-white rounded-xl font-bold transition shadow-md">Masuk</button>
-                    </form>
+                <!-- Username -->
+                <div>
+                    <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+                        Username / Email / NIP
+                    </label>
 
-                    <p class="text-center text-xs text-gray-500 dark:text-gray-400 mt-4">
-                        Belum punya akun? 
-                        <button type="button" onclick="toggleAuthForm('register')" class="text-maroon font-bold underline hover:text-maroon-hover">Daftar Sekarang</button>
-                    </p>
-                </div>
+                    <div class="relative">
+                        <i data-lucide="user"
+                            class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400">
+                        </i>
 
-                <!-- FORM REGISTER PASIEN -->
-                <div id="box-register" class="hidden">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white text-center mb-1">Daftar Akun Pasien</h3>
-                    <p class="text-xs text-gray-500 dark:text-gray-400 text-center mb-4">Lengkapi data untuk membuat akun baru</p>
-
-                    <form onsubmit="submitRegister(event)" class="space-y-3 text-xs">
-                        <div>
-                            <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">Nama Lengkap</label>
-                            <input type="text" id="reg-nama-user" required placeholder="Masukkan nama Anda" class="w-full p-2.5 bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg focus:outline-none focus:border-maroon dark:text-white">
-                        </div>
-                        <div>
-                            <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">Email</label>
-                            <input type="email" id="reg-email-user" required placeholder="nama@email.com" class="w-full p-2.5 bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg focus:outline-none focus:border-maroon dark:text-white">
-                        </div>
-                        <div>
-                            <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">Password</label>
-                            <input type="password" id="reg-pass-user" required placeholder="••••••••" class="w-full p-2.5 bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg focus:outline-none focus:border-maroon dark:text-white">
-                        </div>
-                        <button type="submit" class="w-full py-3 bg-maroon hover:bg-maroon-hover text-white rounded-xl font-bold transition shadow-md">Daftar Akun</button>
-                    </form>
-
-                    <p class="text-center text-xs text-gray-500 dark:text-gray-400 mt-4">
-                        Sudah punya akun? 
-                        <button type="button" onclick="toggleAuthForm('login')" class="text-maroon font-bold underline hover:text-maroon-hover">Masuk di sini</button>
-                    </p>
-                </div>
-            </div>
-
-            <!-- CONTAINER FORM ADMIN -->
-            <div id="role-content-admin" class="hidden">
-                <div class="text-center mb-3">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">Login Administrator</h3>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Khusus staf dan pengelola RS Bhayangkara</p>
-                </div>
-
-                <form onsubmit="submitAdminLogin(event)" class="space-y-3 text-xs">
-                    <div>
-                        <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">Username / NIP</label>
-                        <input type="text" id="admin-user" required placeholder="admin" class="w-full p-2.5 bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg focus:outline-none focus:border-maroon dark:text-white">
+                        <input
+                            type="text"
+                            id="login-username"
+                            required
+                            autocomplete="username"
+                            placeholder="Masukkan username, email atau NIP"
+                            class="w-full pl-10 pr-3 py-3 bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg focus:outline-none focus:border-maroon dark:text-white">
                     </div>
-                    <div>
-                        <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">Password</label>
-                        <input type="password" id="admin-pass" required placeholder="••••••••" class="w-full p-2.5 bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg focus:outline-none focus:border-maroon dark:text-white">
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+                        Password
+                    </label>
+
+                    <div class="relative">
+
+                        <i data-lucide="lock"
+                            class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400">
+                        </i>
+
+                        <input
+                            type="password"
+                            id="login-password"
+                            required
+                            autocomplete="current-password"
+                            placeholder="Masukkan password"
+                            class="w-full pl-10 pr-10 py-3 bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg focus:outline-none focus:border-maroon dark:text-white">
+
+                        <button
+                            type="button"
+                            onclick="togglePasswordVisibility('login-password', this)"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-maroon">
+
+                            <i data-lucide="eye" class="w-4 h-4"></i>
+
+                        </button>
+
                     </div>
-                    <p class="text-[10px] text-gray-400 text-center">Gunakan akun <strong>admin</strong> & password <strong>admin123</strong></p>
-                    <button type="submit" class="w-full py-3 bg-maroon hover:bg-maroon-hover text-white rounded-xl font-bold transition shadow-md">Masuk Dashboard Admin</button>
-                </form>
-            </div>
+                </div>
+
+                <!-- Lupa Password -->
+                <div class="text-right">
+                    <button
+                        type="button"
+                        onclick="showForgotPassword()"
+                        class="text-maroon font-semibold hover:underline">
+
+                        Lupa kata sandi?
+
+                    </button>
+                </div>
+
+                <!-- Tombol Login -->
+                <button
+                    type="submit"
+                    class="w-full py-3 bg-maroon hover:bg-maroon-hover text-white rounded-xl font-bold transition shadow-md">
+
+                    Masuk
+
+                </button>
+
+            </form>
+
+            <!-- Daftar tetap seperti sebelumnya -->
+            <p class="text-center text-xs text-gray-500 dark:text-gray-400 mt-5">
+
+                Belum punya akun?
+
+                <button
+                    type="button"
+                    onclick="toggleAuthForm('register')"
+                    class="text-maroon font-bold underline hover:text-maroon-hover">
+
+                    Daftar Sekarang
+
+                </button>
+
+            </p>
+
         </div>
+
+
+        <!-- ================= DAFTAR AKUN ================= -->
+        <div id="box-register" class="hidden">
+
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white text-center mb-1">
+                Daftar Akun Pasien
+            </h3>
+
+            <p class="text-xs text-gray-500 dark:text-gray-400 text-center mb-4">
+                Lengkapi data untuk membuat akun baru
+            </p>
+
+            <form onsubmit="submitRegister(event)" class="space-y-3 text-xs">
+
+                <div>
+                    <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+                        Nama Lengkap
+                    </label>
+
+                    <input
+                        type="text"
+                        id="reg-nama-user"
+                        required
+                        placeholder="Masukkan nama Anda"
+                        class="w-full p-2.5 bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg focus:outline-none focus:border-maroon dark:text-white">
+                </div>
+
+                <div>
+                    <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="reg-email-user"
+                        required
+                        placeholder="nama@email.com"
+                        class="w-full p-2.5 bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg focus:outline-none focus:border-maroon dark:text-white">
+                </div>
+
+                <div>
+                    <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="reg-pass-user"
+                        required
+                        minlength="6"
+                        placeholder="••••••••"
+                        class="w-full p-2.5 bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg focus:outline-none focus:border-maroon dark:text-white">
+                </div>
+
+                <button
+                    type="submit"
+                    class="w-full py-3 bg-maroon hover:bg-maroon-hover text-white rounded-xl font-bold transition shadow-md">
+
+                    Daftar Akun
+
+                </button>
+
+            </form>
+
+            <p class="text-center text-xs text-gray-500 dark:text-gray-400 mt-4">
+
+                Sudah punya akun?
+
+                <button
+                    type="button"
+                    onclick="toggleAuthForm('login')"
+                    class="text-maroon font-bold underline hover:text-maroon-hover">
+
+                    Masuk di sini
+
+                </button>
+
+            </p>
+
+        </div>
+
+
+        <!-- ================= LUPA PASSWORD ================= -->
+        <div id="box-forgot-password" class="hidden">
+
+            <div class="text-center mb-5">
+
+                <div class="w-14 h-14 bg-red-50 dark:bg-red-950/40 rounded-full mx-auto mb-3 flex items-center justify-center">
+
+                    <i data-lucide="key-round" class="w-7 h-7 text-maroon"></i>
+
+                </div>
+
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                    Lupa Kata Sandi
+                </h3>
+
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    Masukkan email akun Anda untuk mengatur ulang kata sandi
+                </p>
+
+            </div>
+
+
+            <form onsubmit="resetPassword(event)" class="space-y-4 text-xs">
+
+                <!-- Email -->
+                <div>
+
+                    <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="forgot-email"
+                        required
+                        placeholder="nama@email.com"
+                        class="w-full p-3 bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg focus:outline-none focus:border-maroon dark:text-white">
+
+                </div>
+
+
+                <!-- Password Baru -->
+                <div>
+
+                    <label class="block font-semibold mb-1 text-gray-700 dark:text-gray-300">
+                        Password Baru
+                    </label>
+
+                    <input
+                        type="password"
+                        id="forgot-new-password"
+                        required
+                        minlength="6"
+                        placeholder="Masukkan password baru"
+                        class="w-full p-3 bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg focus:outline-none focus:border-maroon dark:text-white">
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="w-full py-3 bg-maroon hover:bg-maroon-hover text-white rounded-xl font-bold transition shadow-md">
+
+                    Reset Kata Sandi
+
+                </button>
+
+            </form>
+
+
+            <p class="text-center text-xs text-gray-500 dark:text-gray-400 mt-5">
+
+                <button
+                    type="button"
+                    onclick="showLoginForm()"
+                    class="text-maroon font-bold hover:underline">
+
+                    ← Kembali ke Login
+
+                </button>
+
+            </p>
+
+        </div>
+
     </div>
+</div>
 
     <!-- FOOTER (Hidden saat di tampilan Admin Fullscreen) -->
     <footer id="main-footer" class="bg-gray-900 text-white mt-12 py-8 border-t-4 border-maroon">
@@ -2176,102 +2380,461 @@
             location.reload();
         }
 
-        // 5. AUTHENTICATION & MODAL SYSTEM
-        function handleAuthButtonClick() {
-            if (isAdminLoggedIn) {
-                showPage('internal');
-            } else if (currentUser) {
-                if (confirm(`Logged in sebagai Pasien: ${currentUser.nama}. Klik OK untuk Logout.`)) {
-                    currentUser = null;
-                    localStorage.removeItem('rs_user');
-                    updateAuthUI();
-                }
-            } else {
-                openLoginModal();
-            }
-        }
+        // =====================================================
+// AUTHENTICATION & MODAL SYSTEM
+// =====================================================
 
-        function openLoginModal() {
-            document.getElementById('modal-login').classList.remove('hidden');
-        }
+function handleAuthButtonClick() {
 
-        function closeLoginModal() {
-            document.getElementById('modal-login').classList.add('hidden');
-        }
+    if (isAdminLoggedIn) {
 
-        function switchRoleTab(role) {
-            const btnPasien = document.getElementById('role-btn-pasien');
-            const btnAdmin = document.getElementById('role-btn-admin');
-            const contentPasien = document.getElementById('role-content-pasien');
-            const contentAdmin = document.getElementById('role-content-admin');
+        showPage('internal');
 
-            if (role === 'pasien') {
-                btnPasien.className = "flex-1 py-2 rounded-lg bg-white dark:bg-gray-800 shadow-sm text-maroon transition flex items-center justify-center space-x-1";
-                btnAdmin.className = "flex-1 py-2 rounded-lg hover:text-maroon transition flex items-center justify-center space-x-1";
-                contentPasien.classList.remove('hidden');
-                contentAdmin.classList.add('hidden');
-            } else {
-                btnAdmin.className = "flex-1 py-2 rounded-lg bg-white dark:bg-gray-800 shadow-sm text-maroon transition flex items-center justify-center space-x-1";
-                btnPasien.className = "flex-1 py-2 rounded-lg hover:text-maroon transition flex items-center justify-center space-x-1";
-                contentAdmin.classList.remove('hidden');
-                contentPasien.classList.add('hidden');
-            }
-        }
+    } else if (currentUser) {
 
-        function toggleAuthForm(type) {
-            if (type === 'register') {
-                document.getElementById('box-login').classList.add('hidden');
-                document.getElementById('box-register').classList.remove('hidden');
-            } else {
-                document.getElementById('box-register').classList.add('hidden');
-                document.getElementById('box-login').classList.remove('hidden');
-            }
-        }
+        if (confirm(
+            `Anda sedang login sebagai ${currentUser.nama}.\n\nKlik OK untuk logout.`
+        )) {
 
-        function submitLogin(e) {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value;
-            currentUser = { email, nama: email.split('@')[0] };
-            localStorage.setItem('rs_user', JSON.stringify(currentUser));
-            closeLoginModal();
+            currentUser = null;
+
+            localStorage.removeItem('rs_user');
+
             updateAuthUI();
-            alert(`Selamat datang kembali, ${currentUser.nama}!`);
+
         }
 
-        function submitRegister(e) {
-            e.preventDefault();
-            const nama = document.getElementById('reg-nama-user').value;
-            const email = document.getElementById('reg-email-user').value;
-            currentUser = { nama, email };
-            localStorage.setItem('rs_user', JSON.stringify(currentUser));
-            closeLoginModal();
-            updateAuthUI();
-            alert(`Akun berhasil dibuat. Selamat datang, ${nama}!`);
-        }
+    } else {
 
-        function submitAdminLogin(e) {
-            e.preventDefault();
-            const u = document.getElementById('admin-user').value;
-            const p = document.getElementById('admin-pass').value;
+        openLoginModal();
 
-            if (u === 'admin' && p === 'admin123') {
-                isAdminLoggedIn = true;
-                localStorage.setItem('rs_admin_logged', 'true');
-                closeLoginModal();
-                updateAuthUI();
-                showPage('internal');
-                renderInternalTables();
-            } else {
-                alert("Username atau Password Admin Salah!");
-            }
-        }
+    }
 
-        function logoutAdmin() {
-            isAdminLoggedIn = false;
-            localStorage.removeItem('rs_admin_logged');
-            updateAuthUI();
-            showPage('home');
-        }
+}
+
+
+// =====================================================
+// BUKA MODAL LOGIN
+// =====================================================
+
+function openLoginModal() {
+
+    document.getElementById('modal-login').classList.remove('hidden');
+
+    showLoginForm();
+
+}
+
+
+// =====================================================
+// TUTUP MODAL
+// =====================================================
+
+function closeLoginModal() {
+
+    document.getElementById('modal-login').classList.add('hidden');
+
+}
+
+
+// =====================================================
+// TAMPILKAN LOGIN
+// =====================================================
+
+function showLoginForm() {
+
+    document.getElementById('box-login').classList.remove('hidden');
+
+    document.getElementById('box-register').classList.add('hidden');
+
+    document.getElementById('box-forgot-password').classList.add('hidden');
+
+}
+
+
+// =====================================================
+// TAMPILKAN REGISTER
+// =====================================================
+
+function toggleAuthForm(type) {
+
+    if (type === 'register') {
+
+        document.getElementById('box-login').classList.add('hidden');
+
+        document.getElementById('box-register').classList.remove('hidden');
+
+        document.getElementById('box-forgot-password').classList.add('hidden');
+
+    } else {
+
+        showLoginForm();
+
+    }
+
+}
+
+
+// =====================================================
+// LOGIN TUNGGAL
+// ADMIN + PASIEN
+// =====================================================
+
+function submitLogin(e) {
+
+    e.preventDefault();
+
+    const username =
+        document.getElementById('login-username').value.trim();
+
+    const password =
+        document.getElementById('login-password').value;
+
+
+    // ================================================
+    // LOGIN ADMIN
+    // ================================================
+
+    if (username === 'admin' && password === 'admin123') {
+
+        isAdminLoggedIn = true;
+
+        localStorage.setItem('rs_admin_logged', 'true');
+
+        currentUser = null;
+
+        localStorage.removeItem('rs_user');
+
+        closeLoginModal();
+
+        updateAuthUI();
+
+        showPage('internal');
+
+        renderInternalTables();
+
+        return;
+
+    }
+
+
+    // ================================================
+    // LOGIN PASIEN
+    // ================================================
+
+    let accounts =
+        JSON.parse(localStorage.getItem('rs_accounts')) || [];
+
+
+    const account = accounts.find(
+        user =>
+            user.email.toLowerCase() === username.toLowerCase() &&
+            user.password === password
+    );
+
+
+    if (account) {
+
+        currentUser = {
+
+            nama: account.nama,
+
+            email: account.email
+
+        };
+
+
+        localStorage.setItem(
+            'rs_user',
+            JSON.stringify(currentUser)
+        );
+
+
+        closeLoginModal();
+
+        updateAuthUI();
+
+
+        alert(
+            `Selamat datang kembali, ${currentUser.nama}!`
+        );
+
+        return;
+
+    }
+
+
+    // ================================================
+    // LOGIN GAGAL
+    // ================================================
+
+    alert(
+        'Username/Email/NIP atau Password yang Anda masukkan salah.'
+    );
+
+}
+
+
+// =====================================================
+// REGISTER AKUN
+// FORM DAFTAR TETAP SAMA
+// =====================================================
+
+function submitRegister(e) {
+
+    e.preventDefault();
+
+
+    const nama =
+        document.getElementById('reg-nama-user').value.trim();
+
+    const email =
+        document.getElementById('reg-email-user').value.trim();
+
+    const password =
+        document.getElementById('reg-pass-user').value;
+
+
+    // Ambil akun yang sudah tersimpan
+    let accounts =
+        JSON.parse(localStorage.getItem('rs_accounts')) || [];
+
+
+    // Cek email sudah terdaftar
+    const existingAccount = accounts.find(
+        user =>
+            user.email.toLowerCase() === email.toLowerCase()
+    );
+
+
+    if (existingAccount) {
+
+        alert(
+            'Email tersebut sudah terdaftar. Silakan gunakan email lain.'
+        );
+
+        return;
+
+    }
+
+
+    // Simpan akun baru
+    const newAccount = {
+
+        nama: nama,
+
+        email: email,
+
+        password: password
+
+    };
+
+
+    accounts.push(newAccount);
+
+
+    localStorage.setItem(
+        'rs_accounts',
+        JSON.stringify(accounts)
+    );
+
+
+    // Login otomatis setelah daftar
+    currentUser = {
+
+        nama: nama,
+
+        email: email
+
+    };
+
+
+    localStorage.setItem(
+        'rs_user',
+        JSON.stringify(currentUser)
+    );
+
+
+    closeLoginModal();
+
+    updateAuthUI();
+
+
+    alert(
+        `Akun berhasil dibuat. Selamat datang, ${nama}!`
+    );
+
+}
+
+
+// =====================================================
+// LUPA PASSWORD
+// =====================================================
+
+function showForgotPassword() {
+
+    document.getElementById('box-login').classList.add('hidden');
+
+    document.getElementById('box-register').classList.add('hidden');
+
+    document.getElementById('box-forgot-password').classList.remove('hidden');
+
+}
+
+
+// =====================================================
+// RESET PASSWORD
+// =====================================================
+
+function resetPassword(e) {
+
+    e.preventDefault();
+
+
+    const email =
+        document.getElementById('forgot-email').value.trim();
+
+    const newPassword =
+        document.getElementById('forgot-new-password').value;
+
+
+    let accounts =
+        JSON.parse(localStorage.getItem('rs_accounts')) || [];
+
+
+    const accountIndex = accounts.findIndex(
+        user =>
+            user.email.toLowerCase() === email.toLowerCase()
+    );
+
+
+    // Email tidak ditemukan
+    if (accountIndex === -1) {
+
+        alert(
+            'Email tidak ditemukan. Silakan periksa kembali email Anda.'
+        );
+
+        return;
+
+    }
+
+
+    // Update password
+    accounts[accountIndex].password = newPassword;
+
+
+    localStorage.setItem(
+        'rs_accounts',
+        JSON.stringify(accounts)
+    );
+
+
+    alert(
+        'Kata sandi berhasil diubah. Silakan login menggunakan password baru.'
+    );
+
+
+    // Reset form
+    document.getElementById('forgot-email').value = '';
+
+    document.getElementById('forgot-new-password').value = '';
+
+
+    // Kembali ke login
+    showLoginForm();
+
+}
+
+
+// =====================================================
+// SHOW / HIDE PASSWORD
+// =====================================================
+
+function togglePasswordVisibility(inputId, button) {
+
+    const input = document.getElementById(inputId);
+
+    if (input.type === 'password') {
+
+        input.type = 'text';
+
+        button.innerHTML =
+            '<i data-lucide="eye-off" class="w-4 h-4"></i>';
+
+    } else {
+
+        input.type = 'password';
+
+        button.innerHTML =
+            '<i data-lucide="eye" class="w-4 h-4"></i>';
+
+    }
+
+    lucide.createIcons();
+
+}
+
+
+// =====================================================
+// LOGIN ADMIN LAMA
+// TIDAK DIPAKAI LAGI
+// =====================================================
+
+function submitAdminLogin(e) {
+
+    e.preventDefault();
+
+    const u =
+        document.getElementById('admin-user')?.value;
+
+    const p =
+        document.getElementById('admin-pass')?.value;
+
+
+    if (u === 'admin' && p === 'admin123') {
+
+        isAdminLoggedIn = true;
+
+        localStorage.setItem(
+            'rs_admin_logged',
+            'true'
+        );
+
+        closeLoginModal();
+
+        updateAuthUI();
+
+        showPage('internal');
+
+        renderInternalTables();
+
+    } else {
+
+        alert(
+            'Username atau Password Admin Salah!'
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// LOGOUT ADMIN
+// =====================================================
+
+function logoutAdmin() {
+
+    isAdminLoggedIn = false;
+
+    localStorage.removeItem('rs_admin_logged');
+
+    updateAuthUI();
+
+    showPage('home');
+
+}
 
         function updateAuthUI() {
             const btnTxt = document.getElementById('txt-portal-btn');

@@ -14,3 +14,130 @@ html {
     background: #8B0000;
     border-radius: 4px;
 }
+/* Card Container Modal */
+.login-modal {
+  background: #ffffff;
+  padding: 32px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  position: relative;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Close Button */
+.close-btn {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #999;
+  cursor: pointer;
+}
+
+/* Header Text */
+.modal-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 6px;
+}
+
+.modal-subtitle {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 24px;
+}
+
+/* Form Styles */
+.form-group {
+  text-align: left;
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.form-group input:focus {
+  border-color: #b91c1c;
+  background-color: #fff;
+}
+
+/* Red Primary Button */
+.btn-submit {
+  width: 100%;
+  padding: 12px;
+  background-color: #b91c1c; /* Warna merah RS Bhayangkara */
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-submit:hover {
+  background-color: #991b1b;
+}
+
+/* Footer Link */
+.modal-footer {
+  margin-top: 20px;
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.modal-footer a {
+  color: #b91c1c;
+  font-weight: 600;
+  text-decoration: underline;
+}
+/* Mengatur tata letak label & link lupa kata sandi agar sejajar */
+.label-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+/* Menghilangkan margin-bottom default label karena sudah diatur oleh parent .label-wrapper */
+.label-wrapper label {
+  margin-bottom: 0;
+}
+
+/* Style tautan Lupa Kata Sandi */
+.forgot-password {
+  font-size: 12px;
+  color: #b91c1c; /* Warna merah senada */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+  color: #991b1b;
+}
