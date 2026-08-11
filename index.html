@@ -1462,63 +1462,6 @@
                     <!-- CONTENT MAIN CONTAINER -->
 <div class="p-8 space-y-6">
 
-    <!-- SECTION KELOLA KAMAR & STOK BED (POIN 1 & 3) -->
-    <div id="admin-sec-kamar" class="hidden bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm space-y-6">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b dark:border-gray-700 pb-4">
-            <div>
-                <h3 class="font-bold text-gray-900 dark:text-white text-base flex items-center space-x-2">
-                    <i data-lucide="bed" class="w-5 h-5 text-maroon"></i>
-                    <span>Manajemen Kelas & Ketersediaan Bed</span>
-                </h3>
-                <p class="text-xs text-gray-400">Atur kategori/kelas kamar (Poin 3) dan pembaruan jumlah bed kosong (Poin 1)</p>
-            </div>
-            <button onclick="tambahKamarBaru()" class="text-xs bg-maroon hover:bg-maroon-hover text-white px-4 py-2.5 rounded-xl flex items-center space-x-2 font-semibold transition">
-                <i data-lucide="plus" class="w-4 h-4"></i>
-                <span>Tambah Kamar / Ruangan</span>
-            </button>
-        </div>
-
-        <!-- Ringkasan Statistik Bed Per Kelas (Poin 1 & 3) -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
-            <div class="p-4 bg-gray-50 dark:bg-gray-700/50 border dark:border-gray-700 rounded-xl">
-                <p class="text-gray-500 dark:text-gray-400 font-semibold">Total Kapasitas Bed</p>
-                <p id="stat-total-kapasitas" class="text-2xl font-black text-gray-900 dark:text-white mt-1">0</p>
-            </div>
-            <div class="p-4 bg-red-50 dark:bg-red-950/40 border border-red-100 dark:border-red-900/50 rounded-xl">
-                <p class="text-maroon dark:text-red-400 font-semibold">Total Bed Terisi</p>
-                <p id="stat-total-terisi" class="text-2xl font-black text-maroon dark:text-red-300 mt-1">0</p>
-            </div>
-            <div class="p-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-100 dark:border-emerald-900/50 rounded-xl">
-                <p class="text-emerald-600 dark:text-emerald-400 font-semibold">Total Bed Tersedia</p>
-                <p id="stat-total-tersedia" class="text-2xl font-black text-emerald-700 dark:text-emerald-300 mt-1">0</p>
-            </div>
-            <div class="p-4 bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900/50 rounded-xl">
-                <p class="text-blue-600 dark:text-blue-400 font-semibold">Kategori Kelas Aktif</p>
-                <p id="stat-total-kategori" class="text-2xl font-black text-blue-700 dark:text-blue-300 mt-1">0</p>
-            </div>
-        </div>
-
-        <!-- Tabel Kelola Kelas & Ketersediaan Bed -->
-        <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs">
-                <thead>
-                    <tr class="bg-gray-50 dark:bg-gray-700/50 border-b dark:border-gray-700 text-gray-500 dark:text-gray-300 font-bold">
-                        <th class="p-3">Kategori Kelas (Poin 3)</th>
-                        <th class="p-3">Nama Bangsal / Ruangan (Poin 3)</th>
-                        <th class="p-3 text-center">Kapasitas Bed (Poin 1)</th>
-                        <th class="p-3 text-center">Bed Terisi (Poin 1)</th>
-                        <th class="p-3 text-center">Bed Tersedia (Hasil)</th>
-                        <th class="p-3 text-center">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody id="tabel-kelola-kamar" class="divide-y divide-gray-100 dark:divide-gray-700">
-                    <!-- Data kamar dirender otomatis via JavaScript -->
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-</div>
                     <!-- Topbar -->
                     <header class="bg-white dark:bg-gray-800 border-b dark:border-gray-700 px-8 py-4 flex justify-between items-center sticky top-0 z-10 shadow-sm">
                         <div class="flex items-center space-x-2">
@@ -2100,6 +2043,15 @@
         // System Storage Local
         let pendaftaranList = JSON.parse(localStorage.getItem('rs_pendaftaran')) || [];
         let pengaduanList = JSON.parse(localStorage.getItem('rs_pengaduan')) || [];
+
+        // Data master kamar & bed
+        let kamarList = JSON.parse(localStorage.getItem('rs_kamar_list')) || [
+            { id: 1, kelas: 'VIP', ruangan: 'Mawar VIP', kapasitas: 4, terisi: 2 },
+            { id: 2, kelas: 'Kelas I', ruangan: 'Melati 1', kapasitas: 6, terisi: 3 },
+            { id: 3, kelas: 'Kelas II', ruangan: 'Melati 2', kapasitas: 8, terisi: 5 },
+            { id: 4, kelas: 'Kelas III', ruangan: 'Anggrek', kapasitas: 10, terisi: 7 }
+        ];
+
         let currentUser = JSON.parse(localStorage.getItem('rs_user')) || null;
         let isAdminLoggedIn = localStorage.getItem('rs_admin_logged') === 'true';
         let statusOperasionalRS = localStorage.getItem('rs_status_ops') || 'Operational';
@@ -2112,6 +2064,7 @@
             updateStatusOperasionalUI();
             initDarkModePreference();
             setMinDatePendaftaran();
+            renderKamarBed();
             
             if (isAdminLoggedIn) {
                 renderInternalTables();
@@ -2193,7 +2146,7 @@
         }
 
         function switchAdminTab(tab) {
-            const tabs = ['overview', 'pendaftaran', 'dokter', 'fasilitas', 'pengaduan'];
+            const tabs = ['overview', 'pendaftaran', 'dokter', 'fasilitas', 'kamar', 'pengaduan'];
             tabs.forEach(t => {
                 const nav = document.getElementById(`admin-nav-${t}`);
                 const sec = document.getElementById(`admin-sec-${t}`);
@@ -2219,8 +2172,168 @@
                 else if (tab === 'pendaftaran') headerTitle.innerText = "Kelola Antrean Pendaftaran Pasien";
                 else if (tab === 'dokter') headerTitle.innerText = "Kelola Master Data Dokter";
                 else if (tab === 'fasilitas') headerTitle.innerText = "Kelola Fasilitas Rumah Sakit";
+                else if (tab === 'kamar') headerTitle.innerText = "Kelola Kamar & Bed Rumah Sakit";
                 else if (tab === 'pengaduan') headerTitle.innerText = "Kelola Data Pengaduan";
             }
+        }
+
+
+        // =====================================================
+        // KELOLA KAMAR & BED
+        // =====================================================
+
+        function simpanKamarList() {
+            localStorage.setItem('rs_kamar_list', JSON.stringify(kamarList));
+        }
+
+        function renderKamarBed() {
+            const tbody = document.getElementById('tabel-kelola-kamar');
+            if (!tbody) return;
+
+            const totalKapasitas = kamarList.reduce((sum, item) => sum + Number(item.kapasitas || 0), 0);
+            const totalTerisi = kamarList.reduce((sum, item) => sum + Number(item.terisi || 0), 0);
+            const totalTersedia = Math.max(0, totalKapasitas - totalTerisi);
+            const kategoriAktif = new Set(kamarList.map(item => item.kelas)).size;
+
+            const statKapasitas = document.getElementById('stat-total-kapasitas');
+            const statTerisi = document.getElementById('stat-total-terisi');
+            const statTersedia = document.getElementById('stat-total-tersedia');
+            const statKategori = document.getElementById('stat-total-kategori');
+
+            if (statKapasitas) statKapasitas.textContent = totalKapasitas;
+            if (statTerisi) statTerisi.textContent = totalTerisi;
+            if (statTersedia) statTersedia.textContent = totalTersedia;
+            if (statKategori) statKategori.textContent = kategoriAktif;
+
+            if (!kamarList.length) {
+                tbody.innerHTML = '<tr><td colspan="6" class="p-6 text-center text-gray-400">Belum ada data kamar/ruangan.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = kamarList.map(item => {
+                const kapasitas = Number(item.kapasitas) || 0;
+                const terisi = Math.min(Number(item.terisi) || 0, kapasitas);
+                const tersedia = Math.max(0, kapasitas - terisi);
+                const statusClass = tersedia > 0
+                    ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300'
+                    : 'bg-red-100 text-red-700 dark:bg-red-950/50 dark:text-red-300';
+                const statusText = tersedia > 0 ? 'Tersedia' : 'Penuh';
+
+                return `
+                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/40">
+                        <td class="p-3">
+                            <span class="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300 font-bold">${item.kelas}</span>
+                        </td>
+                        <td class="p-3 font-semibold text-gray-900 dark:text-white">${item.ruangan}</td>
+                        <td class="p-3 text-center font-bold">${kapasitas}</td>
+                        <td class="p-3 text-center">
+                            <div class="inline-flex items-center gap-1">
+                                <button onclick="ubahBedTerisi(${item.id}, -1)" class="w-7 h-7 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 font-black">−</button>
+                                <span class="w-8 text-center font-black text-maroon dark:text-red-400">${terisi}</span>
+                                <button onclick="ubahBedTerisi(${item.id}, 1)" class="w-7 h-7 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 font-black">+</button>
+                            </div>
+                        </td>
+                        <td class="p-3 text-center">
+                            <div class="flex flex-col items-center gap-1">
+                                <span class="font-black text-emerald-600 dark:text-emerald-400">${tersedia}</span>
+                                <span class="px-2 py-0.5 rounded-full text-[9px] font-bold ${statusClass}">${statusText}</span>
+                            </div>
+                        </td>
+                        <td class="p-3 text-center whitespace-nowrap">
+                            <button onclick="editKamar(${item.id})" class="px-2.5 py-1.5 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 dark:bg-blue-950/40 dark:text-blue-300 text-[10px] font-bold mr-1">Edit</button>
+                            <button onclick="hapusKamar(${item.id})" class="px-2.5 py-1.5 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 dark:bg-red-950/40 dark:text-red-300 text-[10px] font-bold">Hapus</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function tambahKamarBaru() {
+            const kelas = prompt('Masukkan kategori/kelas kamar:');
+            if (!kelas || !kelas.trim()) return;
+
+            const ruangan = prompt('Masukkan nama bangsal/ruangan:');
+            if (!ruangan || !ruangan.trim()) return;
+
+            const kapasitas = parseInt(prompt('Masukkan kapasitas bed:'), 10);
+            if (!Number.isInteger(kapasitas) || kapasitas < 1) {
+                alert('Kapasitas bed harus berupa angka minimal 1.');
+                return;
+            }
+
+            kamarList.push({
+                id: Date.now(),
+                kelas: kelas.trim(),
+                ruangan: ruangan.trim(),
+                kapasitas: kapasitas,
+                terisi: 0
+            });
+
+            simpanKamarList();
+            renderKamarBed();
+            alert('Kamar/ruangan berhasil ditambahkan.');
+        }
+
+        function ubahBedTerisi(id, perubahan) {
+            const kamar = kamarList.find(item => item.id === id);
+            if (!kamar) return;
+
+            const nilaiBaru = Number(kamar.terisi) + perubahan;
+            if (nilaiBaru < 0) {
+                alert('Bed terisi tidak boleh kurang dari 0.');
+                return;
+            }
+            if (nilaiBaru > Number(kamar.kapasitas)) {
+                alert('Jumlah bed terisi tidak boleh melebihi kapasitas.');
+                return;
+            }
+
+            kamar.terisi = nilaiBaru;
+            simpanKamarList();
+            renderKamarBed();
+        }
+
+        function editKamar(id) {
+            const kamar = kamarList.find(item => item.id === id);
+            if (!kamar) return;
+
+            const kelas = prompt('Ubah kategori/kelas kamar:', kamar.kelas);
+            if (kelas === null || !kelas.trim()) return;
+
+            const ruangan = prompt('Ubah nama bangsal/ruangan:', kamar.ruangan);
+            if (ruangan === null || !ruangan.trim()) return;
+
+            const kapasitasInput = prompt('Ubah kapasitas bed:', kamar.kapasitas);
+            if (kapasitasInput === null) return;
+
+            const kapasitas = parseInt(kapasitasInput, 10);
+            if (!Number.isInteger(kapasitas) || kapasitas < 1) {
+                alert('Kapasitas bed harus berupa angka minimal 1.');
+                return;
+            }
+            if (kapasitas < Number(kamar.terisi)) {
+                alert('Kapasitas baru tidak boleh lebih kecil dari bed yang sedang terisi.');
+                return;
+            }
+
+            kamar.kelas = kelas.trim();
+            kamar.ruangan = ruangan.trim();
+            kamar.kapasitas = kapasitas;
+
+            simpanKamarList();
+            renderKamarBed();
+            alert('Data kamar berhasil diperbarui.');
+        }
+
+        function hapusKamar(id) {
+            const kamar = kamarList.find(item => item.id === id);
+            if (!kamar) return;
+
+            if (!confirm(`Hapus ${kamar.ruangan} (${kamar.kelas}) dari daftar kamar?`)) return;
+
+            kamarList = kamarList.filter(item => item.id !== id);
+            simpanKamarList();
+            renderKamarBed();
         }
 
         // 2. LOGIK DOKTER & JADWAL
