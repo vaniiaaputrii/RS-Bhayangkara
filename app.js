@@ -362,3 +362,35 @@ function applyUserSession(user) {
         if (btnText) btnText.innerText = "Masuk / Login";
     }
 }
+const formPengaduan = document.getElementById('formPengaduan');
+
+if (formPengaduan) {
+    formPengaduan.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('nama_pelapor', document.getElementById('nama_pelapor').value);
+        formData.append('no_hp', document.getElementById('no_hp').value);
+        formData.append('email', document.getElementById('email').value);
+        formData.append('kategori_layanan', document.getElementById('kategori_layanan').value);
+        formData.append('isi_pengaduan', document.getElementById('isi_pengaduan').value);
+
+        fetch('api_pengaduan.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                alert('Pengaduan Berhasil!\nKode Pengaduan Anda: ' + data.kode_pengaduan);
+                formPengaduan.reset();
+            } else {
+                alert('Gagal: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Terjadi kesalahan koneksi ke server!');
+        });
+    });
+}

@@ -1,16 +1,15 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: *");
-header("Content-Type: application/json; charset=UTF-8");
+$host     = "localhost";
+$user     = "root";
+$password = ""; 
+$database = "db_klinik_rs"; // Pastikan namanya db_klinik_rs
 
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db   = "db_rsb_akpol";
-
-$conn = mysqli_connect($host, $user, $pass, $db);
+$conn = mysqli_connect($host, $user, $password, $database);
 
 if (!$conn) {
-    die(json_encode(["status" => "error", "message" => "Koneksi database gagal: " . mysqli_connect_error()]));
+    die(json_encode([
+        'status' => 'error',
+        'message' => 'Koneksi database gagal: ' . mysqli_connect_error()
+    ]));
 }
 ?>
