@@ -141,3 +141,21 @@ html {
   text-decoration: underline;
   color: #991b1b;
 }
+.news-card {
+    overflow: hidden;
+    border-radius: 18px;
+    background: #1f2937;
+    border: 1px solid #374151;
+    margin-bottom: 32px;
+}
+
+.news-card img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    display: block;
+}
+
+.news-content {
+    padding: 28px 32px;
+}
