@@ -1,39 +1,33 @@
 <?php
-header('Content-Type: application/json');
-require_once 'koneksi.php';
+// Koneksi ke Database
+$conn = new mysqli("localhost", "root", "", "db_klinik_rs");
+
+if ($conn->connect_error) {
+    die(json_encode(["status" => "error", "message" => "Koneksi gagal"]));
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nama_pelapor     = isset($_POST['nama_pelapor']) ? trim($_POST['nama_pelapor']) : '';
-    $no_hp            = isset($_POST['no_hp']) ? trim($_POST['no_hp']) : '';
-    $email            = isset($_POST['email']) ? trim($_POST['email']) : '';
-    $kategori_layanan = isset($_POST['kategori_layanan']) ? trim($_POST['kategori_layanan']) : 'Lainnya';
-    $isi_pengaduan    = isset($_POST['isi_pengaduan']) ? trim($_POST['isi_pengaduan']) : '';
+    // Ambil data dari form
+    $nomor_pengaduan = "PGD-" . time();
+    $nama_pelapor   = $_POST['nama_pelapor'] ?? $_POST['nama'] ?? '';
+    $email          = $_POST['email'] ?? null;
+    $no_telepon     = $_POST['no_telepon'] ?? $_POST['nik'] ?? ''; // Jika NIK disimpan ke no_telepon
+    $kategori       = $_POST['kategori'] ?? 'Umum';
+    $judul_pengaduan = $_POST['judul'] ?? 'Pengaduan Layanan';
+    $isi_pengaduan   = $_POST['isi'] ?? 'Kunjungan Dokter Spesialis';
+    $status         = 'pending';
 
-    if (empty($nama_pelapor) || empty($no_hp) || empty($isi_pengaduan)) {
-        echo json_encode([
-            'status'  => 'error',
-            'message' => 'Nama, No HP, dan Isi Pengaduan wajib diisi!'
-        ]);
-        exit;
-    }
+    // Query INSERT hanya untuk kolom yang ADA di tabel pengaduan
+    $sql = "INSERT INTO pengaduan (nomor_pengaduan, nama_pelapor, email, no_telepon, kategori, judul_pengaduan, isi_pengaduan, status) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-    $kode_pengaduan = 'PGD-' . date('Ymd') . '-' . rand(100, 999);
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssssssss", $nomor_pengaduan, $nama_pelapor, $email, $no_telepon, $kategori, $judul_pengaduan, $isi_pengaduan, $status);
 
-    $sql = "INSERT INTO pengaduan (kode_pengaduan, nama_pelapor, no_hp, email, kategori_layanan, isi_pengaduan) 
-            VALUES ('$kode_pengaduan', '$nama_pelapor', '$no_hp', '$email', '$kategori_layanan', '$isi_pengaduan')";
-
-    if (mysqli_query($conn, $sql)) {
-        echo json_encode([
-            'status'         => 'success',
-            'message'        => 'Pengaduan berhasil dikirim!',
-            'kode_pengaduan' => $kode_pengaduan
-        ]);
+    if ($stmt->execute()) {
+        echo json_encode(["status" => "success", "message" => "Berhasil disimpan!"]);
     } else {
-        echo json_encode([
-            'status'  => 'error',
-            'message' => 'Gagal menyimpan ke database: ' . mysqli_error($conn)
-        ]);
+        echo json_encode(["status" => "error", "message" => $stmt->error]);
     }
-    exit;
 }
 ?>
