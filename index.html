@@ -2641,24 +2641,35 @@
         }
 
         function submitPengaduan(e) {
-            e.preventDefault();
-            const nama = document.getElementById('aduan-nama').value || 'Anonim';
-            const kategori = document.getElementById('aduan-kategori').value;
-            const isi = document.getElementById('aduan-isi').value;
+    e.preventDefault();
+    const nama = document.getElementById('aduan-nama').value || 'Anonim';
+    const kategori = document.getElementById('aduan-kategori').value;
+    const isi = document.getElementById('aduan-isi').value;
 
-            const tiketId = "ADU-" + Math.floor(1000 + Math.random() * 9000);
-            const data = { id: tiketId, nama, kategori, isi, date: new Date().toLocaleDateString('id-ID') };
-
-            pengaduanList.push(data);
-            localStorage.setItem('rs_pengaduan', JSON.stringify(pengaduanList));
-
-            document.getElementById('tiket-aduan-id').innerText = tiketId;
+    fetch('api_pengaduan.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ nama, kategori, isi })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            document.getElementById('tiket-aduan-id').innerText = data.kode_pengaduan;
             document.getElementById('status-pengaduan').classList.remove('hidden');
-
             document.getElementById('form-pengaduan').reset();
+            alert('Pengaduan berhasil disimpan ke database!');
             if (isAdminLoggedIn) renderInternalTables();
+        } else {
+            alert('Gagal mengirim pengaduan: ' + data.message);
         }
-
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan koneksi ke server!');
+    });
+}
         function cetakTiket(elementId) {
             const printContent = document.getElementById(elementId).innerHTML;
             const originalContent = document.body.innerHTML;
@@ -3406,108 +3417,110 @@ window.addEventListener('storage', function(event) {
 });
 
         // 6. MANAGEMENT ADMIN DASHBOARD
-        function renderInternalTables() {
-            // Stats
-            document.getElementById('stat-total-pendaftaran').innerText = pendaftaranList.length;
-            document.getElementById('stat-total-pengaduan').innerText = pengaduanList.length;
-            document.getElementById('stat-total-dokter').innerText = dataDokter.length;
+        // RENDER TABEL DASHBOARD INTERNAL ADMIN (DARI DATABASE MYSQL)
+function renderInternalTables() {
+    const tbodyPendaftaran = document.getElementById('tabel-internal-pendaftaran');
+    const searchPen = (document.getElementById('admin-search-pendaftaran')?.value || '').toLowerCase();
 
-            // Table Pendaftaran
-            const tbodyPendaftaran = document.getElementById('tabel-internal-pendaftaran');
-            const searchPen = (document.getElementById('admin-search-pendaftaran')?.value || '').toLowerCase();
-            
+    // 1. Ambil Data Pendaftaran dari MySQL via API PHP
+    fetch('api_pendaftaran.php')
+        .then(response => response.json())
+        .then(dataPendaftaran => {
+            // Update total pendaftaran di Stat Card
+            const statPendaftaran = document.getElementById('stat-total-pendaftaran');
+            if (statPendaftaran) statPendaftaran.innerText = dataPendaftaran.length;
+
             if (tbodyPendaftaran) {
                 tbodyPendaftaran.innerHTML = '';
-                const filteredP = pendaftaranList.filter(p => p.nama.toLowerCase().includes(searchPen) || p.nik.toLowerCase().includes(searchPen));
-                
+
+                // Filter pencarian jika ada input
+                const filteredP = dataPendaftaran.filter(p => 
+                    (p.nama_pasien || '').toLowerCase().includes(searchPen) || 
+                    (p.nik_nrp || '').toLowerCase().includes(searchPen)
+                );
+
                 if (filteredP.length === 0) {
-                    tbodyPendaftaran.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-gray-400">Belum ada antrean pendaftaran.</td></tr>`;
+                    tbodyPendaftaran.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-gray-400">Belum ada antrean pendaftaran di database.</td></tr>`;
                 } else {
                     filteredP.forEach(p => {
                         tbodyPendaftaran.innerHTML += `
                             <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                                <td class="p-3 font-bold text-maroon dark:text-red-400">${p.no}</td>
-                                <td class="p-3 font-semibold text-gray-900 dark:text-white">${p.nama}</td>
-                                <td class="p-3">${p.nik}</td>
-                                <td class="p-3"><span class="px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-700 text-[10px] font-bold">${p.kategori}</span></td>
-                                <td class="p-3">${p.dokter}</td>
-                                <td class="p-3">${p.tanggal}</td>
+                                <td class="p-3 font-bold text-maroon dark:text-red-400">${p.no_antrean || '-'}</td>
+                                <td class="p-3 font-semibold text-gray-900 dark:text-white">${p.nama_pasien || '-'}</td>
+                                <td class="p-3">${p.nik_nrp || '-'}</td>
+                                <td class="p-3"><span class="px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-700 text-[10px] font-bold">${p.kategori || 'Umum'}</span></td>
+                                <td class="p-3">${p.dokter_nama || '-'}</td>
+                                <td class="p-3">${p.tanggal_kunjungan || '-'}</td>
                                 <td class="p-3 text-center">
-                                    <button onclick="hapusPendaftaran(${p.id})" class="text-red-500 hover:text-red-700 font-bold text-[11px]">Hapus</button>
+                                    <button onclick="hapusPendaftaran(${p.id_pendaftaran})" class="text-red-500 hover:text-red-700 font-bold text-[11px]">Hapus</button>
                                 </td>
                             </tr>
                         `;
                     });
                 }
             }
-
-            
-            // Table Dokter
-            const tbodyDokter = document.getElementById('tabel-internal-dokter');
-            if (tbodyDokter) {
-                tbodyDokter.innerHTML = '';
-                dataDokter.forEach(d => {
-                    tbodyDokter.innerHTML += `
-                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                            <td class="p-3 font-semibold text-gray-900 dark:text-white">${d.nama}</td>
-                            <td class="p-3 text-maroon dark:text-red-400 font-semibold">${d.spesialis}</td>
-                            <td class="p-3">${d.hari}</td>
-                            <td class="p-3">${d.jam}</td>
-                            <td class="p-3 text-center">
-                                <button onclick="hapusDokter(${d.id})" class="text-red-500 hover:text-red-700 font-bold text-[11px]">Hapus</button>
-                            </td>
-                        </tr>
-                    `;
-                });
+        })
+        .catch(err => {
+            console.error('Gagal mengambil data dari MySQL:', err);
+            if (tbodyPendaftaran) {
+                tbodyPendaftaran.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-red-500">Gagal terhubung ke database.</td></tr>`;
             }
+        });
 
-            // Table Pengaduan
-            const tbodyPengaduan = document.getElementById('tabel-internal-pengaduan');
-            if (tbodyPengaduan) {
-                tbodyPengaduan.innerHTML = '';
-                if (pengaduanList.length === 0) {
-                    tbodyPengaduan.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-gray-400">Belum ada pengaduan.</td></tr>`;
-                } else {
-                    pengaduanList.forEach(p => {
-                        tbodyPengaduan.innerHTML += `
-                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                                <td class="p-3 font-bold text-amber-600 dark:text-amber-400">${p.id}</td>
-                                <td class="p-3 font-semibold text-gray-900 dark:text-white">${p.nama}</td>
-                                <td class="p-3"><span class="px-2 py-0.5 rounded bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300 text-[10px] font-bold">${p.kategori}</span></td>
-                                <td class="p-3 text-gray-600 dark:text-gray-300 max-w-xs truncate">${p.isi}</td>
-                                <td class="p-3 text-center">
-    <div class="flex items-center justify-center gap-2">
+    // 2. Render Statistik & Tabel Lain (Dokter & Pengaduan)
+    const statTotalDokter = document.getElementById('stat-total-dokter');
+    if (statTotalDokter) statTotalDokter.innerText = dataDokter.length;
 
-        <!-- Tombol Tanggapi -->
-        <button
-            onclick="tanggapiPengaduan('${p.id}')"
-            class="text-blue-600 hover:text-blue-800 font-bold text-[11px] flex items-center gap-1"
-            title="Tanggapi Pengaduan">
+    const tbodyDokter = document.getElementById('tabel-internal-dokter');
+    if (tbodyDokter) {
+        tbodyDokter.innerHTML = '';
+        dataDokter.forEach(d => {
+            tbodyDokter.innerHTML += `
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                    <td class="p-3 font-semibold text-gray-900 dark:text-white">${d.nama}</td>
+                    <td class="p-3 text-maroon dark:text-red-400 font-semibold">${d.spesialis}</td>
+                    <td class="p-3">${d.hari}</td>
+                    <td class="p-3">${d.jam}</td>
+                    <td class="p-3 text-center">
+                        <button onclick="hapusDokter(${d.id})" class="text-red-500 hover:text-red-700 font-bold text-[11px]">Hapus</button>
+                    </td>
+                </tr>
+            `;
+        });
+    }
 
-            <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
-            Tanggapi
+    const statTotalPengaduan = document.getElementById('stat-total-pengaduan');
+    if (statTotalPengaduan) statTotalPengaduan.innerText = pengaduanList.length;
 
-        </button>
-
-        <!-- Tombol Hapus -->
-        <button
-            onclick="hapusPengaduan('${p.id}')"
-            class="text-red-500 hover:text-red-700 font-bold text-[11px] flex items-center gap-1"
-            title="Hapus Pengaduan">
-
-            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-            Hapus
-
-        </button>
-
-    </div>
-</td>
-                            </tr>
-                        `;
-                    });
-                }
-            }
+    const tbodyPengaduan = document.getElementById('tabel-internal-pengaduan');
+    if (tbodyPengaduan) {
+        tbodyPengaduan.innerHTML = '';
+        if (pengaduanList.length === 0) {
+            tbodyPengaduan.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-gray-400">Belum ada pengaduan.</td></tr>`;
+        } else {
+            pengaduanList.forEach(p => {
+                tbodyPengaduan.innerHTML += `
+                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                        <td class="p-3 font-bold text-amber-600 dark:text-amber-400">${p.id}</td>
+                        <td class="p-3 font-semibold text-gray-900 dark:text-white">${p.nama}</td>
+                        <td class="p-3"><span class="px-2 py-0.5 rounded bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300 text-[10px] font-bold">${p.kategori}</span></td>
+                        <td class="p-3 text-gray-600 dark:text-gray-300 max-w-xs truncate">${p.isi}</td>
+                        <td class="p-3 text-center">
+                            <div class="flex items-center justify-center gap-2">
+                                <button onclick="tanggapiPengaduan('${p.id}')" class="text-blue-600 hover:text-blue-800 font-bold text-[11px] flex items-center gap-1">
+                                    <i data-lucide="message-circle" class="w-3.5 h-3.5"></i> Tanggapi
+                                </button>
+                                <button onclick="hapusPengaduan('${p.id}')" class="text-red-500 hover:text-red-700 font-bold text-[11px] flex items-center gap-1">
+                                    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Hapus
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
         }
+    }
+}
 
         function hapusPendaftaran(id) {
             if (!confirm('Hapus data antrean ini?')) return;
