@@ -142,14 +142,14 @@
 <div class="space-y-16 pb-16" id="view-home">
 <!-- HERO SECTION -->
 <section class="relative overflow-hidden bg-cream dark:bg-gray-900 pt-8 pb-12 transition-colors duration-300" id="home">
-<video autoplay="" class="absolute inset-0 w-full h-full object-cover opacity-70 z-0 pointer-events-none" loop="" muted="" playsinline="">
-<source src="backgroundrsbakpol.mp4" type="video/mp4"/>
+<video autoplay="" class="absolute inset-0 w-full h-full object-cover opacity-50 z-0 pointer-events-none" loop="" muted="" playsinline="">
+<source src="background.mp4" type="video/mp4"/>
 </video>
 <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
 <div class="lg:col-span-6 space-y-6 z-10">
 <div class="inline-flex items-center space-x-2 bg-maroon-light dark:bg-red-950/40 border border-red-100 dark:border-red-900/50 px-3 py-1.5 rounded-full">
 <i class="w-4 h-4 text-maroon" data-lucide="shield-check"></i>
-<span class="text-xs font-bold text-maroon tracking-wide uppercase">RUMAH SAKIT TERAKREDITASI KELAS UTAMA</span>
+<span class="text-xs font-bold text-maroon tracking-wide uppercase">RUMAH SAKIT TERAKREDITASI PARIPURNA</span>
 </div>
 <h1 class="text-4xl lg:text-5xl font-black text-gray-900 dark:text-white leading-tight">
                             Pelayanan Kesehatan Profesional untuk <span class="text-maroon">Masyarakat Indonesia</span>
@@ -560,36 +560,6 @@
                             </p>
 </div>
 </div></div>
-<!-- Instalasi Bedah Sentral -->
-<div class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition group"><div class="h-44 overflow-hidden bg-gray-100 dark:bg-gray-700"><img alt="Poliklinik Spesialis" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" src="bacgkroun-rsb-akpol.jpeg"/></div><div class="p-5 flex items-start space-x-4">
-<div class="w-12 h-12 bg-red-50 dark:bg-red-950/50 text-maroon rounded-xl flex items-center justify-center flex-shrink-0">
-<i class="w-6 h-6" data-lucide="building-2"></i>
-</div>
-<div class="space-y-1">
-<h4 class="font-bold text-gray-900 dark:text-white text-sm">
-                                Instalasi Bedah Sentral
-                            </h4>
-<p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                                Fasilitas tindakan operasi bedah umum dan spesialis dengan 
-                                standar sterilitas tinggi serta tim medis profesional.
-                            </p>
-</div>
-</div></div>
-<!-- Card Radiologi & X-Ray -->
-<div class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition group"><div class="h-44 overflow-hidden bg-gray-100 dark:bg-gray-700"><img alt="Poliklinik Spesialis" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" src="bacgkroun-rsb-akpol.jpeg"/></div><div class="p-5 flex items-start space-x-4">
-<div class="w-12 h-12 bg-red-50 dark:bg-red-950/50 text-maroon rounded-xl flex items-center justify-center flex-shrink-0">
-<i class="w-6 h-6" data-lucide="building-2"></i>
-</div>
-<div class="space-y-1">
-<h4 class="font-bold text-gray-900 dark:text-white text-sm">
-                                Radiologi & X-Ray
-                            </h4>
-<p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                                Pemeriksaan pencitraan medis rontgen/X-Ray digital yang akurat
-                                dan cepat untuk mendukung diagnosis dokter
-                            </p>
-</div>
-</div></div>
 </div>
 </section>
 </div>
@@ -634,8 +604,8 @@
 <p class="text-xs text-gray-500 dark:text-gray-400">Cari jadwal dokter spesialis RS Bhayangkara Akpol</p>
 </div>
 <div class="flex flex-col sm:flex-row gap-3">
-<input class="flex-grow p-2.5 bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-xl text-xs focus:outline-none focus:border-maroon dark:text-white" id="search-dokter" oninput="renderJadwalDokter()" placeholder="Cari nama dokter / spesialis..." type="text"/>
-<select class="p-2.5 bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-xl text-xs focus:outline-none focus:border-maroon dark:text-white" id="filter-hari" onchange="renderJadwalDokter()">
+<input class="flex-grow p-2.5 bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-xl text-xs focus:outline-none focus:border-maroon dark:text-white" id="search-dokter" oninput="filterDokter()" placeholder="Cari nama dokter / spesialis..." type="text"/>
+<select class="p-2.5 bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-xl text-xs focus:outline-none focus:border-maroon dark:text-white" id="filter-hari" onchange="filterDokter()">
 <option value="">Semua Hari</option>
 <option value="Senin">Senin</option>
 <option value="Selasa">Selasa</option>
@@ -990,7 +960,7 @@
 <!-- Foto dan isi Sejarah Singkat -->
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-7 items-start">
 <div class="overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 shadow-md bg-gray-100">
-<img alt="Gedung Rumah Sakit Bhayangkara TK. III Akpol" class="w-full h-72 lg:h-80 object-cover" loading="lazy" src="bacgkroun-rsb-akpol.jpeg"/>
+<img alt="Gedung Rumah Sakit Bhayangkara TK. III Akpol" class="w-full h-72 lg:h-80 object-cover" loading="lazy" src="sejarah.jpeg"/>
 </div>
 <div class="space-y-4">
 <p>
@@ -1858,7 +1828,9 @@
         let pengaduanList = JSON.parse(localStorage.getItem('rs_pengaduan')) || [];
 
         // Data master kamar & bed
-        let kamarList = JSON.parse(localStorage.getItem('rs_kamar_list')) || [
+        const KAMAR_STORAGE_KEY = 'rs_kamar_bed';
+        const kamarDataTersimpan = localStorage.getItem(KAMAR_STORAGE_KEY) || localStorage.getItem('rs_kamar_list');
+        let kamarList = kamarDataTersimpan ? JSON.parse(kamarDataTersimpan) : [
             { id: 1, kelas: 'VIP', ruangan: 'Mawar VIP', kapasitas: 4, terisi: 2 },
             { id: 2, kelas: 'Kelas I', ruangan: 'Melati 1', kapasitas: 6, terisi: 3 },
             { id: 3, kelas: 'Kelas II', ruangan: 'Melati 2', kapasitas: 8, terisi: 5 },
@@ -1878,6 +1850,7 @@
             initDarkModePreference();
             setMinDatePendaftaran();
             renderKamarBed();
+            updateKetersediaanPublik();
             renderBeritaAdmin();
             renderBeritaBeranda();
             renderBeritaHalaman();
@@ -2018,7 +1991,8 @@
         // =====================================================
 
         function simpanKamarList() {
-            localStorage.setItem('rs_kamar_list', JSON.stringify(kamarList));
+                localStorage.setItem(KAMAR_STORAGE_KEY, JSON.stringify(kamarList));
+                updateKetersediaanPublik();
         }
 
         function renderKamarBed() {
@@ -2981,7 +2955,7 @@ function updateKetersediaanPublik() {
                 <p class="text-[10px]
                     text-gray-400 mt-1">
 
-                    ${kamar.nama}
+                    ${kamar.nama || kamar.ruangan}
 
                 </p>
 
@@ -3068,23 +3042,13 @@ function updateKetersediaanPublik() {
 // LIVE UPDATE OTOMATIS
 // =====================================================
 
-// Update setiap 1 detik
-setInterval(function() {
-
-    updateKetersediaanPublik();
-
-}, 1000);
-
-
 // Update ketika data localStorage berubah
+updateKetersediaanPublik();
+
 window.addEventListener('storage', function(event) {
-
     if (event.key === 'rs_kamar_bed') {
-
         updateKetersediaanPublik();
-
     }
-
 });
 
         // 6. MANAGEMENT ADMIN DASHBOARD
@@ -3442,9 +3406,7 @@ window.addEventListener('storage', function(event) {
             {id:'fasilitas-3', nama:'Ambulans Gawat Darurat', desc:'Armada mobil darurat medis dengan peralatan penunjang hidup yang lengkap.', icon:'ambulance', foto:'bacgkroun-rsb-akpol.jpeg'},
             {id:'fasilitas-4', nama:'Ruang Rawat Inap & ICU', desc:'Kamar perawatan yang bersih, nyaman, steril, serta dilengkapi fasilitas pengawasan intensif.', icon:'bed-double', foto:'bacgkroun-rsb-akpol.jpeg'},
             {id:'fasilitas-5', nama:'Radiologi & USG', desc:'Pemeriksaan pencitraan medis radiologi modern untuk diagnosa penyakit akurat.', icon:'activity', foto:'bacgkroun-rsb-akpol.jpeg'},
-            {id:'fasilitas-6', nama:'Poliklinik Spesialis', desc:'Ruang konsul dokter spesialis THT, Penyakit Dalam, Anak, Bedah Umum dan Kedokteran Kepolisian.', icon:'building-2', foto:'bacgkroun-rsb-akpol.jpeg'},
-            {id:'fasilitas-7', nama:'Instalasi Bedah Sentral', desc:'Fasilitas tindakan operasi bedah umum dan spesialis dengan standar sterilitas tinggi serta tim medis profesional.', icon:'scalpel', foto:'bacgkroun-rsb-akpol.jpeg'},
-            {id:'fasilitas-8', nama:'Radiologi & X-Ray', desc:'Pemeriksaan pencitraan medis rontgen/X-Ray digital yang akurat dan cepat untuk mendukung diagnosis dokter.', icon:'scan-line', foto:'bacgkroun-rsb-akpol.jpeg'}
+            {id:'fasilitas-6', nama:'Poliklinik Spesialis', desc:'Ruang konsul dokter spesialis THT, Penyakit Dalam, Anak, Bedah Umum dan Kedokteran Kepolisian.', icon:'building-2', foto:'bacgkroun-rsb-akpol.jpeg'}
         ];
         let dataFasilitas = JSON.parse(localStorage.getItem('rs_fasilitas_list') || 'null') || fasilitasDefault;
         let fotoFasilitasEdit = '';
@@ -3574,14 +3536,8 @@ window.addEventListener('storage', function(event) {
         document.getElementById('modal-edit-fasilitas')?.addEventListener('click',e=>{if(e.target.id==='modal-edit-fasilitas')tutupModalEditFasilitas();});
 
         function initFasilitasData() {
-            const savedFasilitas = JSON.parse(localStorage.getItem('rs_fasilitas_list') || 'null');
-            dataFasilitas = savedFasilitas || [...fasilitasDefault];
-            const existingIds = new Set(dataFasilitas.map(f => f.id));
-            const fasilitasBaru = fasilitasDefault.filter(f => !existingIds.has(f.id));
-            if (fasilitasBaru.length) {
-                dataFasilitas.push(...fasilitasBaru);
-                localStorage.setItem('rs_fasilitas_list', JSON.stringify(dataFasilitas));
-            }
+            if (!localStorage.getItem('rs_fasilitas_list')) localStorage.setItem('rs_fasilitas_list', JSON.stringify(fasilitasDefault));
+            dataFasilitas = JSON.parse(localStorage.getItem('rs_fasilitas_list') || '[]');
             renderFasilitasSemua();
         }
         if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFasilitasData); else initFasilitasData();
