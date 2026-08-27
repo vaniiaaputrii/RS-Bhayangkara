@@ -1,20 +1,20 @@
 // DATA DOKTER TERUPDATE BERDASARKAN JADWAL PRAKTIK RS BHAYANGKARA AKPOL[cite: 2]
 const dokterList = [
-    { id: 1, nama: "dr. HENRY SANTOSO, Sp. PD", spesialis: "SPESIALIS PENYAKIT DALAM", hari: "Senin, Rabu, Jumat", jam: "Senin & Rabu: 09.00-11.00 | Jumat: 10.00-11.00" },
-    { id: 2, nama: "dr. SHINTA HARFINIA, Sp. Rad", spesialis: "SPESIALIS RADIOLOGI", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin-Rabu: 08.00-12.00 | Kamis: 09.00-11.45 | Jumat: 11.30-15.00" },
-    { id: 3, nama: "dr. WAHYU HENDRA PRABOWO, M.Biomed, Sp.B, FINACS", spesialis: "SPESIALIS BEDAH", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin & Rabu: 12.00-14.00 | Selasa & Kamis: 09.00-11.00 | Jumat: 12.00-14.00" },
-    { id: 4, nama: "dr. ICHDINAVIA HARSAYA, Sp. KJ", spesialis: "SPESIALIS KEDOKTERAN JIWA", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin & Rabu: 08.00-10.00 & 15.00-16.00 | Selasa, Kamis, Jumat: 08.00-10.00" },
-    { id: 5, nama: "dr. RISMA GAYANTI, Sp.FM", spesialis: "SPESIALIS FORENSIK DAN MEDIKOLEGAL", hari: "Senin, Selasa, Rabu", jam: "14.00-16.00" },
-    { id: 6, nama: "dr. NANUNG BUDI PRAKOSO, Sp. N", spesialis: "SPESIALIS SARAF", hari: "Senin, Rabu, Jumat", jam: "16.00-17.00" },
-    { id: 7, nama: "dr. IVANDER PURVANCE, Sp. OT", spesialis: "SPESIALIS ORTHOPEDI", hari: "Rabu, Jumat", jam: "10.00-12.00" },
-    { id: 8, nama: "dr. RETNO HARTANTI, Sp. KFR", spesialis: "SPESIALIS REHABILITASI MEDIK", hari: "Selasa, Jumat", jam: "16.00-17.00" },
-    { id: 9, nama: "dr. FERRY SANTOSO, Sp. OG", spesialis: "SPESIALIS KANDUNGAN & KEBIDANAN", hari: "Senin, Rabu, Kamis", jam: "14.00-16.00" },
-    { id: 10, nama: "dr. WINRES SAPTO PRIAMBODO, Sp. A", spesialis: "SPESIALIS ANAK", hari: "Senin, Selasa, Rabu, Kamis", jam: "15.30-16.30" },
-    { id: 11, nama: "INDRA DWI PURNOMO, M. Psi., Phd. Psikolog", spesialis: "PSIKOLOG KLINIS", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "12.00-14.00" },
-    { id: 12, nama: "dr. AGRI VINA BRAHMANTIANI SURYONO, Sp.PK", spesialis: "PATOLOGI KLINIK", hari: "Rabu, Kamis, Sabtu", jam: "Rabu & Kamis: 17.00-19.00 | Sabtu: 18.00-19.00" },
-    { id: 13, nama: "dr. KHUMAYROH RACHMAWATI BUANA, Sp.DVE", spesialis: "SPESIALIS KULIT, KELAMIN DAN KECANTIKAN", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin-Kamis: 12.00-13.00 | Jumat: 14.00-15.00" },
-    { id: 14, nama: "dr. NI MADE ATIKA NURINA YANTI SUTARTA, Sp.KJ", spesialis: "SPESIALIS KEDOKTERAN JIWA", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin & Rabu: 09.00-11.00 | Selasa, Kamis, Jumat: 14.00-16.00" },
-    { id: 15, nama: "dr. JOSE TYMOTHY MANUPUTTY, Sp.OG", spesialis: "SPESIALIS KANDUNGAN & KEBIDANAN", hari: "Senin, Selasa, Rabu, Kamis, Jumat, Sabtu", jam: "Senin & Kamis: 18.00-19.30 | Selasa: 15.00-17.00 | Rabu: 19.00-20.00 | Jumat: 09.00-11.00 | Sabtu: 15.30-17.30" }
+    { id: 1, nama: "dr. HENRY SANTOSO, Sp. PD", spesialis: "SPESIALIS PENYAKIT DALAM", hari: "Senin, Rabu, Jumat", jam: "Senin & Rabu: 09.00-11.00 | Jumat: 10.00-11.00" , foto: "assets/images/dokter/dokter-1.svg" },
+    { id: 2, nama: "dr. SHINTA HARFINIA, Sp. Rad", spesialis: "SPESIALIS RADIOLOGI", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin-Rabu: 08.00-12.00 | Kamis: 09.00-11.45 | Jumat: 11.30-15.00" , foto: "assets/images/dokter/dokter-2.svg" },
+    { id: 3, nama: "dr. WAHYU HENDRA PRABOWO, M.Biomed, Sp.B, FINACS", spesialis: "SPESIALIS BEDAH", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin & Rabu: 12.00-14.00 | Selasa & Kamis: 09.00-11.00 | Jumat: 12.00-14.00" , foto: "assets/images/dokter/dokter-3.svg" },
+    { id: 4, nama: "dr. ICHDINAVIA HARSAYA, Sp. KJ", spesialis: "SPESIALIS KEDOKTERAN JIWA", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin & Rabu: 08.00-10.00 & 15.00-16.00 | Selasa, Kamis, Jumat: 08.00-10.00" , foto: "assets/images/dokter/dokter-4.svg" },
+    { id: 5, nama: "dr. RISMA GAYANTI, Sp.FM", spesialis: "SPESIALIS FORENSIK DAN MEDIKOLEGAL", hari: "Senin, Selasa, Rabu", jam: "14.00-16.00" , foto: "assets/images/dokter/dokter-5.svg" },
+    { id: 6, nama: "dr. NANUNG BUDI PRAKOSO, Sp. N", spesialis: "SPESIALIS SARAF", hari: "Senin, Rabu, Jumat", jam: "16.00-17.00" , foto: "assets/images/dokter/dokter-6.svg" },
+    { id: 7, nama: "dr. IVANDER PURVANCE, Sp. OT", spesialis: "SPESIALIS ORTHOPEDI", hari: "Rabu, Jumat", jam: "10.00-12.00" , foto: "assets/images/dokter/dokter-7.svg" },
+    { id: 8, nama: "dr. RETNO HARTANTI, Sp. KFR", spesialis: "SPESIALIS REHABILITASI MEDIK", hari: "Selasa, Jumat", jam: "16.00-17.00" , foto: "assets/images/dokter/dokter-8.svg" },
+    { id: 9, nama: "dr. FERRY SANTOSO, Sp. OG", spesialis: "SPESIALIS KANDUNGAN & KEBIDANAN", hari: "Senin, Rabu, Kamis", jam: "14.00-16.00" , foto: "assets/images/dokter/dokter-9.svg" },
+    { id: 10, nama: "dr. WINRES SAPTO PRIAMBODO, Sp. A", spesialis: "SPESIALIS ANAK", hari: "Senin, Selasa, Rabu, Kamis", jam: "15.30-16.30" , foto: "assets/images/dokter/dokter-10.svg" },
+    { id: 11, nama: "INDRA DWI PURNOMO, M. Psi., Phd. Psikolog", spesialis: "PSIKOLOG KLINIS", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "12.00-14.00" , foto: "assets/images/dokter/dokter-11.svg" },
+    { id: 12, nama: "dr. AGRI VINA BRAHMANTIANI SURYONO, Sp.PK", spesialis: "PATOLOGI KLINIK", hari: "Rabu, Kamis, Sabtu", jam: "Rabu & Kamis: 17.00-19.00 | Sabtu: 18.00-19.00" , foto: "assets/images/dokter/dokter-12.svg" },
+    { id: 13, nama: "dr. KHUMAYROH RACHMAWATI BUANA, Sp.DVE", spesialis: "SPESIALIS KULIT, KELAMIN DAN KECANTIKAN", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin-Kamis: 12.00-13.00 | Jumat: 14.00-15.00" , foto: "assets/images/dokter/dokter-13.svg" },
+    { id: 14, nama: "dr. NI MADE ATIKA NURINA YANTI SUTARTA, Sp.KJ", spesialis: "SPESIALIS KEDOKTERAN JIWA", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin & Rabu: 09.00-11.00 | Selasa, Kamis, Jumat: 14.00-16.00" , foto: "assets/images/dokter/dokter-14.svg" },
+    { id: 15, nama: "dr. JOSE TYMOTHY MANUPUTTY, Sp.OG", spesialis: "SPESIALIS KANDUNGAN & KEBIDANAN", hari: "Senin, Selasa, Rabu, Kamis, Jumat, Sabtu", jam: "Senin & Kamis: 18.00-19.30 | Selasa: 15.00-17.00 | Rabu: 19.00-20.00 | Jumat: 09.00-11.00 | Sabtu: 15.30-17.30" , foto: "assets/images/dokter/dokter-15.svg" }
 ];
 
 // DATA STATE LOCALSTORAGE
@@ -135,15 +135,21 @@ function renderDokter(filtered = dokterList) {
 
     filtered.forEach(doc => {
         grid.innerHTML += `
-            <div class="p-4 border rounded-xl bg-gray-50 flex justify-between items-center hover:border-maroon transition shadow-sm">
-                <div>
-                    <h4 class="font-bold text-gray-900 text-xs sm:text-sm">${doc.nama}</h4>
-                    <p class="text-[11px] text-maroon font-semibold mt-0.5">${doc.spesialis}</p>
-                    <p class="text-[10px] sm:text-xs text-gray-500 mt-2">🗓 ${doc.hari}</p>
-                    <p class="text-[10px] sm:text-xs text-gray-500">⏰ ${doc.jam}</p>
+            <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-2xl bg-gray-50 dark:bg-gray-700/40 flex gap-4 items-center hover:border-maroon hover:shadow-md transition shadow-sm">
+                <img
+                    src="${doc.foto}"
+                    alt="Foto ${doc.nama}"
+                    class="w-20 h-20 sm:w-[88px] sm:h-[88px] rounded-2xl object-cover flex-shrink-0 border-2 border-white dark:border-gray-600 shadow-sm"
+                    onerror="this.src='assets/images/dokter/dokter-1.svg'"
+                />
+                <div class="min-w-0 flex-grow">
+                    <h4 class="font-bold text-gray-900 dark:text-white text-xs sm:text-sm leading-snug">${doc.nama}</h4>
+                    <p class="text-[11px] text-maroon font-semibold mt-1">${doc.spesialis}</p>
+                    <p class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-300 mt-2">🗓 ${doc.hari}</p>
+                    <p class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-300 mt-1">⏰ ${doc.jam}</p>
                 </div>
                 <button onclick="pilihDokterDanDaftar('${doc.nama}')" class="px-3.5 py-2 bg-maroon text-white text-xs font-bold rounded-lg hover:bg-maroon-hover transition shadow-sm flex-shrink-0">
-                    Pilih
+                    Daftar
                 </button>
             </div>
         `;
@@ -156,6 +162,11 @@ function pilihDokterDanDaftar(namaDokter) {
     if (select) {
         select.value = namaDokter;
     }
+}
+
+// Alias untuk tombol pencarian/filter pada HTML
+function renderJadwalDokter() {
+    filterDokter();
 }
 
 function filterDokter() {
@@ -361,36 +372,4 @@ function applyUserSession(user) {
         showPage('home');
         if (btnText) btnText.innerText = "Masuk / Login";
     }
-}
-const formPengaduan = document.getElementById('formPengaduan');
-
-if (formPengaduan) {
-    formPengaduan.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const formData = new FormData();
-        formData.append('nama_pelapor', document.getElementById('nama_pelapor').value);
-        formData.append('no_hp', document.getElementById('no_hp').value);
-        formData.append('email', document.getElementById('email').value);
-        formData.append('kategori_layanan', document.getElementById('kategori_layanan').value);
-        formData.append('isi_pengaduan', document.getElementById('isi_pengaduan').value);
-
-        fetch('api_pengaduan.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                alert('Pengaduan Berhasil!\nKode Pengaduan Anda: ' + data.kode_pengaduan);
-                formPengaduan.reset();
-            } else {
-                alert('Gagal: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Terjadi kesalahan koneksi ke server!');
-        });
-    });
 }
