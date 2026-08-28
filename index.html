@@ -1841,25 +1841,26 @@
         let isAdminLoggedIn = localStorage.getItem('rs_admin_logged') === 'true';
         let statusOperasionalRS = localStorage.getItem('rs_status_ops') || 'Operational';
 
-        document.addEventListener("DOMContentLoaded", () => {
-            lucide.createIcons();
-            populateDokterSelect();
-            renderJadwalDokter();
-            updateAuthUI();
-            updateStatusOperasionalUI();
-            initDarkModePreference();
-            setMinDatePendaftaran();
-            renderKamarBed();
-            updateKetersediaanPublik();
-            renderBeritaAdmin();
-            renderBeritaBeranda();
-            renderBeritaHalaman();
-            resetFormBerita();
-            
-            if (isAdminLoggedIn) {
-                renderInternalTables();
-            }
-        });
+document.addEventListener("DOMContentLoaded", () => {
+    lucide.createIcons();
+    populateDokterSelect();
+    renderJadwalDokter();
+    updateAuthUI();
+    updateStatusOperasionalUI();
+    initDarkModePreference();
+    setMinDatePendaftaran();
+    renderKamarBed();
+    updateKetersediaanPublik();
+
+    // AMBIL DATA BERITA DARI MYSQL DATABASE
+    loadBeritaFromDB();
+
+    resetFormBerita();
+    
+    if (isAdminLoggedIn) {
+        renderInternalTables();
+    }
+});
 
         // 1. NAVIGATION & SINGLE PAGE ROUTING
         function showPage(pageId, sectionId = null) {
@@ -2241,80 +2242,79 @@
             }
         }
 
-        function submitPendaftaran(e) {
-            e.preventDefault();
+        async function submitPendaftaran(e) {
+    e.preventDefault();
 
-            const nama = document.getElementById('reg-nama').value.trim();
-            const nik = document.getElementById('reg-nik').value.trim();
-            const kategori = document.getElementById('reg-kategori').value;
-            const bayar = document.getElementById('reg-bayar').value;
-            const dokter = document.getElementById('reg-dokter').value;
-            const tanggal = document.getElementById('reg-tanggal').value;
+    const dataInput = {
+        nama: document.getElementById('reg-nama').value.trim(),
+        nik: document.getElementById('reg-nik').value.trim(),
+        kategori: document.getElementById('reg-kategori').value,
+        bayar: document.getElementById('reg-bayar').value,
+        dokter: document.getElementById('reg-dokter').value,
+        tanggal: document.getElementById('reg-tanggal').value
+    };
 
-            if (!nama || !nik || !kategori || !bayar || !dokter || !tanggal) {
-                alert('Silakan lengkapi semua data pendaftaran.');
-                return;
-            }
+    try {
+        // Kirim data ke file api_pendaftaran.php
+        const response = await fetch('api_pendaftaran.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataInput)
+        });
 
-            // Nomor antrean berikutnya, tetap aman walaupun data sebelumnya dihapus
-            const nomorTerakhir = pendaftaranList.reduce((max, p) => {
-                const nomor = parseInt(String(p.no || '').replace(/\D/g, ''), 10) || 0;
-                return Math.max(max, nomor);
-            }, 0);
+        const result = await response.json();
 
-            const noAntrean = 'A-' + String(nomorTerakhir + 1).padStart(3, '0');
-
-            const dataBaru = {
-                id: Date.now(),
-                no: noAntrean,
-                nama,
-                nik,
-                kategori,
-                bayar,
-                dokter,
-                tanggal,
-                status: 'Menunggu'
-            };
-
-            // Simpan langsung ke localStorage
-            pendaftaranList.push(dataBaru);
-            localStorage.setItem('rs_pendaftaran', JSON.stringify(pendaftaranList));
-
-            // Tampilkan tiket antrean
-            document.getElementById('tiket-no').innerText = noAntrean;
-            document.getElementById('tiket-info').innerText = `${nama} | ${dokter} | ${tanggal}`;
+        if (result.status === 'success') {
+            // Tampilkan nomor antrean dari MySQL
+            document.getElementById('tiket-no').innerText = result.no_antrean;
+            document.getElementById('tiket-info').innerText = `${dataInput.nama} | ${dataInput.dokter} | ${dataInput.tanggal}`;
             document.getElementById('tiket-pendaftaran').classList.remove('hidden');
-
-            // Reset form
+            
             document.getElementById('form-pendaftaran').reset();
-
-            alert(`Pendaftaran berhasil! Nomor antrean Anda: ${noAntrean}`);
-
-            // Jika admin sedang membuka dashboard, tabel langsung diperbarui
-            if (isAdminLoggedIn) {
-                renderInternalTables();
-            }
+            alert('Pendaftaran berhasil disimpan ke Database MySQL!');
+        } else {
+            alert('Gagal menyimpan ke database: ' + result.message);
         }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan koneksi ke server/database.');
+    }
+}
+        async function submitPengaduan(e) {
+    e.preventDefault();
 
-        function submitPengaduan(e) {
-            e.preventDefault();
-            const nama = document.getElementById('aduan-nama').value || 'Anonim';
-            const kategori = document.getElementById('aduan-kategori').value;
-            const isi = document.getElementById('aduan-isi').value;
+    const dataInput = {
+        nama: document.getElementById('aduan-nama').value || 'Anonim',
+        kategori: document.getElementById('aduan-kategori').value,
+        isi: document.getElementById('aduan-isi').value
+    };
 
-            const tiketId = "ADU-" + Math.floor(1000 + Math.random() * 9000);
-            const data = { id: tiketId, nama, kategori, isi, date: new Date().toLocaleDateString('id-ID') };
+    try {
+        const response = await fetch('api_pengaduan.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataInput)
+        });
 
-            pengaduanList.push(data);
-            localStorage.setItem('rs_pengaduan', JSON.stringify(pengaduanList));
+        const result = await response.json();
 
-            document.getElementById('tiket-aduan-id').innerText = tiketId;
+        if (result.status === 'success') {
+            document.getElementById('tiket-aduan-id').innerText = result.kode_pengaduan;
             document.getElementById('status-pengaduan').classList.remove('hidden');
-
             document.getElementById('form-pengaduan').reset();
-            if (isAdminLoggedIn) renderInternalTables();
+            alert('Pengaduan berhasil masuk ke Database MySQL!');
+        } else {
+            alert('Gagal menyimpan pengaduan: ' + result.message);
         }
-
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Gagal terhubung ke database.');
+    }
+}
         function cetakTiket(elementId) {
             const printContent = document.getElementById(elementId).innerHTML;
             const originalContent = document.body.innerHTML;
@@ -3758,19 +3758,64 @@ window.addEventListener('storage', function(event) {
 
         window.addEventListener('resize', () => updateCarouselBeritaHome());
 
-        function simpanBeritaAdmin(event) {
-            event.preventDefault();
-            const editId=document.getElementById('berita-edit-id').value;
-            const data={id:editId||('BR-'+Date.now()), judul:document.getElementById('berita-judul').value.trim(), kategori:document.getElementById('berita-kategori').value, tanggal:document.getElementById('berita-tanggal').value, gambar:document.getElementById('berita-gambar').value.trim(), ringkasan:document.getElementById('berita-ringkasan').value.trim(), isi:document.getElementById('berita-isi').value.trim(), tampil:document.getElementById('berita-status').checked};
-            if(!data.judul||!data.tanggal||!data.ringkasan||!data.isi){alert('Mohon lengkapi semua data berita yang wajib diisi.');return;}
-            const idx=beritaAdminList.findIndex(item=>item.id===editId);
-            if(idx>=0) beritaAdminList[idx]=data; else beritaAdminList.unshift(data);
-            localStorage.setItem('rs_berita_admin',JSON.stringify(beritaAdminList));
-            renderBeritaAdmin(); renderBeritaBeranda(); renderBeritaHalaman(); resetFormBerita();
-            alert(idx>=0?'Berita berhasil diperbarui.':'Berita berhasil ditambahkan.');
-            if(typeof lucide!=='undefined')lucide.createIcons();
+        async function simpanBeritaAdmin(event) {
+    event.preventDefault();
+
+    const editId = document.getElementById('berita-edit-id').value;
+    const dataInput = {
+        id_berita: editId,
+        judul: document.getElementById('berita-judul').value.trim(),
+        kategori: document.getElementById('berita-kategori').value,
+        tanggal: document.getElementById('berita-tanggal').value,
+        gambar: document.getElementById('berita-gambar').value.trim(),
+        ringkasan: document.getElementById('berita-ringkasan').value.trim(),
+        isi: document.getElementById('berita-isi').value.trim(),
+        tampil: document.getElementById('berita-status').checked ? 1 : 0
+    };
+
+    const methodHTTP = editId ? 'PUT' : 'POST';
+
+    try {
+        const response = await fetch('api_berita.php', {
+            method: methodHTTP,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dataInput)
+        });
+
+        const result = await response.json();
+
+        if (result.status === 'success') {
+            alert(result.message);
+            resetFormBerita();
+            
+            // Muat ulang data langsung dari Database MySQL
+            await loadBeritaFromDB();
+        } else {
+            alert('Gagal simpan berita: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Koneksi ke database berhasil.');
+    }
+}
+
+// Fungsi untuk mengambil data berita dari Database MySQL
+async function loadBeritaFromDB() {
+    try {
+        // Ambil data untuk Admin
+        const resAdmin = await fetch('api_berita.php');
+        if (resAdmin.ok) {
+            beritaAdminList = await resAdmin.json();
+            renderBeritaAdmin();
         }
 
+        // Render untuk tampilan publik/beranda
+        renderBeritaBeranda();
+        renderBeritaHalaman();
+    } catch (error) {
+        console.error('Gagal mengambil data berita dari Database:', error);
+    }
+}
         function editBeritaAdmin(id) {
             const item=beritaAdminList.find(b=>b.id===id); if(!item)return;
             document.getElementById('berita-edit-id').value=item.id; document.getElementById('berita-judul').value=item.judul; document.getElementById('berita-kategori').value=item.kategori; document.getElementById('berita-tanggal').value=item.tanggal; document.getElementById('berita-gambar').value=item.gambar||''; document.getElementById('berita-ringkasan').value=item.ringkasan||''; document.getElementById('berita-isi').value=item.isi||''; document.getElementById('berita-status').checked=!!item.tampil;
