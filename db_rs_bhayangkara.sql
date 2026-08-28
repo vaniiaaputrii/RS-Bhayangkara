@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Agu 2026 pada 08.39
+-- Waktu pembuatan: 28 Agu 2026 pada 06.46
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -20,6 +20,38 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_rs_bhayangkara`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `berita`
+--
+
+CREATE TABLE `berita` (
+  `id_berita` int(11) NOT NULL,
+  `judul` varchar(255) NOT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `kategori` varchar(50) NOT NULL DEFAULT 'Edukasi Kesehatan',
+  `tanggal` date NOT NULL,
+  `gambar` varchar(255) DEFAULT 'assets/images/berita/default.jpg',
+  `ringkasan` text NOT NULL,
+  `isi` longtext NOT NULL,
+  `tampil` tinyint(1) NOT NULL DEFAULT 1,
+  `penulis` varchar(100) DEFAULT 'Admin RS',
+  `views` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `berita`
+--
+
+INSERT INTO `berita` (`id_berita`, `judul`, `slug`, `kategori`, `tanggal`, `gambar`, `ringkasan`, `isi`, `tampil`, `penulis`, `views`, `created_at`, `updated_at`) VALUES
+(1, 'Pentingnya Pemeriksaan Kesehatan Rutin (MCU) Bagi Usia Produktif', 'pentingnya-pemeriksaan-kesehatan-rutin-mcu-bagi-usia-produktif', 'Edukasi Kesehatan', '2026-08-02', 'mcu.jpeg', 'Pencegahan dini terhadap penyakit kronis menjadi langkah terpenting dalam menjaga kualitas hidup dan stamina kerja.', 'Pemeriksaan kesehatan secara rutin merupakan salah satu langkah penting untuk menjaga kondisi tubuh, khususnya bagi masyarakat pada usia produktif.\n\nMelalui Medical Check Up (MCU), kondisi kesehatan dapat diketahui lebih awal sehingga berbagai risiko gangguan kesehatan dapat mendapatkan perhatian dan penanganan yang sesuai.\n\nPencegahan dini terhadap penyakit kronis menjadi langkah penting dalam menjaga kualitas hidup dan stamina dalam menjalankan aktivitas sehari-hari.', 1, 'Admin RS', 124, '2026-08-28 04:19:28', '2026-08-28 04:19:28'),
+(2, 'Bakti Kesehatan RS Bhayangkara Akpol untuk Masyarakat Semarang', 'bakti-kesehatan-rs-bhayangkara-akpol-untuk-masyarakat-semarang', 'Kegiatan RS', '2026-07-28', 'bakti.jpg', 'Pelaksanaan pengobatan gratis dan konsultasi kesehatan gratis yang diselenggarakan dalam rangka memperingati Hari Bhayangkara.', 'RS Bhayangkara Akpol turut melaksanakan kegiatan bakti kesehatan sebagai bentuk kepedulian terhadap kesehatan masyarakat di Kota Semarang.\n\nKegiatan tersebut mencakup pelayanan pengobatan gratis dan konsultasi kesehatan gratis bagi masyarakat.\n\nKegiatan bakti kesehatan diselenggarakan dalam rangka memperingati Hari Bhayangkara serta sebagai bentuk kontribusi RS Bhayangkara Akpol.', 1, 'Humas RS', 210, '2026-08-28 04:19:28', '2026-08-28 04:19:28'),
+(3, 'Menjaga Kesehatan Telinga, Hidung, dan Tenggorokan di Musim Pancaroba', 'menjaga-kesehatan-telinga-hidung-dan-tenggorokan-di-musim-pancaroba', 'Tips Medis', '2026-07-15', 'THT.jpg', 'Panduan dari dokter spesialis THT RS Bhayangkara Akpol untuk mencegah infeksi dan alergi pada saluran pernapasan.', 'Perubahan cuaca pada musim pancaroba dapat meningkatkan risiko gangguan pada saluran pernapasan, termasuk telinga, hidung, dan tenggorokan.\n\nMenjaga kebersihan diri, menjaga daya tahan tubuh, serta memperhatikan kondisi lingkungan merupakan beberapa langkah yang dapat dilakukan untuk membantu menjaga kesehatan.', 1, 'Tim Medis', 95, '2026-08-28 04:19:28', '2026-08-28 04:19:28'),
+(5, 'ppp', 'ppp', 'Edukasi Kesehatan', '2026-08-28', '', 'pppp', 'p', 1, 'Admin RS', 0, '2026-08-28 04:44:08', '2026-08-28 04:44:08');
 
 -- --------------------------------------------------------
 
@@ -201,6 +233,14 @@ INSERT INTO `users` (`id_user`, `username`, `email`, `password`, `nama_lengkap`,
 --
 
 --
+-- Indeks untuk tabel `berita`
+--
+ALTER TABLE `berita`
+  ADD PRIMARY KEY (`id_berita`),
+  ADD KEY `idx_kategori` (`kategori`),
+  ADD KEY `idx_tampil_tanggal` (`tampil`,`tanggal`);
+
+--
 -- Indeks untuk tabel `dokter`
 --
 ALTER TABLE `dokter`
@@ -253,6 +293,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
+
+--
+-- AUTO_INCREMENT untuk tabel `berita`
+--
+ALTER TABLE `berita`
+  MODIFY `id_berita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `dokter`
