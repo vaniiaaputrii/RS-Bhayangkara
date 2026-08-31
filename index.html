@@ -114,6 +114,7 @@
 <div class="absolute left-0 mt-0 w-52 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl shadow-lg py-2 hidden group-hover:block transition-all z-50">
 <button class="block w-full text-left px-4 py-2 text-xs text-gray-700 dark:text-gray-200 hover:bg-red-50 dark:hover:bg-gray-700 hover:text-maroon font-medium" onclick="showPage('informasi', 'jadwal')">Jadwal Dokter</button>
 <button class="block w-full text-left px-4 py-2 text-xs text-gray-700 dark:text-gray-200 hover:bg-red-50 dark:hover:bg-gray-700 hover:text-maroon font-medium" onclick="showPage('informasi', 'pendaftaran')">Pendaftaran Online</button>
+<button class="block w-full text-left px-4 py-2 text-xs text-gray-700 dark:text-gray-200 hover:bg-red-50 dark:hover:bg-gray-700 hover:text-maroon font-medium" onclick="showPage('informasi', 'kamar')">Ketersediaan Kamar</button>
 </div>
 </div>
 <button class="nav-link hover:text-maroon transition" id="nav-fasilitas" onclick="showPage('fasilitas')">
@@ -213,46 +214,6 @@
 <h4 class="font-bold text-gray-900 dark:text-white text-sm">Fasilitas Lengkap</h4>
 <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 leading-snug">Peralatan medis modern dan lengkap.</p>
 </div>
-</div>
-</div>
-</section>
-<!-- ================= KETERSEDIAAN KAMAR REAL-TIME ================= -->
-<section class="max-w-7xl mx-auto px-6">
-<div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 space-y-4">
-<!-- HEADER -->
-<div class="flex justify-between items-center border-b dark:border-gray-700 pb-3">
-<div>
-<h3 class="font-bold text-gray-900 dark:text-white text-sm flex items-center space-x-2">
-<i class="w-4 h-4 text-maroon" data-lucide="activity">
-</i>
-<span>
-                        Informasi Ketersediaan Kamar Rawat Inap Real-time
-                    </span>
-</h3>
-<p class="text-[11px] text-gray-500 dark:text-gray-400">
-                    Update status sisa bed rawat inap hari ini
-                </p>
-</div>
-<!-- LIVE UPDATE -->
-<button class="text-[10px] bg-emerald-100 text-emerald-700 font-bold px-3 py-1.5 rounded-full hover:bg-emerald-200 transition flex items-center gap-1" id="btn-live-update" onclick="updateKetersediaanPublik()">
-<span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse">
-</span>
-
-                Live Update
-
-            </button>
-</div>
-<!-- DATA KAMAR -->
-<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center" id="public-ketersediaan-kamar">
-<!-- Diisi otomatis JavaScript -->
-</div>
-<!-- LAST UPDATE -->
-<div class="text-right">
-<span class="text-[9px] text-gray-400" id="ketersediaan-last-update">
-
-                Memuat data...
-
-            </span>
 </div>
 </div>
 </section>
@@ -501,7 +462,7 @@
 </div>
 </div></div>
 <!-- Ambulans -->
-<div class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition group"><div class="h-44 overflow-hidden bg-gray-100 dark:bg-gray-700"><img alt="Ambulans Gawat Darurat" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" src="bacgkroun-rsb-akpol.jpeg"/></div><div class="p-5 flex items-start space-x-4">
+<div class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition group"><div class="h-44 overflow-hidden bg-gray-100 dark:bg-gray-700"><img alt="Ambulans Gawat Darurat" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" src="assets/images/ambulance.jpeg"/></div><div class="p-5 flex items-start space-x-4">
 <div class="w-12 h-12 bg-red-50 dark:bg-red-950/50 text-maroon rounded-xl flex items-center justify-center flex-shrink-0">
 <i class="w-6 h-6" data-lucide="ambulance"></i>
 </div>
@@ -596,6 +557,10 @@
 <i class="w-4 h-4" data-lucide="file-text"></i>
 <span>Pendaftaran Online</span>
 </button>
+<button class="py-3 px-8 text-sm font-bold border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-maroon transition flex items-center space-x-2" id="tab-btn-kamar" onclick="switchInfoTab('kamar')">
+<i class="w-4 h-4" data-lucide="bed"></i>
+<span>Ketersediaan Kamar</span>
+</button>
 </div>
 <!-- TAB 1: JADWAL DOKTER -->
 <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 space-y-6" id="tab-content-jadwal">
@@ -673,6 +638,50 @@
 </div>
 </div>
 </div>
+<!-- TAB 3: KETERSEDIAAN KAMAR -->
+<div class="hidden" id="tab-content-kamar">
+<section class="max-w-7xl mx-auto">
+
+<div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 space-y-4">
+<!-- HEADER -->
+<div class="flex justify-between items-center border-b dark:border-gray-700 pb-3">
+<div>
+<h3 class="font-bold text-gray-900 dark:text-white text-sm flex items-center space-x-2">
+<i class="w-4 h-4 text-maroon" data-lucide="activity">
+</i>
+<span>
+                        Informasi Ketersediaan Kamar Rawat Inap Real-time
+                    </span>
+</h3>
+<p class="text-[11px] text-gray-500 dark:text-gray-400">
+                    Update status sisa bed rawat inap hari ini
+                </p>
+</div>
+<!-- LIVE UPDATE -->
+<button class="text-[10px] bg-emerald-100 text-emerald-700 font-bold px-3 py-1.5 rounded-full hover:bg-emerald-200 transition flex items-center gap-1" id="btn-live-update" onclick="updateKetersediaanPublik()">
+<span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse">
+</span>
+
+                Live Update
+
+            </button>
+</div>
+<!-- DATA KAMAR -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center" id="public-ketersediaan-kamar">
+<!-- Diisi otomatis JavaScript -->
+</div>
+<!-- LAST UPDATE -->
+<div class="text-right">
+<span class="text-[9px] text-gray-400" id="ketersediaan-last-update">
+
+                Memuat data...
+
+            </span>
+</div>
+</div>
+</section>
+</div>
+
 </div>
 <!-- ==================== VIEW: HALAMAN LAYANAN ==================== -->
 <div class="hidden max-w-7xl mx-auto px-6 py-10 space-y-10" id="view-layanan">
@@ -2126,19 +2135,30 @@ document.addEventListener("DOMContentLoaded", () => {
         function switchInfoTab(tab) {
             const btnJadwal = document.getElementById('tab-btn-jadwal');
             const btnPendaftaran = document.getElementById('tab-btn-pendaftaran');
+            const btnKamar = document.getElementById('tab-btn-kamar');
             const contentJadwal = document.getElementById('tab-content-jadwal');
             const contentPendaftaran = document.getElementById('tab-content-pendaftaran');
+            const contentKamar = document.getElementById('tab-content-kamar');
 
-            if (tab === 'jadwal') {
-                btnJadwal.className = "py-3 px-8 text-sm font-bold border-b-2 border-maroon text-maroon transition flex items-center space-x-2";
-                btnPendaftaran.className = "py-3 px-8 text-sm font-bold border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-maroon transition flex items-center space-x-2";
-                contentJadwal.classList.remove('hidden');
-                contentPendaftaran.classList.add('hidden');
-            } else {
-                btnPendaftaran.className = "py-3 px-8 text-sm font-bold border-b-2 border-maroon text-maroon transition flex items-center space-x-2";
-                btnJadwal.className = "py-3 px-8 text-sm font-bold border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-maroon transition flex items-center space-x-2";
-                contentPendaftaran.classList.remove('hidden');
-                contentJadwal.classList.add('hidden');
+            const buttons = [btnJadwal, btnPendaftaran, btnKamar];
+            const contents = [contentJadwal, contentPendaftaran, contentKamar];
+
+            buttons.forEach(btn => {
+                if (btn) btn.className = "py-3 px-8 text-sm font-bold border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-maroon transition flex items-center space-x-2";
+            });
+            contents.forEach(content => {
+                if (content) content.classList.add('hidden');
+            });
+
+            const activeBtn = document.getElementById(`tab-btn-${tab}`);
+            const activeContent = document.getElementById(`tab-content-${tab}`);
+            if (activeBtn) {
+                activeBtn.className = "py-3 px-8 text-sm font-bold border-b-2 border-maroon text-maroon transition flex items-center space-x-2";
+            }
+            if (activeContent) activeContent.classList.remove('hidden');
+
+            if (tab === 'kamar') {
+                updateKetersediaanPublik();
             }
         }
 
@@ -3592,7 +3612,7 @@ window.addEventListener('storage', function(event) {
         const fasilitasDefault = [
             {id:'fasilitas-1', nama:'Laboratorium 24 Jam', desc:'Dukungan pemeriksaan spesimen patologi klinis dan urinalisis cepat dan akurat.', icon:'flask-conical', foto:'bacgkroun-rsb-akpol.jpeg'},
             {id:'fasilitas-2', nama:'Instalasi Farmasi', desc:'Layanan penebusan resep obat-obatan lengkap siap melayani 24 jam nonstop.', icon:'pill', foto:'bacgkroun-rsb-akpol.jpeg'},
-            {id:'fasilitas-3', nama:'Ambulans Gawat Darurat', desc:'Armada mobil darurat medis dengan peralatan penunjang hidup yang lengkap.', icon:'ambulance', foto:'bacgkroun-rsb-akpol.jpeg'},
+            {id:'fasilitas-3', nama:'Ambulans Gawat Darurat', desc:'Armada mobil darurat medis dengan peralatan penunjang hidup yang lengkap.', icon:'ambulance', foto:'assets/images/ambulance.jpeg'},
             {id:'fasilitas-4', nama:'Ruang Rawat Inap & ICU', desc:'Kamar perawatan yang bersih, nyaman, steril, serta dilengkapi fasilitas pengawasan intensif.', icon:'bed-double', foto:'bacgkroun-rsb-akpol.jpeg'},
             {id:'fasilitas-5', nama:'Radiologi & USG', desc:'Pemeriksaan pencitraan medis radiologi modern untuk diagnosa penyakit akurat.', icon:'activity', foto:'bacgkroun-rsb-akpol.jpeg'},
             {id:'fasilitas-6', nama:'Poliklinik Spesialis', desc:'Ruang konsul dokter spesialis THT, Penyakit Dalam, Anak, Bedah Umum dan Kedokteran Kepolisian.', icon:'building-2', foto:'bacgkroun-rsb-akpol.jpeg'}
@@ -3736,7 +3756,7 @@ window.addEventListener('storage', function(event) {
         // =====================================================
         const layananDefault = [
             {id:'layanan-rawat-inap', nama:'Rawat Inap', desc:'Layanan rawat inap ditujukan bagi pasien yang membutuhkan perawatan dan pemantauan medis secara berkala selama masa pemulihan.', icon:'bed', foto:'bacgkroun-rsb-akpol.jpeg'},
-            {id:'layanan-igd', nama:'IGD 24 Jam', desc:'Instalasi Gawat Darurat memberikan pelayanan untuk kondisi medis yang membutuhkan penanganan segera dan cepat. Layanan IGD tersedia selama 24 jam.', icon:'ambulance', foto:'bacgkroun-rsb-akpol.jpeg'},
+            {id:'layanan-igd', nama:'IGD 24 Jam', desc:'Instalasi Gawat Darurat memberikan pelayanan untuk kondisi medis yang membutuhkan penanganan segera dan cepat. Layanan IGD tersedia selama 24 jam.', icon:'ambulance', foto:'igd.jpeg'},
             {id:'layanan-mcu', nama:'Medical Check Up (MCU)', desc:'Medical Check Up merupakan layanan pemeriksaan kesehatan untuk mengetahui kondisi kesehatan secara menyeluruh dan membantu mendeteksi gangguan kesehatan sejak dini.', icon:'clipboard-check', foto:'bacgkroun-rsb-akpol.jpeg'},
             {id:'layanan-fasilitas', nama:'Fasilitas Penunjang', desc:'Fasilitas penunjang yang mendukung proses pemeriksaan dan pelayanan kesehatan pasien.', icon:'building-2', foto:'bacgkroun-rsb-akpol.jpeg'}
         ];
@@ -3775,7 +3795,7 @@ window.addEventListener('storage', function(event) {
         function tutupModalEditLayanan(){const m=document.getElementById('modal-edit-layanan');if(m){m.classList.add('hidden');m.classList.remove('flex');}}
         function hapusLayanan(id){const l=dataLayanan.find(x=>x.id===id);if(!l)return;if(!confirm(`Hapus layanan "${l.nama}"?`))return;dataLayanan=dataLayanan.filter(x=>x.id!==id);localStorage.setItem('rs_layanan_list',JSON.stringify(dataLayanan));renderLayananSemua();}
         document.getElementById('modal-edit-layanan')?.addEventListener('click',e=>{if(e.target.id==='modal-edit-layanan')tutupModalEditLayanan();});
-        function initLayananData(){if(!localStorage.getItem('rs_layanan_list'))localStorage.setItem('rs_layanan_list',JSON.stringify(layananDefault));dataLayanan=JSON.parse(localStorage.getItem('rs_layanan_list')||'[]');renderLayananSemua();}
+        function initLayananData(){if(!localStorage.getItem('rs_layanan_list'))localStorage.setItem('rs_layanan_list',JSON.stringify(layananDefault));dataLayanan=JSON.parse(localStorage.getItem('rs_layanan_list')||'[]');const igd=dataLayanan.find(x=>x.id==='layanan-igd');if(igd){igd.foto='igd.jpeg';localStorage.setItem('rs_layanan_list',JSON.stringify(dataLayanan));}renderLayananSemua();}
         if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initLayananData);else initLayananData();
 
         function updateStatusOperasionalUI() {
@@ -3947,64 +3967,43 @@ window.addEventListener('storage', function(event) {
 
         window.addEventListener('resize', () => updateCarouselBeritaHome());
 
-        async function simpanBeritaAdmin(event) {
-    event.preventDefault();
+        function simpanBeritaAdmin(event) {
+            event.preventDefault();
 
-    const editId = document.getElementById('berita-edit-id').value;
-    const dataInput = {
-        id_berita: editId,
-        judul: document.getElementById('berita-judul').value.trim(),
-        kategori: document.getElementById('berita-kategori').value,
-        tanggal: document.getElementById('berita-tanggal').value,
-        gambar: document.getElementById('berita-gambar').value.trim(),
-        ringkasan: document.getElementById('berita-ringkasan').value.trim(),
-        isi: document.getElementById('berita-isi').value.trim(),
-        tampil: document.getElementById('berita-status').checked ? 1 : 0
-    };
+            const editId = document.getElementById('berita-edit-id').value;
+            const data = {
+                id: editId || ('BERITA-' + Date.now()),
+                judul: document.getElementById('berita-judul').value.trim(),
+                kategori: document.getElementById('berita-kategori').value,
+                tanggal: document.getElementById('berita-tanggal').value,
+                gambar: document.getElementById('berita-gambar').value.trim(),
+                ringkasan: document.getElementById('berita-ringkasan').value.trim(),
+                isi: document.getElementById('berita-isi').value.trim(),
+                tampil: document.getElementById('berita-status').checked
+            };
 
-    const methodHTTP = editId ? 'PUT' : 'POST';
+            if (editId) {
+                const index = beritaAdminList.findIndex(item => item.id === editId);
+                if (index !== -1) beritaAdminList[index] = data;
+            } else {
+                beritaAdminList.push(data);
+            }
 
-    try {
-        const response = await fetch('api_berita.php', {
-            method: methodHTTP,
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(dataInput)
-        });
-
-        const result = await response.json();
-
-        if (result.status === 'success') {
-            alert(result.message);
+            localStorage.setItem('rs_berita_admin', JSON.stringify(beritaAdminList));
+            alert(editId ? 'Berita berhasil diperbarui.' : 'Berita berhasil ditambahkan.');
             resetFormBerita();
-            
-            // Muat ulang data langsung dari Database MySQL
-            await loadBeritaFromDB();
-        } else {
-            alert('Gagal simpan berita: ' + result.message);
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Koneksi ke database berhasil.');
-    }
-}
-
-// Fungsi untuk mengambil data berita dari Database MySQL
-async function loadBeritaFromDB() {
-    try {
-        // Ambil data untuk Admin
-        const resAdmin = await fetch('api_berita.php');
-        if (resAdmin.ok) {
-            beritaAdminList = await resAdmin.json();
             renderBeritaAdmin();
+            renderBeritaBeranda();
+            renderBeritaHalaman();
         }
 
-        // Render untuk tampilan publik/beranda
-        renderBeritaBeranda();
-        renderBeritaHalaman();
-    } catch (error) {
-        console.error('Gagal mengambil data berita dari Database:', error);
-    }
-}
+        function loadBeritaFromDB() {
+            // Kompatibilitas nama fungsi lama: sekarang tidak menggunakan API/database.
+            beritaAdminList = JSON.parse(localStorage.getItem('rs_berita_admin') || '[]');
+            renderBeritaAdmin();
+            renderBeritaBeranda();
+            renderBeritaHalaman();
+        }
         function editBeritaAdmin(id) {
             const item=beritaAdminList.find(b=>b.id===id); if(!item)return;
             document.getElementById('berita-edit-id').value=item.id; document.getElementById('berita-judul').value=item.judul; document.getElementById('berita-kategori').value=item.kategori; document.getElementById('berita-tanggal').value=item.tanggal; document.getElementById('berita-gambar').value=item.gambar||''; document.getElementById('berita-ringkasan').value=item.ringkasan||''; document.getElementById('berita-isi').value=item.isi||''; document.getElementById('berita-status').checked=!!item.tampil;
