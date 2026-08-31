@@ -149,7 +149,7 @@
 <div class="lg:col-span-6 space-y-6 z-10">
 <div class="inline-flex items-center space-x-2 bg-maroon-light dark:bg-red-950/40 border border-red-100 dark:border-red-900/50 px-3 py-1.5 rounded-full">
 <i class="w-4 h-4 text-maroon" data-lucide="shield-check"></i>
-<span class="text-xs font-bold text-maroon tracking-wide uppercase">RUMAH SAKIT TERAKREDITASI PARIPURNA</span>
+<span class="text-xs font-bold text-maroon tracking-wide uppercase">RUMAH SAKIT TERAKREDITASI KELAS UTAMA</span>
 </div>
 <h1 class="text-4xl lg:text-5xl font-black text-gray-900 dark:text-white leading-tight">
                             Pelayanan Kesehatan Profesional untuk <span class="text-maroon">Masyarakat Indonesia</span>
@@ -1914,14 +1914,109 @@
 
         // Data master kamar & bed
         const KAMAR_STORAGE_KEY = 'rs_kamar_bed';
-        const kamarDataTersimpan = localStorage.getItem(KAMAR_STORAGE_KEY) || localStorage.getItem('rs_kamar_list');
-        let kamarList = kamarDataTersimpan ? JSON.parse(kamarDataTersimpan) : [
-            { id: 1, kelas: 'VIP', ruangan: 'Mawar VIP', kapasitas: 4, terisi: 2 },
-            { id: 2, kelas: 'Kelas I', ruangan: 'Melati 1', kapasitas: 6, terisi: 3 },
-            { id: 3, kelas: 'Kelas II', ruangan: 'Melati 2', kapasitas: 8, terisi: 5 },
-            { id: 4, kelas: 'Kelas III', ruangan: 'Anggrek', kapasitas: 10, terisi: 7 }
-        ];
+        const KAMAR_DATA_VERSION = 'excel-rs-akpol-2026-08-28';
 
+        const DATA_AWAL_KAMAR = [
+            { id: 1, kelas: "VIP", ruangan: "Nararya/301 B", kapasitas: 1, terisi: 0 },
+            { id: 2, kelas: "VIP", ruangan: "Amartha/213", kapasitas: 1, terisi: 0 },
+            { id: 3, kelas: "VIP", ruangan: "Amartha/212", kapasitas: 1, terisi: 0 },
+            { id: 4, kelas: "VIP", ruangan: "Nararya/302 B", kapasitas: 1, terisi: 0 },
+            { id: 5, kelas: "VIP", ruangan: "Amartha/201", kapasitas: 1, terisi: 0 },
+            { id: 6, kelas: "VIP", ruangan: "Amartha/202", kapasitas: 1, terisi: 0 },
+
+            { id: 7, kelas: "Kelas I", ruangan: "Nawasena/309 A", kapasitas: 1, terisi: 0 },
+            { id: 8, kelas: "Kelas I", ruangan: "Amartha/210", kapasitas: 1, terisi: 0 },
+            { id: 9, kelas: "Kelas I", ruangan: "Nawasena/301 A", kapasitas: 1, terisi: 0 },
+            { id: 10, kelas: "Kelas I", ruangan: "Nararya/309 B", kapasitas: 2, terisi: 1 },
+
+            { id: 11, kelas: "Kelas II", ruangan: "Nawasena/305 A", kapasitas: 2, terisi: 0 },
+            { id: 12, kelas: "Kelas II", ruangan: "Nawasena/306 A", kapasitas: 2, terisi: 0 },
+            { id: 13, kelas: "Kelas II", ruangan: "Nawasena/304 A", kapasitas: 2, terisi: 0 },
+            { id: 14, kelas: "Kelas II", ruangan: "Nawasena/308 A", kapasitas: 2, terisi: 0 },
+            { id: 15, kelas: "Kelas II", ruangan: "Nawasena/302 A", kapasitas: 2, terisi: 0 },
+            { id: 16, kelas: "Kelas II", ruangan: "Nararya/308 B", kapasitas: 2, terisi: 0 },
+            { id: 17, kelas: "Kelas II", ruangan: "Nararya/307 B", kapasitas: 2, terisi: 0 },
+            { id: 18, kelas: "Kelas II", ruangan: "Nararya/306 B", kapasitas: 2, terisi: 0 },
+            { id: 19, kelas: "Kelas II", ruangan: "Nararya/304 B", kapasitas: 2, terisi: 0 },
+            { id: 20, kelas: "Kelas II", ruangan: "Amartha/211", kapasitas: 4, terisi: 1 },
+            { id: 21, kelas: "Kelas II", ruangan: "Amartha/204", kapasitas: 2, terisi: 0 },
+            { id: 22, kelas: "Kelas II", ruangan: "Nawasena/307 A", kapasitas: 2, terisi: 0 },
+            { id: 23, kelas: "Kelas II", ruangan: "Amartha/203", kapasitas: 2, terisi: 0 },
+            { id: 24, kelas: "Kelas II", ruangan: "Amartha/207", kapasitas: 2, terisi: 0 },
+            { id: 25, kelas: "Kelas II", ruangan: "Nararya/303 B", kapasitas: 2, terisi: 0 },
+
+            { id: 26, kelas: "Kelas III", ruangan: "Amartha/209", kapasitas: 2, terisi: 0 },
+            { id: 27, kelas: "Kelas III", ruangan: "Amartha/208", kapasitas: 2, terisi: 0 },
+            { id: 28, kelas: "Kelas III", ruangan: "Nawasena/312 A", kapasitas: 4, terisi: 0 },
+            { id: 29, kelas: "Kelas III", ruangan: "Nawasena/311 A", kapasitas: 4, terisi: 0 },
+            { id: 30, kelas: "Kelas III", ruangan: "Nawasena/310 A", kapasitas: 4, terisi: 0 },
+            { id: 31, kelas: "Kelas III", ruangan: "Nawasena/303 A", kapasitas: 4, terisi: 0 },
+            { id: 32, kelas: "Kelas III", ruangan: "Nararya/305 B", kapasitas: 5, terisi: 1 },
+            { id: 33, kelas: "Kelas III", ruangan: "Amartha/206", kapasitas: 2, terisi: 0 },
+            { id: 34, kelas: "Kelas III", ruangan: "Amartha/205", kapasitas: 5, terisi: 1 },
+
+            { id: 35, kelas: "ICU Tanpa Ventilator", ruangan: "ICU", kapasitas: 1, terisi: 0 },
+            { id: 36, kelas: "HCU", ruangan: "HCU", kapasitas: 2, terisi: 0 },
+            { id: 37, kelas: "NICU Tanpa Ventilator", ruangan: "NICU", kapasitas: 2, terisi: 0 },
+            { id: 38, kelas: "PICU Tanpa Ventilator", ruangan: "PICU", kapasitas: 2, terisi: 0 },
+
+            { id: 39, kelas: "Isolasi", ruangan: "Baswara/402", kapasitas: 1, terisi: 0 },
+            { id: 40, kelas: "Isolasi", ruangan: "Baswara/403", kapasitas: 2, terisi: 0 },
+            { id: 41, kelas: "Isolasi", ruangan: "Baswara/408", kapasitas: 2, terisi: 0 },
+            { id: 42, kelas: "Isolasi", ruangan: "Baswara/404", kapasitas: 2, terisi: 0 },
+            { id: 43, kelas: "Isolasi", ruangan: "Baswara/405", kapasitas: 4, terisi: 0 },
+            { id: 44, kelas: "Isolasi", ruangan: "Baswara/406", kapasitas: 2, terisi: 0 },
+            { id: 45, kelas: "Isolasi", ruangan: "Baswara/409", kapasitas: 1, terisi: 0 },
+            { id: 46, kelas: "Isolasi", ruangan: "Baswara/401", kapasitas: 1, terisi: 0 },
+            { id: 47, kelas: "Isolasi", ruangan: "Baswara/407", kapasitas: 2, terisi: 0 },
+
+            { id: 48, kelas: "ICU Dengan Ventilator", ruangan: "ICU", kapasitas: 5, terisi: 0 }
+        ];
+        let kamarList;
+
+        const versiTersimpan =
+            localStorage.getItem('rs_kamar_bed_version');
+
+        const dataTersimpan =
+            localStorage.getItem(KAMAR_STORAGE_KEY);
+
+        if (
+            versiTersimpan !== KAMAR_DATA_VERSION ||
+            !dataTersimpan
+        ) {
+
+            kamarList = DATA_AWAL_KAMAR.map(item => ({
+                ...item
+            }));
+
+            localStorage.setItem(
+                KAMAR_STORAGE_KEY,
+                JSON.stringify(kamarList)
+            );
+
+            localStorage.setItem(
+                'rs_kamar_bed_version',
+                KAMAR_DATA_VERSION
+            );
+
+        } else {
+
+            try {
+
+                kamarList = JSON.parse(dataTersimpan);
+
+            } catch (error) {
+
+                kamarList = DATA_AWAL_KAMAR.map(item => ({
+                    ...item
+                }));
+
+                localStorage.setItem(
+                    KAMAR_STORAGE_KEY,
+                    JSON.stringify(kamarList)
+                );
+            }
+        }
         let currentUser = JSON.parse(localStorage.getItem('rs_user')) || null;
         let isAdminLoggedIn = localStorage.getItem('rs_admin_logged') === 'true';
         let statusOperasionalRS = localStorage.getItem('rs_status_ops') || 'Operational';
@@ -2891,34 +2986,60 @@ function logoutAdmin() {
 // =====================================================
 
 const DEFAULT_KAMAR_BED = [
-    {
-        id: 1,
-        kelas: 'VIP',
-        nama: 'Mawar VIP',
-        kapasitas: 4,
-        terisi: 2
-    },
-    {
-        id: 2,
-        kelas: 'Kelas I',
-        nama: 'Melati 1',
-        kapasitas: 6,
-        terisi: 3
-    },
-    {
-        id: 3,
-        kelas: 'Kelas II',
-        nama: 'Melati 2',
-        kapasitas: 8,
-        terisi: 5
-    },
-    {
-        id: 4,
-        kelas: 'Kelas III',
-        nama: 'Anggrek',
-        kapasitas: 10,
-        terisi: 7
-    }
+    { id: 1, kelas: "VIP", nama: "Nararya/301 B", tersedia: 1, terpakai: 0 },
+    { id: 2, kelas: "VIP", nama: "Amartha/213", tersedia: 1, terpakai: 0 },
+    { id: 3, kelas: "VIP", nama: "Amartha/212", tersedia: 1, terpakai: 0 },
+    { id: 4, kelas: "VIP", nama: "Nararya/302 B", tersedia: 1, terpakai: 0 },
+    { id: 5, kelas: "VIP", nama: "Amartha/201", tersedia: 1, terpakai: 0 },
+    { id: 6, kelas: "VIP", nama: "Amartha/202", tersedia: 1, terpakai: 0 },
+
+    { id: 7, kelas: "Kelas I", nama: "Nawasena/309 A", tersedia: 1, terpakai: 0 },
+    { id: 8, kelas: "Kelas I", nama: "Amartha/210", tersedia: 1, terpakai: 0 },
+    { id: 9, kelas: "Kelas I", nama: "Nawasena/301 A", tersedia: 1, terpakai: 0 },
+    { id: 10, kelas: "Kelas I", nama: "Nararya/309 B", tersedia: 1, terpakai: 1 },
+
+    { id: 11, kelas: "Kelas II", nama: "Nawasena/305 A", tersedia: 2, terpakai: 0 },
+    { id: 12, kelas: "Kelas II", nama: "Nawasena/306 A", tersedia: 2, terpakai: 0 },
+    { id: 13, kelas: "Kelas II", nama: "Nawasena/304 A", tersedia: 2, terpakai: 0 },
+    { id: 14, kelas: "Kelas II", nama: "Nawasena/308 A", tersedia: 2, terpakai: 0 },
+    { id: 15, kelas: "Kelas II", nama: "Nawasena/302 A", tersedia: 2, terpakai: 0 },
+    { id: 16, kelas: "Kelas II", nama: "Nararya/308 B", tersedia: 2, terpakai: 0 },
+    { id: 17, kelas: "Kelas II", nama: "Nararya/307 B", tersedia: 2, terpakai: 0 },
+    { id: 18, kelas: "Kelas II", nama: "Nararya/306 B", tersedia: 2, terpakai: 0 },
+    { id: 19, kelas: "Kelas II", nama: "Nararya/304 B", tersedia: 2, terpakai: 0 },
+    { id: 20, kelas: "Kelas II", nama: "Amartha/211", tersedia: 3, terpakai: 1 },
+    { id: 21, kelas: "Kelas II", nama: "Amartha/204", tersedia: 2, terpakai: 0 },
+    { id: 22, kelas: "Kelas II", nama: "Nawasena/307 A", tersedia: 2, terpakai: 0 },
+    { id: 23, kelas: "Kelas II", nama: "Amartha/203", tersedia: 2, terpakai: 0 },
+    { id: 24, kelas: "Kelas II", nama: "Amartha/207", tersedia: 2, terpakai: 0 },
+    { id: 25, kelas: "Kelas II", nama: "Nararya/303 B", tersedia: 2, terpakai: 0 },
+
+    { id: 26, kelas: "Kelas III", nama: "Amartha/209", tersedia: 2, terpakai: 0 },
+    { id: 27, kelas: "Kelas III", nama: "Amartha/208", tersedia: 2, terpakai: 0 },
+    { id: 28, kelas: "Kelas III", nama: "Nawasena/312 A", tersedia: 4, terpakai: 0 },
+    { id: 29, kelas: "Kelas III", nama: "Nawasena/311 A", tersedia: 4, terpakai: 0 },
+    { id: 30, kelas: "Kelas III", nama: "Nawasena/310 A", tersedia: 4, terpakai: 0 },
+    { id: 31, kelas: "Kelas III", nama: "Nawasena/303 A", tersedia: 4, terpakai: 0 },
+    { id: 32, kelas: "Kelas III", nama: "Nararya/305 B", tersedia: 4, terpakai: 1 },
+    { id: 33, kelas: "Kelas III", nama: "Amartha/206", tersedia: 2, terpakai: 0 },
+    { id: 34, kelas: "Kelas III", nama: "Amartha/205", tersedia: 4, terpakai: 1 },
+
+    { id: 35, kelas: "ICU Tanpa Ventilator", nama: "ICU", tersedia: 1, terpakai: 0 },
+    { id: 36, kelas: "HCU", nama: "HCU", tersedia: 2, terpakai: 0 },
+    { id: 37, kelas: "NICU Tanpa Ventilator", nama: "NICU", tersedia: 2, terpakai: 0 },
+    { id: 38, kelas: "PICU Tanpa Ventilator", nama: "PICU", tersedia: 2, terpakai: 0 },
+
+    { id: 39, kelas: "Isolasi", nama: "Baswara/402", tersedia: 1, terpakai: 0 },
+    { id: 40, kelas: "Isolasi", nama: "Baswara/403", tersedia: 2, terpakai: 0 },
+    { id: 41, kelas: "Isolasi", nama: "Baswara/408", tersedia: 2, terpakai: 0 },
+    { id: 42, kelas: "Isolasi", nama: "Baswara/404", tersedia: 2, terpakai: 0 },
+    { id: 43, kelas: "Isolasi", nama: "Baswara/405", tersedia: 4, terpakai: 0 },
+    { id: 44, kelas: "Isolasi", nama: "Baswara/406", tersedia: 2, terpakai: 0 },
+    { id: 45, kelas: "Isolasi", nama: "Baswara/409", tersedia: 1, terpakai: 0 },
+    { id: 46, kelas: "Isolasi", nama: "Baswara/401", tersedia: 1, terpakai: 0 },
+    { id: 47, kelas: "Isolasi", nama: "Baswara/407", tersedia: 2, terpakai: 0 },
+
+    { id: 48, kelas: "ICU Dengan Ventilator", nama: "ICU", tersedia: 5, terpakai: 0 }
 ];
 
 
@@ -2928,17 +3049,18 @@ const DEFAULT_KAMAR_BED = [
 
 function getDataKamarBed() {
 
-    let data = localStorage.getItem('rs_kamar_bed');
+    // Ambil data yang tersimpan
+    let data = localStorage.getItem("rs_kamar_bed");
 
+    // Jika belum ada data, gunakan data Excel
     if (!data) {
 
         localStorage.setItem(
-            'rs_kamar_bed',
+            "rs_kamar_bed",
             JSON.stringify(DEFAULT_KAMAR_BED)
         );
 
         return DEFAULT_KAMAR_BED;
-
     }
 
     try {
@@ -2947,31 +3069,20 @@ function getDataKamarBed() {
 
     } catch (error) {
 
-        console.error('Data kamar rusak:', error);
+        console.error("Data kamar rusak:", error);
+
+        localStorage.setItem(
+            "rs_kamar_bed",
+            JSON.stringify(DEFAULT_KAMAR_BED)
+        );
 
         return DEFAULT_KAMAR_BED;
-
     }
 }
 
 
 // =====================================================
 // SIMPAN DATA KAMAR
-// =====================================================
-
-function simpanDataKamarBed(data) {
-
-    localStorage.setItem(
-        'rs_kamar_bed',
-        JSON.stringify(data)
-    );
-
-    // Update halaman publik
-    updateKetersediaanPublik();
-
-}
-// =====================================================
-// TAMPILKAN KETERSEDIAAN KAMAR DI WEBSITE
 // =====================================================
 
 function updateKetersediaanPublik() {
@@ -2981,119 +3092,111 @@ function updateKetersediaanPublik() {
 
     if (!container) return;
 
-
-    const dataKamar = getDataKamarBed();
-
-
     container.innerHTML = '';
 
-
-    if (dataKamar.length === 0) {
+    if (!kamarList || kamarList.length === 0) {
 
         container.innerHTML = `
-            <div class="col-span-full
-                text-center text-gray-400
-                text-xs py-5">
-
+            <div class="col-span-full text-center text-gray-400 text-xs py-5">
                 Data ketersediaan kamar belum tersedia.
-
             </div>
         `;
 
         return;
     }
 
-
-    dataKamar.forEach(function(kamar) {
+    kamarList.forEach(function(kamar) {
 
         const kapasitas =
             Number(kamar.kapasitas) || 0;
 
-        const terisi =
+        const terpakai =
             Number(kamar.terisi) || 0;
 
+        // Sisa bed
         const tersedia =
-            Math.max(kapasitas - terisi, 0);
+            Math.max(kapasitas - terpakai, 0);
 
-
-        // Warna berdasarkan jumlah bed
         let warna = 'emerald';
 
         if (tersedia === 0) {
-
             warna = 'red';
-
         } else if (tersedia <= 2) {
-
             warna = 'amber';
-
         }
 
-
         container.innerHTML += `
-
-            <div
-                class="bg-gray-50 dark:bg-gray-700/50
+            <div class="
+                bg-gray-50 dark:bg-gray-700/50
                 p-3 rounded-xl
-                border dark:border-gray-700">
+                border border-gray-200 dark:border-gray-700
+            ">
 
-                <p class="text-xs
+                <p class="
+                    text-xs
                     text-gray-500 dark:text-gray-400
-                    font-semibold">
-
+                    font-semibold
+                ">
                     ${kamar.kelas}
-
                 </p>
 
-
-                <p class="text-[10px]
-                    text-gray-400 mt-1">
-
-                    ${kamar.nama || kamar.ruangan}
-
-                </p>
-
-
-                <p class="text-xl font-black
+                <p class="
+                    text-[10px]
+                    text-gray-400
                     mt-1
-                    ${warna === 'emerald'
-                        ? 'text-emerald-600 dark:text-emerald-400'
-                        : warna === 'amber'
-                            ? 'text-amber-500'
-                            : 'text-red-600 dark:text-red-400'
-                    }">
+                ">
+                    ${kamar.ruangan}
+                </p>
+
+                <p class="
+                    text-xl
+                    font-black
+                    mt-1
+                    ${
+                        warna === 'emerald'
+                            ? 'text-emerald-600 dark:text-emerald-400'
+                            : warna === 'amber'
+                                ? 'text-amber-500'
+                                : 'text-red-600 dark:text-red-400'
+                    }
+                ">
 
                     ${tersedia}
 
-                    <span
-                        class="text-xs font-normal
-                        text-gray-500">
-
+                    <span class="
+                        text-xs
+                        font-normal
+                        text-gray-500
+                    ">
                         Bed
-
                     </span>
 
                 </p>
 
-
-                <p class="text-[9px]
-                    text-gray-400 mt-1">
-
-                    ${terisi} terisi dari ${kapasitas}
-
+                <p class="
+                    text-[9px]
+                    text-gray-400
+                    mt-1
+                ">
+                    ${terpakai} terpakai dari ${kapasitas}
                 </p>
 
-
-                <span
-                    class="inline-block mt-1
-                    px-2 py-0.5 rounded-full
-                    text-[9px] font-bold
-                    ${tersedia === 0
-                        ? 'bg-red-100 text-red-700'
-                        : tersedia <= 2
-                            ? 'bg-amber-100 text-amber-700'
-                            : 'bg-emerald-100 text-emerald-700'
-                    }">
+                <span class="
+                    inline-block
+                    mt-1
+                    px-2
+                    py-0.5
+                    rounded-full
+                    text-[9px]
+                    font-bold
+                    ${
+                        tersedia === 0
+                            ? 'bg-red-100 text-red-700'
+                            : tersedia <= 2
+                                ? 'bg-amber-100 text-amber-700'
+                                : 'bg-emerald-100 text-emerald-700'
+                    }
+                ">
 
                     ${
                         tersedia === 0
@@ -3104,34 +3207,26 @@ function updateKetersediaanPublik() {
                 </span>
 
             </div>
-
         `;
-
     });
 
-
-    // Waktu update
     const waktu =
-        document.getElementById('ketersediaan-last-update');
+        document.getElementById(
+            'ketersediaan-last-update'
+        );
 
     if (waktu) {
 
-        const sekarang = new Date();
-
         waktu.innerText =
             'Update terakhir: ' +
-            sekarang.toLocaleTimeString('id-ID');
-
+            new Date().toLocaleTimeString('id-ID');
     }
-
 
     if (typeof lucide !== 'undefined') {
-
         lucide.createIcons();
-
     }
-
 }
+
 // =====================================================
 // LIVE UPDATE OTOMATIS
 // =====================================================
