@@ -2,7 +2,7 @@
 $host     = "localhost";
 $user     = "root";
 $password = ""; 
-$database = "db_klinik_rs"; // Pastikan namanya db_klinik_rs
+$database = "db_rs_bhayangkara"; // Nama database utama project
 
 $conn = mysqli_connect($host, $user, $password, $database);
 
