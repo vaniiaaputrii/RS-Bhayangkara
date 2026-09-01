@@ -3939,7 +3939,9 @@ window.addEventListener('storage', function(event) {
             {id:'fasilitas-3', nama:'Ambulans Gawat Darurat', desc:'Armada mobil darurat medis dengan peralatan penunjang hidup yang lengkap.', icon:'ambulance', foto:'assets/images/ambulance.jpeg'},
             {id:'fasilitas-4', nama:'Ruang Rawat Inap & ICU', desc:'Kamar perawatan yang bersih, nyaman, steril, serta dilengkapi fasilitas pengawasan intensif.', icon:'bed-double', foto:'bacgkroun-rsb-akpol.jpeg'},
             {id:'fasilitas-5', nama:'Radiologi & USG', desc:'Pemeriksaan pencitraan medis radiologi modern untuk diagnosa penyakit akurat.', icon:'activity', foto:'bacgkroun-rsb-akpol.jpeg'},
-            {id:'fasilitas-6', nama:'Poliklinik Spesialis', desc:'Ruang konsul dokter spesialis THT, Penyakit Dalam, Anak, Bedah Umum dan Kedokteran Kepolisian.', icon:'building-2', foto:'bacgkroun-rsb-akpol.jpeg'}
+            {id:'fasilitas-6', nama:'Poliklinik Spesialis', desc:'Ruang konsul dokter spesialis THT, Penyakit Dalam, Anak, Bedah Umum dan Kedokteran Kepolisian.', icon:'building-2', foto:'bacgkroun-rsb-akpol.jpeg'},
+            {id:'fasilitas-7', nama:'Instalasi Bedah Sentral', desc:'Ruang operasi modern dengan peralatan bedah lengkap dan tim tenaga medis profesional berpengalaman.', icon:'activity', foto:'bacgkroun-rsb-akpol.jpeg'},
+            {id:'fasilitas-8', nama:'Radiologi & X-Ray', desc:'Layanan pemeriksaan Radiologi dan X-Ray dengan teknologi imaging terkini untuk diagnosis akurat dan cepat.', icon:'activity', foto:'bacgkroun-rsb-akpol.jpeg'}
         ];
         let dataFasilitas = JSON.parse(localStorage.getItem('rs_fasilitas_list') || 'null') || fasilitasDefault;
         let fotoFasilitasEdit = '';
@@ -4069,7 +4071,18 @@ window.addEventListener('storage', function(event) {
         document.getElementById('modal-edit-fasilitas')?.addEventListener('click',e=>{if(e.target.id==='modal-edit-fasilitas')tutupModalEditFasilitas();});
 
         function initFasilitasData() {
-            if (!localStorage.getItem('rs_fasilitas_list')) localStorage.setItem('rs_fasilitas_list', JSON.stringify(fasilitasDefault));
+            if (!localStorage.getItem('rs_fasilitas_list')) {
+                localStorage.setItem('rs_fasilitas_list', JSON.stringify(fasilitasDefault));
+            } else {
+                // Merge fasilitas baru dari default dengan data lama
+                let savedData = JSON.parse(localStorage.getItem('rs_fasilitas_list') || '[]');
+                fasilitasDefault.forEach(defaultItem => {
+                    if (!savedData.find(item => item.id === defaultItem.id)) {
+                        savedData.push(defaultItem);
+                    }
+                });
+                localStorage.setItem('rs_fasilitas_list', JSON.stringify(savedData));
+            }
             dataFasilitas = JSON.parse(localStorage.getItem('rs_fasilitas_list') || '[]');
             renderFasilitasSemua();
         }
