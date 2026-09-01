@@ -53,7 +53,275 @@
                 flex: 0 0 calc((100% - 3rem) / 3);
             }
         }
-</style>
+        
+        /* ---- RESPONSIVE MOBILE OPTIMIZATION ---- */
+        
+        /* Ensure proper scaling on all devices */
+        @media (max-width: 640px) {
+            /* Typography scaling */
+            html {
+                font-size: 14px;
+            }
+            
+            body {
+                -webkit-text-size-adjust: 100%;
+                -ms-text-size-adjust: 100%;
+            }
+            
+            /* Header/Navigation mobile */
+            header {
+                padding: 12px !important;
+            }
+            
+            header .max-w-7xl {
+                padding: 0 12px;
+            }
+            
+            /* Hero section mobile */
+            .pt-8 {
+                padding-top: 16px;
+            }
+            
+            .pb-12 {
+                padding-bottom: 16px;
+            }
+            
+            /* Content sections */
+            main section {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            /* Grid responsiveness */
+            .grid-cols-1 {
+                grid-template-columns: 1fr;
+            }
+            
+            /* Text scaling */
+            .text-4xl {
+                font-size: 28px;
+                line-height: 1.2;
+            }
+            
+            .text-3xl {
+                font-size: 24px;
+            }
+            
+            .text-2xl {
+                font-size: 20px;
+            }
+            
+            .text-lg {
+                font-size: 16px;
+            }
+            
+            .text-base {
+                font-size: 14px;
+            }
+            
+            .text-sm {
+                font-size: 13px;
+            }
+            
+            .text-xs {
+                font-size: 11px;
+            }
+            
+            /* Padding adjustments for mobile */
+            .px-6 {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+            
+            .py-6 {
+                padding-top: 16px;
+                padding-bottom: 16px;
+            }
+            
+            .p-6 {
+                padding: 16px;
+            }
+            
+            .p-8 {
+                padding: 20px;
+            }
+            
+            /* Button sizing for mobile touchscreen */
+            button {
+                min-height: 48px;
+                padding: 12px 16px !important;
+            }
+            
+            /* Input fields accessibility on mobile */
+            input, textarea, select {
+                min-height: 48px;
+                font-size: 16px;
+                -webkit-appearance: none;
+                border-radius: 8px;
+            }
+            
+            /* Prevent zoom on input focus */
+            input:focus, textarea:focus, select:focus {
+                font-size: 16px;
+            }
+            
+            /* Image responsiveness */
+            img {
+                max-width: 100%;
+                height: auto;
+                display: block;
+            }
+            
+            /* Spacing adjustments */
+            .space-y-6 > * + * {
+                margin-top: 16px;
+            }
+            
+            .gap-6 {
+                gap: 16px;
+            }
+            
+            .gap-8 {
+                gap: 16px;
+            }
+            
+            /* Modal responsiveness */
+            .rounded-2xl {
+                border-radius: 12px;
+            }
+            
+            .rounded-xl {
+                border-radius: 8px;
+            }
+            
+            .shadow-2xl {
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+            
+            /* Flex wrapping for mobile */
+            .flex-wrap {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            
+            /* Overflow prevention */
+            body, html {
+                overflow-x: hidden;
+                width: 100%;
+            }
+            
+            main {
+                width: 100%;
+            }
+        }
+        
+        /* Tablet optimization (641px - 1023px) */
+        @media (min-width: 641px) and (max-width: 1023px) {
+            html {
+                font-size: 15px;
+            }
+            
+            .text-4xl {
+                font-size: 36px;
+            }
+            
+            .text-3xl {
+                font-size: 28px;
+            }
+            
+            .text-2xl {
+                font-size: 22px;
+            }
+            
+            button {
+                min-height: 44px;
+            }
+            
+            input, textarea, select {
+                min-height: 44px;
+                font-size: 16px;
+            }
+        }
+        
+        /* Desktop optimization (1024px and above) */
+        @media (min-width: 1024px) {
+            html {
+                font-size: 16px;
+            }
+            
+            body {
+                -webkit-text-size-adjust: none;
+            }
+            
+            .text-4xl {
+                font-size: 42px;
+            }
+            
+            .text-5xl {
+                font-size: 56px;
+            }
+            
+            button {
+                min-height: auto;
+            }
+        }
+        
+        /* Landscape mode adjustments */
+        @media (orientation: landscape) and (max-height: 600px) {
+            header {
+                padding: 8px 12px;
+            }
+            
+            main section {
+                padding: 12px 0;
+            }
+            
+            .space-y-16 {
+                --tw-space-y-reverse: 0;
+                margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+                margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+            }
+        }
+        
+        /* Touch device optimization */
+        @media (hover: none) and (pointer: coarse) {
+            button, a, input[type="button"], input[type="submit"] {
+                min-height: 48px;
+                min-width: 48px;
+            }
+            
+            /* Increase tap target size */
+            .nav-link {
+                padding: 12px;
+                margin: 0 4px;
+            }
+        }
+        
+        /* High DPI / Retina screens */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            * {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+        }
+        
+        /* Dark mode adjustments */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #111827;
+                color: #f3f4f6;
+            }
+        }
+        
+        /* Reduce motion for users who prefer it */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
 </head>
 <body class="bg-cream dark:bg-gray-900 font-sans text-gray-800 dark:text-gray-100 antialiased flex flex-col min-h-screen transition-colors duration-300">
 <!-- NAVBAR (Hidden saat di tampilan Admin Fullscreen) -->
@@ -131,12 +399,68 @@
 <button class="p-2 rounded-xl bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition" onclick="toggleDarkMode()" title="Ganti Mode Tampilan">
 <i class="w-4 h-4" data-lucide="moon" id="icon-dark-mode"></i>
 </button>
+<!-- Mobile Menu Toggle (Hamburger Icon) -->
+<button class="lg:hidden p-2 rounded-xl bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition" id="mobile-menu-toggle" onclick="toggleMobileMenu()" title="Menu Navigasi">
+<i class="w-5 h-5" data-lucide="menu" id="icon-menu"></i>
+</button>
 <button class="bg-maroon hover:bg-maroon-hover text-white px-5 py-2.5 rounded-xl font-semibold text-sm flex items-center space-x-2 transition shadow-md shadow-red-100 dark:shadow-none" id="btn-portal-toggle" onclick="handleAuthButtonClick()">
 <i class="w-4 h-4" data-lucide="user"></i>
 <span id="txt-portal-btn">Masuk / Login</span>
 </button>
 </div>
 </div>
+
+<!-- Mobile Navigation Menu (Hidden by default) -->
+<nav class="hidden lg:hidden w-full bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 shadow-lg transition-all duration-300" id="mobile-nav-menu">
+<div class="max-w-7xl mx-auto px-6 py-4 space-y-3">
+<button class="w-full text-left px-4 py-2.5 text-sm font-semibold text-gray-600 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-gray-700 hover:text-maroon rounded-lg transition" onclick="showPage('home'); closeMobileMenu()">Home</button>
+
+<!-- Mobile Dropdown Profil -->
+<div class="w-full">
+<button class="w-full text-left px-4 py-2.5 text-sm font-semibold text-gray-600 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-gray-700 hover:text-maroon rounded-lg transition flex items-center justify-between" onclick="toggleMobileSubmenu('mobile-profil-menu')">
+<span>Profil</span>
+<i class="w-4 h-4" data-lucide="chevron-down" id="icon-profil-chevron"></i>
+</button>
+<div class="hidden bg-gray-50 dark:bg-gray-700/50 rounded-lg mt-2 overflow-hidden" id="mobile-profil-menu">
+<button class="w-full text-left px-6 py-2.5 text-xs text-gray-700 dark:text-gray-200 hover:bg-red-100 dark:hover:bg-gray-600 hover:text-maroon font-medium transition" onclick="showPage('profil', 'sejarah'); closeMobileMenu()">Sejarah Singkat</button>
+<button class="w-full text-left px-6 py-2.5 text-xs text-gray-700 dark:text-gray-200 hover:bg-red-100 dark:hover:bg-gray-600 hover:text-maroon font-medium transition" onclick="showPage('profil', 'visimisi'); closeMobileMenu()">Visi &amp; Misi</button>
+<button class="w-full text-left px-6 py-2.5 text-xs text-gray-700 dark:text-gray-200 hover:bg-red-100 dark:hover:bg-gray-600 hover:text-maroon font-medium transition" onclick="showPage('profil', 'struktur'); closeMobileMenu()">Struktur Organisasi</button>
+</div>
+</div>
+
+<!-- Mobile Dropdown Layanan -->
+<div class="w-full">
+<button class="w-full text-left px-4 py-2.5 text-sm font-semibold text-gray-600 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-gray-700 hover:text-maroon rounded-lg transition flex items-center justify-between" onclick="toggleMobileSubmenu('mobile-layanan-menu')">
+<span>Layanan</span>
+<i class="w-4 h-4" data-lucide="chevron-down" id="icon-layanan-chevron"></i>
+</button>
+<div class="hidden bg-gray-50 dark:bg-gray-700/50 rounded-lg mt-2 overflow-hidden" id="mobile-layanan-menu">
+<button class="w-full text-left px-6 py-2.5 text-xs text-gray-700 dark:text-gray-200 hover:bg-red-100 dark:hover:bg-gray-600 hover:text-maroon font-medium transition" onclick="showPage('layanan', 'layanan-rawat-inap'); closeMobileMenu()">Rawat Inap</button>
+<button class="w-full text-left px-6 py-2.5 text-xs text-gray-700 dark:text-gray-200 hover:bg-red-100 dark:hover:bg-gray-600 hover:text-maroon font-medium transition" onclick="showPage('layanan', 'layanan-igd'); closeMobileMenu()">IGD 24 Jam</button>
+<button class="w-full text-left px-6 py-2.5 text-xs text-gray-700 dark:text-gray-200 hover:bg-red-100 dark:hover:bg-gray-600 hover:text-maroon font-medium transition" onclick="showPage('layanan', 'layanan-mcu'); closeMobileMenu()">Medical Check Up (MCU)</button>
+<button class="w-full text-left px-6 py-2.5 text-xs text-gray-700 dark:text-gray-200 hover:bg-red-100 dark:hover:bg-gray-600 hover:text-maroon font-medium transition" onclick="showPage('layanan', 'layanan-fasilitas'); closeMobileMenu()">Fasilitas Penunjang</button>
+</div>
+</div>
+
+<!-- Mobile Dropdown Informasi Pasien -->
+<div class="w-full">
+<button class="w-full text-left px-4 py-2.5 text-sm font-semibold text-gray-600 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-gray-700 hover:text-maroon rounded-lg transition flex items-center justify-between" onclick="toggleMobileSubmenu('mobile-informasi-menu')">
+<span>Informasi Pasien</span>
+<i class="w-4 h-4" data-lucide="chevron-down" id="icon-informasi-chevron"></i>
+</button>
+<div class="hidden bg-gray-50 dark:bg-gray-700/50 rounded-lg mt-2 overflow-hidden" id="mobile-informasi-menu">
+<button class="w-full text-left px-6 py-2.5 text-xs text-gray-700 dark:text-gray-200 hover:bg-red-100 dark:hover:bg-gray-600 hover:text-maroon font-medium transition" onclick="showPage('informasi', 'jadwal'); closeMobileMenu()">Jadwal Dokter</button>
+<button class="w-full text-left px-6 py-2.5 text-xs text-gray-700 dark:text-gray-200 hover:bg-red-100 dark:hover:bg-gray-600 hover:text-maroon font-medium transition" onclick="showPage('informasi', 'pendaftaran'); closeMobileMenu()">Pendaftaran Online</button>
+<button class="w-full text-left px-6 py-2.5 text-xs text-gray-700 dark:text-gray-200 hover:bg-red-100 dark:hover:bg-gray-600 hover:text-maroon font-medium transition" onclick="showPage('informasi', 'kamar'); closeMobileMenu()">Ketersediaan Kamar</button>
+</div>
+</div>
+
+<button class="w-full text-left px-4 py-2.5 text-sm font-semibold text-gray-600 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-gray-700 hover:text-maroon rounded-lg transition" onclick="showPage('fasilitas'); closeMobileMenu()">Fasilitas</button>
+<button class="w-full text-left px-4 py-2.5 text-sm font-semibold text-gray-600 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-gray-700 hover:text-maroon rounded-lg transition" onclick="showPage('berita'); closeMobileMenu()">Berita</button>
+<button class="w-full text-left px-4 py-2.5 text-sm font-semibold text-gray-600 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-gray-700 hover:text-maroon rounded-lg transition" onclick="showPage('home', 'kontak'); closeMobileMenu()">Hubungi Kami</button>
+<button class="w-full text-left px-4 py-2.5 text-sm font-semibold text-gray-600 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-gray-700 hover:text-maroon rounded-lg transition" onclick="showPage('home', 'pengaduan'); closeMobileMenu()">Pengaduan</button>
+</div>
+</nav>
 </header>
 <main class="flex-grow">
 <!-- ==================== VIEW 1: HOME PAGE ==================== -->

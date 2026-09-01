@@ -22,6 +22,88 @@ let pendaftaranData = JSON.parse(localStorage.getItem('rs_pendaftaran')) || [];
 let pengaduanData = JSON.parse(localStorage.getItem('rs_pengaduan')) || [];
 let currentUser = JSON.parse(localStorage.getItem('rs_current_user')) || null;
 
+// =============== MOBILE MENU FUNCTIONS ===============
+/**
+ * Toggle Mobile Menu Visibility
+ */
+function toggleMobileMenu() {
+    const mobileNav = document.getElementById('mobile-nav-menu');
+    const menuIcon = document.getElementById('icon-menu');
+    
+    if (mobileNav) {
+        mobileNav.classList.toggle('hidden');
+        
+        // Update icon
+        if (mobileNav.classList.contains('hidden')) {
+            if (menuIcon) menuIcon.setAttribute('data-lucide', 'menu');
+        } else {
+            if (menuIcon) menuIcon.setAttribute('data-lucide', 'x');
+        }
+        
+        // Re-render icons
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    }
+}
+
+/**
+ * Close Mobile Menu
+ */
+function closeMobileMenu() {
+    const mobileNav = document.getElementById('mobile-nav-menu');
+    const menuIcon = document.getElementById('icon-menu');
+    
+    if (mobileNav && !mobileNav.classList.contains('hidden')) {
+        mobileNav.classList.add('hidden');
+        if (menuIcon) menuIcon.setAttribute('data-lucide', 'menu');
+        
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    }
+}
+
+/**
+ * Toggle Mobile Submenu
+ */
+function toggleMobileSubmenu(submenuId) {
+    const submenu = document.getElementById(submenuId);
+    
+    if (submenu) {
+        submenu.classList.toggle('hidden');
+        
+        // Find the chevron icon and rotate it
+        const button = submenu.previousElementSibling;
+        if (button) {
+            const chevron = button.querySelector('[data-lucide="chevron-down"]');
+            if (chevron) {
+                chevron.style.transform = submenu.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+                chevron.style.transition = 'transform 0.3s ease';
+            }
+        }
+    }
+}
+
+/**
+ * Close all mobile submenus
+ */
+function closeAllMobileSubmenus() {
+    const submenus = document.querySelectorAll('[id^="mobile-"][id$="-menu"]');
+    submenus.forEach(submenu => {
+        if (!submenu.classList.contains('hidden')) {
+            submenu.classList.add('hidden');
+            const button = submenu.previousElementSibling;
+            if (button) {
+                const chevron = button.querySelector('[data-lucide="chevron-down"]');
+                if (chevron) {
+                    chevron.style.transform = 'rotate(0deg)';
+                }
+            }
+        }
+    });
+}
+
 // INIT PAGE
 document.addEventListener("DOMContentLoaded", () => {
     renderDokter();
@@ -32,6 +114,18 @@ document.addEventListener("DOMContentLoaded", () => {
     // Event filter jadwal dokter
     document.getElementById("search-dokter")?.addEventListener("input", filterDokter);
     document.getElementById("filter-hari")?.addEventListener("change", filterDokter);
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+        const mobileNav = document.getElementById('mobile-nav-menu');
+        const menuToggle = document.getElementById('mobile-menu-toggle');
+        
+        if (mobileNav && menuToggle && !mobileNav.classList.contains('hidden')) {
+            if (!mobileNav.contains(event.target) && !menuToggle.contains(event.target)) {
+                closeMobileMenu();
+            }
+        }
+    });
 });
 
 // LOGIKA SWITCH TAB DI HALAMAN INFORMASI PASIEN
