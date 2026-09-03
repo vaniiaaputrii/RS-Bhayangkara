@@ -771,7 +771,7 @@
 </div>
 </div></div>
 <!-- Farmasi -->
-<div class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition group"><div class="h-44 overflow-hidden bg-gray-100 dark:bg-gray-700"><img alt="Instalasi Farmasi" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" src="bacgkroun-rsb-akpol.jpeg"/></div><div class="p-5 flex items-start space-x-4">
+<div class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition group"><div class="h-44 overflow-hidden bg-gray-100 dark:bg-gray-700"><img alt="Instalasi Farmasi" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" src="assets/images/instalasi-farmasi.jpeg"/></div><div class="p-5 flex items-start space-x-4">
 <div class="w-12 h-12 bg-red-50 dark:bg-red-950/50 text-maroon rounded-xl flex items-center justify-center flex-shrink-0">
 <i class="w-6 h-6" data-lucide="pill"></i>
 </div>
@@ -786,7 +786,7 @@
 </div>
 </div></div>
 <!-- Ambulans -->
-<div class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition group"><div class="h-44 overflow-hidden bg-gray-100 dark:bg-gray-700"><img alt="Ambulans Gawat Darurat" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" src="assets/images/ambulance.jpeg"/></div><div class="p-5 flex items-start space-x-4">
+<div class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition group"><div class="h-44 overflow-hidden bg-gray-100 dark:bg-gray-700"><img alt="Ambulans Gawat Darurat" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" src="assets/images/ambulans-gawat-darurat.jpeg"/></div><div class="p-5 flex items-start space-x-4">
 <div class="w-12 h-12 bg-red-50 dark:bg-red-950/50 text-maroon rounded-xl flex items-center justify-center flex-shrink-0">
 <i class="w-6 h-6" data-lucide="ambulance"></i>
 </div>
@@ -801,7 +801,7 @@
 </div>
 </div></div>
 <!-- Rawat Inap -->
-<div class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition group"><div class="h-44 overflow-hidden bg-gray-100 dark:bg-gray-700"><img alt="Ruang Rawat Inap dan ICU" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" src="bacgkroun-rsb-akpol.jpeg"/></div><div class="p-5 flex items-start space-x-4">
+<div class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition group"><div class="h-44 overflow-hidden bg-gray-100 dark:bg-gray-700"><img alt="Ruang Rawat Inap dan ICU" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" src="assets/images/rawat-inap.jpeg"/></div><div class="p-5 flex items-start space-x-4">
 <div class="w-12 h-12 bg-red-50 dark:bg-red-950/50 text-maroon rounded-xl flex items-center justify-center flex-shrink-0">
 <i class="w-6 h-6" data-lucide="bed-double"></i>
 </div>
@@ -831,7 +831,7 @@
 </div>
 </div></div>
 <!-- Poliklinik -->
-<div class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition group"><div class="h-44 overflow-hidden bg-gray-100 dark:bg-gray-700"><img alt="Poliklinik Spesialis" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" src="bacgkroun-rsb-akpol.jpeg"/></div><div class="p-5 flex items-start space-x-4">
+<div class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition group"><div class="h-44 overflow-hidden bg-gray-100 dark:bg-gray-700"><img alt="Poliklinik Spesialis" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" src="assets/images/poliklinik-spesialis.jpeg"/></div><div class="p-5 flex items-start space-x-4">
 <div class="w-12 h-12 bg-red-50 dark:bg-red-950/50 text-maroon rounded-xl flex items-center justify-center flex-shrink-0">
 <i class="w-6 h-6" data-lucide="building-2"></i>
 </div>
@@ -1037,7 +1037,7 @@
 <section class="bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-100 dark:border-gray-700 shadow-sm grid grid-cols-1 md:grid-cols-[18rem_1fr] gap-6 items-start" id="layanan-rawat-inap">
 
 <div class="w-full md:w-72 h-52 md:h-56 rounded-xl overflow-hidden flex-shrink-0 border border-gray-100 dark:border-gray-700 shadow-sm">
-<img src="bacgkroun-rsb-akpol.jpeg" alt="Foto layanan RS Bhayangkara Akpol" class="w-full h-full object-cover" />
+<img src="assets/images/rawat-inap.jpeg" alt="Foto layanan Rawat Inap" class="w-full h-full object-cover" />
 </div>
 
 <div class="flex flex-col md:flex-row gap-6 items-start">
@@ -3934,15 +3934,21 @@ window.addEventListener('storage', function(event) {
         // ==================== KELOLA FASILITAS + FOTO ====================
         const fasilitasDefault = [
             {id:'fasilitas-1', nama:'Laboratorium 24 Jam', desc:'Dukungan pemeriksaan spesimen patologi klinis dan urinalisis cepat dan akurat.', icon:'flask-conical', foto:'bacgkroun-rsb-akpol.jpeg'},
-            {id:'fasilitas-2', nama:'Instalasi Farmasi', desc:'Layanan penebusan resep obat-obatan lengkap siap melayani 24 jam nonstop.', icon:'pill', foto:'bacgkroun-rsb-akpol.jpeg'},
-            {id:'fasilitas-3', nama:'Ambulans Gawat Darurat', desc:'Armada mobil darurat medis dengan peralatan penunjang hidup yang lengkap.', icon:'ambulance', foto:'assets/images/ambulance.jpeg'},
-            {id:'fasilitas-4', nama:'Ruang Rawat Inap & ICU', desc:'Kamar perawatan yang bersih, nyaman, steril, serta dilengkapi fasilitas pengawasan intensif.', icon:'bed-double', foto:'bacgkroun-rsb-akpol.jpeg'},
+            {id:'fasilitas-2', nama:'Instalasi Farmasi', desc:'Layanan penebusan resep obat-obatan lengkap siap melayani 24 jam nonstop.', icon:'pill', foto:'assets/images/instalasi-farmasi.jpeg'},
+            {id:'fasilitas-3', nama:'Ambulans Gawat Darurat', desc:'Armada mobil darurat medis dengan peralatan penunjang hidup yang lengkap.', icon:'ambulance', foto:'assets/images/ambulans-gawat-darurat.jpeg'},
+            {id:'fasilitas-4', nama:'Ruang Rawat Inap & ICU', desc:'Kamar perawatan yang bersih, nyaman, steril, serta dilengkapi fasilitas pengawasan intensif.', icon:'bed-double', foto:'assets/images/rawat-inap.jpeg'},
             {id:'fasilitas-5', nama:'Radiologi & USG', desc:'Pemeriksaan pencitraan medis radiologi modern untuk diagnosa penyakit akurat.', icon:'activity', foto:'bacgkroun-rsb-akpol.jpeg'},
-            {id:'fasilitas-6', nama:'Poliklinik Spesialis', desc:'Ruang konsul dokter spesialis THT, Penyakit Dalam, Anak, Bedah Umum dan Kedokteran Kepolisian.', icon:'building-2', foto:'bacgkroun-rsb-akpol.jpeg'},
-            {id:'fasilitas-7', nama:'Instalasi Bedah Sentral', desc:'Ruang operasi modern dengan peralatan bedah lengkap dan tim tenaga medis profesional berpengalaman.', icon:'activity', foto:'bacgkroun-rsb-akpol.jpeg'},
+            {id:'fasilitas-6', nama:'Poliklinik Spesialis', desc:'Ruang konsul dokter spesialis THT, Penyakit Dalam, Anak, Bedah Umum dan Kedokteran Kepolisian.', icon:'building-2', foto:'assets/images/poliklinik-spesialis.jpeg'},
+            {id:'fasilitas-7', nama:'Instalasi Bedah Sentral', desc:'Ruang operasi modern dengan peralatan bedah lengkap dan tim tenaga medis profesional berpengalaman.', icon:'activity', foto:'assets/images/instalasi-bedah-sentral.jpeg'},
             {id:'fasilitas-8', nama:'Radiologi & X-Ray', desc:'Layanan pemeriksaan Radiologi dan X-Ray dengan teknologi imaging terkini untuk diagnosis akurat dan cepat.', icon:'activity', foto:'bacgkroun-rsb-akpol.jpeg'}
         ];
         let dataFasilitas = JSON.parse(localStorage.getItem('rs_fasilitas_list') || 'null') || fasilitasDefault;
+        dataFasilitas = dataFasilitas.map(f => f.nama === 'Instalasi Farmasi' ? {...f, foto:'assets/images/instalasi-farmasi.jpeg'} : f);
+        dataFasilitas = dataFasilitas.map(f => f.nama === 'Instalasi Bedah Sentral' ? {...f, foto:'assets/images/instalasi-bedah-sentral.jpeg'} : f);
+        dataFasilitas = dataFasilitas.map(f => f.nama === 'Ruang Rawat Inap & ICU' ? {...f, foto:'assets/images/rawat-inap.jpeg'} : f);
+        dataFasilitas = dataFasilitas.map(f => f.nama === 'Ambulans Gawat Darurat' ? {...f, foto:'assets/images/ambulans-gawat-darurat.jpeg'} : f);
+        dataFasilitas = dataFasilitas.map(f => f.nama === 'Poliklinik Spesialis' ? {...f, foto:'assets/images/poliklinik-spesialis.jpeg'} : f);
+        localStorage.setItem('rs_fasilitas_list', JSON.stringify(dataFasilitas));
         let fotoFasilitasEdit = '';
 
         function escapeFasilitas(v) {
@@ -4091,12 +4097,14 @@ window.addEventListener('storage', function(event) {
         // KELOLA LAYANAN + FOTO (ADMIN <-> HALAMAN WEBSITE)
         // =====================================================
         const layananDefault = [
-            {id:'layanan-rawat-inap', nama:'Rawat Inap', desc:'Layanan rawat inap ditujukan bagi pasien yang membutuhkan perawatan dan pemantauan medis secara berkala selama masa pemulihan.', icon:'bed', foto:'bacgkroun-rsb-akpol.jpeg'},
+            {id:'layanan-rawat-inap', nama:'Rawat Inap', desc:'Layanan rawat inap ditujukan bagi pasien yang membutuhkan perawatan dan pemantauan medis secara berkala selama masa pemulihan.', icon:'bed', foto:'assets/images/rawat-inap.jpeg'},
             {id:'layanan-igd', nama:'IGD 24 Jam', desc:'Instalasi Gawat Darurat memberikan pelayanan untuk kondisi medis yang membutuhkan penanganan segera dan cepat. Layanan IGD tersedia selama 24 jam.', icon:'ambulance', foto:'igd.jpeg'},
             {id:'layanan-mcu', nama:'Medical Check Up (MCU)', desc:'Medical Check Up merupakan layanan pemeriksaan kesehatan untuk mengetahui kondisi kesehatan secara menyeluruh dan membantu mendeteksi gangguan kesehatan sejak dini.', icon:'clipboard-check', foto:'bacgkroun-rsb-akpol.jpeg'},
             {id:'layanan-fasilitas', nama:'Fasilitas Penunjang', desc:'Fasilitas penunjang yang mendukung proses pemeriksaan dan pelayanan kesehatan pasien.', icon:'building-2', foto:'bacgkroun-rsb-akpol.jpeg'}
         ];
         let dataLayanan = JSON.parse(localStorage.getItem('rs_layanan_list') || 'null') || layananDefault;
+        dataLayanan = dataLayanan.map(l => l.id === 'layanan-rawat-inap' ? {...l, foto:'assets/images/rawat-inap.jpeg'} : l);
+        localStorage.setItem('rs_layanan_list', JSON.stringify(dataLayanan));
         let fotoLayananEdit = '';
 
         function escapeLayanan(v){
