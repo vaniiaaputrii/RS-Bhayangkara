@@ -81,7 +81,33 @@ INSERT INTO `dokter` (`id_dokter`, `id_poli`, `nama_dokter`, `spesialis`, `sip`,
 (1, 1, 'dr. HENRY SANTOSO, Sp. PD', 'SPESIALIS PENYAKIT DALAM', NULL, NULL, 'Senin, Rabu, Jumat', '09.00-11.00 WIB'),
 (2, 2, 'dr. SHINTA HARFINIA, Sp. Rad', 'SPESIALIS RADIOLOGI', NULL, NULL, 'Senin - Jumat', '08.00-12.00 WIB'),
 (3, 3, 'dr. WAHYU HENDRA PRABOWO, Sp.B', 'SPESIALIS BEDAH', NULL, NULL, 'Senin - Jumat', '12.00-14.00 WIB'),
-(4, 4, 'dr. WINRES SAPTO PRIAMBODO, Sp. A', 'SPESIALIS ANAK', NULL, NULL, 'Senin - Kamis', '15.30-16.30 WIB');
+(4, 4, 'dr. WINRES SAPTO PRIAMBODO, Sp. A', 'SPESIALIS ANAK', NULL, NULL, 'Senin - Kamis', '15.30-16.30 WIB'),
+(5, 1, 'dr. FANDI AHMAD MUTTAQIN, Sp.An., Kompol', 'SPESIALIS ANESTESI', NULL, NULL, 'Senin - Jumat', '07.00-15.00 WIB');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `jadwal_dokter`
+--
+
+CREATE TABLE `jadwal_dokter` (
+  `id_jadwal` int(11) NOT NULL,
+  `id_dokter` int(11) NOT NULL,
+  `hari` enum('Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu') NOT NULL,
+  `jam_mulai` time NOT NULL,
+  `jam_selesai` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Jadwal dr. Fandi Ahmad Muttaqin
+--
+
+INSERT INTO `jadwal_dokter` (`id_jadwal`, `id_dokter`, `hari`, `jam_mulai`, `jam_selesai`) VALUES
+(1, 5, 'Senin', '07:00:00', '15:00:00'),
+(2, 5, 'Selasa', '07:00:00', '15:00:00'),
+(3, 5, 'Rabu', '07:00:00', '15:00:00'),
+(4, 5, 'Kamis', '07:00:00', '15:00:00'),
+(5, 5, 'Jumat', '07:00:00', '15:00:00');
 
 -- --------------------------------------------------------
 
@@ -257,6 +283,13 @@ ALTER TABLE `kamar`
   ADD PRIMARY KEY (`id_kamar`);
 
 --
+-- Indeks untuk tabel `jadwal_dokter`
+--
+ALTER TABLE `jadwal_dokter`
+  ADD PRIMARY KEY (`id_jadwal`),
+  ADD KEY `fk_jadwal_dokter` (`id_dokter`);
+
+--
 -- Indeks untuk tabel `pasien`
 --
 ALTER TABLE `pasien`
@@ -316,6 +349,12 @@ ALTER TABLE `kamar`
   MODIFY `id_kamar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT untuk tabel `jadwal_dokter`
+--
+ALTER TABLE `jadwal_dokter`
+  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT untuk tabel `pasien`
 --
 ALTER TABLE `pasien`
@@ -354,6 +393,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `dokter`
   ADD CONSTRAINT `fk_dokter_poli` FOREIGN KEY (`id_poli`) REFERENCES `poli` (`id_poli`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `jadwal_dokter`
+--
+ALTER TABLE `jadwal_dokter`
+  ADD CONSTRAINT `fk_jadwal_dokter_dokter` FOREIGN KEY (`id_dokter`) REFERENCES `dokter` (`id_dokter`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `pendaftaran`

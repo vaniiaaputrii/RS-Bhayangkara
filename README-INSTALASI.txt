@@ -18,7 +18,8 @@ C. DATABASE
 3. Database yang digunakan project adalah:
    db_rs_bhayangkara
 4. Jangan import file SQL lain. Database utama sudah berisi tabel
-   berita, dokter, kamar, pasien, pendaftaran, pengaduan, poli, dan users.
+   berita, dokter, jadwal_dokter, kamar, pasien, pendaftaran, pengaduan,
+   poli, dan users.
 
 D. BUKA WEBSITE
 Gunakan:

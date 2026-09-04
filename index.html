@@ -2213,23 +2213,31 @@
 <!-- Init Lucide Icons & SCRIPT UTAMA -->
 <script>
         // Data Master Dokter Dynamic
-        let dataDokter = JSON.parse(localStorage.getItem('rs_dokter_list')) || [
-            { id: 1, nama: "dr. HENRY SANTOSO, Sp. PD", spesialis: "SPESIALIS PENYAKIT DALAM", hari: "Senin, Rabu, Jumat", jam: "Senin & Rabu: 09.00-11.00 | Jumat: 10.00-11.00" },
-    { id: 2, nama: "dr. SHINTA HARFINIA, Sp. Rad", spesialis: "SPESIALIS RADIOLOGI", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin-Rabu: 08.00-12.00 | Kamis: 09.00-11.45 | Jumat: 11.30-15.00" },
-    { id: 3, nama: "dr. WAHYU HENDRA PRABOWO, M.Biomed, Sp.B, FINACS", spesialis: "SPESIALIS BEDAH", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin & Rabu: 12.00-14.00 | Selasa & Kamis: 09.00-11.00 | Jumat: 12.00-14.00" },
-    { id: 4, nama: "dr. ICHDINAVIA HARSAYA, Sp. KJ", spesialis: "SPESIALIS KEDOKTERAN JIWA", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin & Rabu: 08.00-10.00 & 15.00-16.00 | Selasa, Kamis, Jumat: 08.00-10.00" },
-    { id: 5, nama: "dr. RISMA GAYANTI, Sp.FM", spesialis: "SPESIALIS FORENSIK DAN MEDIKOLEGAL", hari: "Senin, Selasa, Rabu", jam: "14.00-16.00" },
-    { id: 6, nama: "dr. NANUNG BUDI PRAKOSO, Sp. N", spesialis: "SPESIALIS SARAF", hari: "Senin, Rabu, Jumat", jam: "16.00-17.00" },
-    { id: 7, nama: "dr. IVANDER PURVANCE, Sp. OT", spesialis: "SPESIALIS ORTHOPEDI", hari: "Rabu, Jumat", jam: "10.00-12.00" },
-    { id: 8, nama: "dr. RETNO HARTANTI, Sp. KFR", spesialis: "SPESIALIS REHABILITASI MEDIK", hari: "Selasa, Jumat", jam: "16.00-17.00" },
-    { id: 9, nama: "dr. FERRY SANTOSO, Sp. OG", spesialis: "SPESIALIS KANDUNGAN & KEBIDANAN", hari: "Senin, Rabu, Kamis", jam: "14.00-16.00" },
-    { id: 10, nama: "dr. WINRES SAPTO PRIAMBODO, Sp. A", spesialis: "SPESIALIS ANAK", hari: "Senin, Selasa, Rabu, Kamis", jam: "15.30-16.30" },
-    { id: 11, nama: "INDRA DWI PURNOMO, M. Psi., Phd. Psikolog", spesialis: "PSIKOLOG KLINIS", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "12.00-14.00" },
-    { id: 12, nama: "dr. AGRI VINA BRAHMANTIANI SURYONO, Sp.PK", spesialis: "PATOLOGI KLINIK", hari: "Rabu, Kamis, Sabtu", jam: "Rabu & Kamis: 17.00-19.00 | Sabtu: 18.00-19.00" },
-    { id: 13, nama: "dr. KHUMAYROH RACHMAWATI BUANA, Sp.DVE", spesialis: "SPESIALIS KULIT, KELAMIN DAN KECANTIKAN", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin-Kamis: 12.00-13.00 | Jumat: 14.00-15.00" },
-    { id: 14, nama: "dr. NI MADE ATIKA NURINA YANTI SUTARTA, Sp.KJ", spesialis: "SPESIALIS KEDOKTERAN JIWA", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin & Rabu: 09.00-11.00 | Selasa, Kamis, Jumat: 14.00-16.00" },
-    { id: 15, nama: "dr. JOSE TYMOTHY MANUPUTTY, Sp.OG", spesialis: "SPESIALIS KANDUNGAN & KEBIDANAN", hari: "Senin, Selasa, Rabu, Kamis, Jumat, Sabtu", jam: "Senin & Kamis: 18.00-19.30 | Selasa: 15.00-17.00 | Rabu: 19.00-20.00 | Jumat: 09.00-11.00 | Sabtu: 15.30-17.30" }
+        const dataDokterDefault = [
+                { id: 1, nama: "dr. FANDI AHMAD MUTTAQIN, Sp.An., Kompol", spesialis: "SPESIALIS ANESTESI", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin-Jumat: 07.00-15.00", foto: "assets/images/dokter/dokter-fandi-ahmad-muttaqin.jpg" },
+            { id: 2, nama: "dr. HENRY SANTOSO, Sp. PD", spesialis: "SPESIALIS PENYAKIT DALAM", hari: "Senin, Rabu, Jumat", jam: "Senin, Rabu, Jumat: 09.00-11.00", foto: "assets/images/dokter/dokter-henry-santoso.jpg" },
+            { id: 3, nama: "dr. SHINTA HARFINIA, Sp. Rad", spesialis: "SPESIALIS RADIOLOGI", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin-Rabu: 08.00-12.00 | Kamis: 09.00-11.45 | Jumat: 11.30-15.00", foto: "assets/images/dokter/dokter-shinta-harfinia.jpg" },
+            { id: 4, nama: "dr. WAHYU HENDRA PRABOWO, M.Biomed, Sp.B, FINACS", spesialis: "SPESIALIS BEDAH", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin & Rabu: 12.00-14.00 | Selasa & Kamis: 09.00-11.00 | Jumat: 12.00-14.00" },
+            { id: 5, nama: "dr. ICHDINAVIA HARSAYA, Sp. KJ", spesialis: "SPESIALIS KEDOKTERAN JIWA", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin & Rabu: 15.00-16.00 | Selasa, Kamis, Jumat: 08.00-10.00" },
+            { id: 6, nama: "dr. RISMA GAYANTI, Sp.FM", spesialis: "SPESIALIS FORENSIK DAN MEDIKOLEGAL", hari: "Senin, Selasa, Rabu", jam: "14.00-16.00" },
+            { id: 7, nama: "dr. RETNO HARTANTI, Sp. KFR", spesialis: "SPESIALIS REHABILITASI MEDIK", hari: "Selasa, Jumat", jam: "Selasa & Jumat: 16.00-17.00" },
+            { id: 8, nama: "dr. WINRES SAPTO PRIAMBODO, Sp. A", spesialis: "SPESIALIS ANAK", hari: "Senin, Kamis", jam: "Senin & Kamis: 15.30-16.30" },
+            { id: 9, nama: "INDRA DWI PURNOMO, M. Psi., Phd. Psikolog", spesialis: "PSIKOLOG KLINIS", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin-Jumat: 12.00-14.00" },
+            { id: 10, nama: "dr. AGRI VINA BRAHMANTIANI SURYONO, Sp.PK", spesialis: "PATOLOGI KLINIK", hari: "Rabu, Kamis, Sabtu", jam: "Rabu & Kamis: 17.00-19.00 | Sabtu: 18.00-19.00" },
+            { id: 11, nama: "dr. KHUMAYROH RACHMAWATI BUANA, Sp.DVE", spesialis: "SPESIALIS KULIT, KELAMIN DAN KECANTIKAN", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin-Kamis: 12.00-13.00 | Jumat: 14.00-15.00" },
+            { id: 12, nama: "dr. NI MADE ATIKA NURINA YANTI SUTARTA, Sp.KJ", spesialis: "SPESIALIS KEDOKTERAN JIWA", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin & Rabu: 09.00-11.00 | Selasa, Kamis, Jumat: 13.00-14.00" },
+            { id: 13, nama: "dr. JOSE TYMOTHY MANUPUTTY, Sp.OG", spesialis: "SPESIALIS KANDUNGAN & KEBIDANAN", hari: "Senin, Selasa, Rabu, Kamis, Jumat, Sabtu", jam: "Senin & Kamis: 18.00-19.30 | Selasa: 15.00-17.00 | Rabu: 19.00-20.00 | Jumat: 09.00-11.00 | Sabtu: 15.30-17.30" },
+            { id: 14, nama: "dr. PARAMESTRI SEKAR KINANTHI, Sp.PD", spesialis: "SPESIALIS PENYAKIT DALAM", hari: "Senin, Selasa, Rabu, Kamis", jam: "Senin-Kamis: 11.30-13.30" },
+    { id: 15, nama: "drg. DJATI, M.B.A", spesialis: "POLI GIGI", hari: "Senin, Selasa, Rabu, Kamis, Jumat", jam: "Senin-Jumat: 08.00-14.00", foto: "assets/images/dokter/dokter-djati.jpg" }
         ];
+
+        let dataDokter = JSON.parse(localStorage.getItem('rs_dokter_list')) || dataDokterDefault;
+        const jadwalDokterVersi = '2026-09-04-8';
+        if (localStorage.getItem('rs_jadwal_dokter_versi') !== jadwalDokterVersi) {
+            dataDokter = dataDokterDefault;
+            localStorage.setItem('rs_dokter_list', JSON.stringify(dataDokter));
+            localStorage.setItem('rs_jadwal_dokter_versi', jadwalDokterVersi);
+        }
 
         // Penyimpanan lokal browser (tanpa API / PHP / MySQL)
         let pendaftaranList = JSON.parse(localStorage.getItem('rs_pendaftaran')) || [];
@@ -2366,6 +2374,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // AMBIL DATA BERITA DARI MYSQL DATABASE
     loadBeritaFromDB();
+
+    fetch('api_pendaftaran.php')
+        .then(response => response.json())
+        .then(data => {
+            if (!Array.isArray(data)) return;
+            pendaftaranList = data.map((p, index) => ({
+                ...p,
+                id: p.id ?? p.id_pendaftaran ?? Date.now() + index,
+                no: p.no || p.no_antrean,
+                nama: p.nama || p.nama_pasien,
+                nik: p.nik || p.nik_nrp,
+                dokter: p.dokter || p.dokter_nama,
+                tanggal: p.tanggal || p.tanggal_kunjungan,
+                status: p.status || 'Menunggu'
+            }));
+            localStorage.setItem('rs_pendaftaran', JSON.stringify(pendaftaranList));
+            if (isAdminLoggedIn) renderInternalTables();
+        })
+        .catch(error => console.error('Gagal memuat data pendaftaran:', error));
+
+    fetch('api_pengaduan.php')
+        .then(response => response.json())
+        .then(data => {
+            if (!Array.isArray(data)) return;
+            pengaduanList = data.map((p, index) => ({
+                ...p,
+                id: p.id || p.kode_pengaduan || p.id_pengaduan || Date.now() + index,
+                nama: p.nama || p.nama_pelapor || 'Anonim',
+                kategori: p.kategori || p.kategori_layanan || '-',
+                isi: p.isi || p.isi_pengaduan || '',
+                status: p.status || 'Baru'
+            }));
+            localStorage.setItem('rs_pengaduan', JSON.stringify(pengaduanList));
+            if (isAdminLoggedIn) renderInternalTables();
+        })
+        .catch(error => console.error('Gagal memuat data pengaduan:', error));
 
     resetFormBerita();
     
@@ -2805,6 +2849,18 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById('tiket-pendaftaran').classList.remove('hidden');
             
             document.getElementById('form-pendaftaran').reset();
+            pendaftaranList.push({
+                id: Date.now(),
+                no: result.no_antrean,
+                nama: dataInput.nama,
+                nik: dataInput.nik,
+                kategori: dataInput.kategori,
+                dokter: dataInput.dokter,
+                tanggal: dataInput.tanggal,
+                status: 'Menunggu'
+            });
+            localStorage.setItem('rs_pendaftaran', JSON.stringify(pendaftaranList));
+            renderInternalTables();
             alert('Pendaftaran berhasil disimpan ke Database MySQL!');
         } else {
             alert('Gagal menyimpan ke database: ' + result.message);
@@ -2838,6 +2894,15 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById('tiket-aduan-id').innerText = result.kode_pengaduan;
             document.getElementById('status-pengaduan').classList.remove('hidden');
             document.getElementById('form-pengaduan').reset();
+            pengaduanList.unshift({
+                id: result.kode_pengaduan,
+                nama: dataInput.nama,
+                kategori: dataInput.kategori,
+                isi: dataInput.isi,
+                status: 'Baru'
+            });
+            localStorage.setItem('rs_pengaduan', JSON.stringify(pengaduanList));
+            renderInternalTables();
             alert('Pengaduan berhasil masuk ke Database MySQL!');
         } else {
             alert('Gagal menyimpan pengaduan: ' + result.message);
@@ -3948,7 +4013,7 @@ window.addEventListener('storage', function(event) {
         dataFasilitas = dataFasilitas.map(f => f.nama === 'Ruang Rawat Inap & ICU' ? {...f, foto:'assets/images/rawat-inap.jpeg'} : f);
         dataFasilitas = dataFasilitas.map(f => f.nama === 'Ambulans Gawat Darurat' ? {...f, foto:'assets/images/ambulans-gawat-darurat.jpeg'} : f);
         dataFasilitas = dataFasilitas.map(f => f.nama === 'Poliklinik Spesialis' ? {...f, foto:'assets/images/poliklinik-spesialis.jpeg'} : f);
-        dataFasilitas = dataFasilitas.map(f => f.nama === 'Laboratorium 24' ? {...f, foto:'assets/images/laboratorium.jpg'} : f);
+        dataFasilitas = dataFasilitas.map(f => f.nama === 'Laboratorium 24 Jam' ? {...f, foto:'assets/images/laboratorium.jpg'} : f);
         dataFasilitas = dataFasilitas.map(f => f.nama === 'Radiologi & USG' ? {...f, foto:'assets/images/usg.jpg'} : f);
         dataFasilitas = dataFasilitas.map(f => f.nama === 'Radiologi & X-Ray' ? {...f, foto:'assets/images/x-ray.jpg'} : f);
         localStorage.setItem('rs_fasilitas_list', JSON.stringify(dataFasilitas));
@@ -4103,10 +4168,11 @@ window.addEventListener('storage', function(event) {
             {id:'layanan-rawat-inap', nama:'Rawat Inap', desc:'Layanan rawat inap ditujukan bagi pasien yang membutuhkan perawatan dan pemantauan medis secara berkala selama masa pemulihan.', icon:'bed', foto:'assets/images/rawat-inap.jpeg'},
             {id:'layanan-igd', nama:'IGD 24 Jam', desc:'Instalasi Gawat Darurat memberikan pelayanan untuk kondisi medis yang membutuhkan penanganan segera dan cepat. Layanan IGD tersedia selama 24 jam.', icon:'ambulance', foto:'igd.jpeg'},
             {id:'layanan-mcu', nama:'Medical Check Up (MCU)', desc:'Medical Check Up merupakan layanan pemeriksaan kesehatan untuk mengetahui kondisi kesehatan secara menyeluruh dan membantu mendeteksi gangguan kesehatan sejak dini.', icon:'clipboard-check', foto:'bacgkroun-rsb-akpol.jpeg'},
-            {id:'layanan-fasilitas', nama:'Fasilitas Penunjang', desc:'Fasilitas penunjang yang mendukung proses pemeriksaan dan pelayanan kesehatan pasien.', icon:'building-2', foto:'bacgkroun-rsb-akpol.jpeg'}
+            {id:'layanan-fasilitas', nama:'Fasilitas Penunjang', desc:'Fasilitas penunjang yang mendukung proses pemeriksaan dan pelayanan kesehatan pasien.', icon:'building-2', foto:'assets/images/penunjang.jpg'}
         ];
         let dataLayanan = JSON.parse(localStorage.getItem('rs_layanan_list') || 'null') || layananDefault;
         dataLayanan = dataLayanan.map(l => l.id === 'layanan-rawat-inap' ? {...l, foto:'assets/images/rawat-inap.jpeg'} : l);
+        dataLayanan = dataLayanan.map(l => l.id === 'layanan-fasilitas' ? {...l, foto:'assets/images/penunjang.jpg'} : l);
         localStorage.setItem('rs_layanan_list', JSON.stringify(dataLayanan));
         let fotoLayananEdit = '';
 
