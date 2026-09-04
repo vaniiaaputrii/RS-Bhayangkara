@@ -3,12 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 28 Agu 2026 pada 06.46
+-- Waktu pembuatan: 04 Sep 2026 pada 07.46
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
-
-CREATE DATABASE IF NOT EXISTS `db_rs_bhayangkara` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `db_rs_bhayangkara`;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -53,8 +50,7 @@ CREATE TABLE `berita` (
 INSERT INTO `berita` (`id_berita`, `judul`, `slug`, `kategori`, `tanggal`, `gambar`, `ringkasan`, `isi`, `tampil`, `penulis`, `views`, `created_at`, `updated_at`) VALUES
 (1, 'Pentingnya Pemeriksaan Kesehatan Rutin (MCU) Bagi Usia Produktif', 'pentingnya-pemeriksaan-kesehatan-rutin-mcu-bagi-usia-produktif', 'Edukasi Kesehatan', '2026-08-02', 'mcu.jpeg', 'Pencegahan dini terhadap penyakit kronis menjadi langkah terpenting dalam menjaga kualitas hidup dan stamina kerja.', 'Pemeriksaan kesehatan secara rutin merupakan salah satu langkah penting untuk menjaga kondisi tubuh, khususnya bagi masyarakat pada usia produktif.\n\nMelalui Medical Check Up (MCU), kondisi kesehatan dapat diketahui lebih awal sehingga berbagai risiko gangguan kesehatan dapat mendapatkan perhatian dan penanganan yang sesuai.\n\nPencegahan dini terhadap penyakit kronis menjadi langkah penting dalam menjaga kualitas hidup dan stamina dalam menjalankan aktivitas sehari-hari.', 1, 'Admin RS', 124, '2026-08-28 04:19:28', '2026-08-28 04:19:28'),
 (2, 'Bakti Kesehatan RS Bhayangkara Akpol untuk Masyarakat Semarang', 'bakti-kesehatan-rs-bhayangkara-akpol-untuk-masyarakat-semarang', 'Kegiatan RS', '2026-07-28', 'bakti.jpg', 'Pelaksanaan pengobatan gratis dan konsultasi kesehatan gratis yang diselenggarakan dalam rangka memperingati Hari Bhayangkara.', 'RS Bhayangkara Akpol turut melaksanakan kegiatan bakti kesehatan sebagai bentuk kepedulian terhadap kesehatan masyarakat di Kota Semarang.\n\nKegiatan tersebut mencakup pelayanan pengobatan gratis dan konsultasi kesehatan gratis bagi masyarakat.\n\nKegiatan bakti kesehatan diselenggarakan dalam rangka memperingati Hari Bhayangkara serta sebagai bentuk kontribusi RS Bhayangkara Akpol.', 1, 'Humas RS', 210, '2026-08-28 04:19:28', '2026-08-28 04:19:28'),
-(3, 'Menjaga Kesehatan Telinga, Hidung, dan Tenggorokan di Musim Pancaroba', 'menjaga-kesehatan-telinga-hidung-dan-tenggorokan-di-musim-pancaroba', 'Tips Medis', '2026-07-15', 'THT.jpg', 'Panduan dari dokter spesialis THT RS Bhayangkara Akpol untuk mencegah infeksi dan alergi pada saluran pernapasan.', 'Perubahan cuaca pada musim pancaroba dapat meningkatkan risiko gangguan pada saluran pernapasan, termasuk telinga, hidung, dan tenggorokan.\n\nMenjaga kebersihan diri, menjaga daya tahan tubuh, serta memperhatikan kondisi lingkungan merupakan beberapa langkah yang dapat dilakukan untuk membantu menjaga kesehatan.', 1, 'Tim Medis', 95, '2026-08-28 04:19:28', '2026-08-28 04:19:28'),
-(5, 'ppp', 'ppp', 'Edukasi Kesehatan', '2026-08-28', '', 'pppp', 'p', 1, 'Admin RS', 0, '2026-08-28 04:44:08', '2026-08-28 04:44:08');
+(3, 'Menjaga Kesehatan Telinga, Hidung, dan Tenggorokan di Musim Pancaroba', 'menjaga-kesehatan-telinga-hidung-dan-tenggorokan-di-musim-pancaroba', 'Tips Medis', '2026-07-15', 'THT.jpg', 'Panduan dari dokter spesialis THT RS Bhayangkara Akpol untuk mencegah infeksi dan alergi pada saluran pernapasan.', 'Perubahan cuaca pada musim pancaroba dapat meningkatkan risiko gangguan pada saluran pernapasan, termasuk telinga, hidung, dan tenggorokan.\n\nMenjaga kebersihan diri, menjaga daya tahan tubuh, serta memperhatikan kondisi lingkungan merupakan beberapa langkah yang dapat dilakukan untuk membantu menjaga kesehatan.', 1, 'Tim Medis', 95, '2026-08-28 04:19:28', '2026-08-28 04:19:28');
 
 -- --------------------------------------------------------
 
@@ -64,25 +60,28 @@ INSERT INTO `berita` (`id_berita`, `judul`, `slug`, `kategori`, `tanggal`, `gamb
 
 CREATE TABLE `dokter` (
   `id_dokter` int(11) NOT NULL,
-  `id_poli` int(11) NOT NULL,
-  `nama_dokter` varchar(150) NOT NULL,
-  `spesialis` varchar(100) NOT NULL,
-  `sip` varchar(50) DEFAULT NULL,
-  `no_hp` varchar(20) DEFAULT NULL,
-  `hari_praktik` varchar(100) NOT NULL,
-  `jam_praktik` varchar(100) NOT NULL
+  `nama_dokter` varchar(255) NOT NULL,
+  `spesialis` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data untuk tabel `dokter`
 --
 
-INSERT INTO `dokter` (`id_dokter`, `id_poli`, `nama_dokter`, `spesialis`, `sip`, `no_hp`, `hari_praktik`, `jam_praktik`) VALUES
-(1, 1, 'dr. HENRY SANTOSO, Sp. PD', 'SPESIALIS PENYAKIT DALAM', NULL, NULL, 'Senin, Rabu, Jumat', '09.00-11.00 WIB'),
-(2, 2, 'dr. SHINTA HARFINIA, Sp. Rad', 'SPESIALIS RADIOLOGI', NULL, NULL, 'Senin - Jumat', '08.00-12.00 WIB'),
-(3, 3, 'dr. WAHYU HENDRA PRABOWO, Sp.B', 'SPESIALIS BEDAH', NULL, NULL, 'Senin - Jumat', '12.00-14.00 WIB'),
-(4, 4, 'dr. WINRES SAPTO PRIAMBODO, Sp. A', 'SPESIALIS ANAK', NULL, NULL, 'Senin - Kamis', '15.30-16.30 WIB'),
-(5, 1, 'dr. FANDI AHMAD MUTTAQIN, Sp.An., Kompol', 'SPESIALIS ANESTESI', NULL, NULL, 'Senin - Jumat', '07.00-15.00 WIB');
+INSERT INTO `dokter` (`id_dokter`, `nama_dokter`, `spesialis`) VALUES
+(1, 'dr. HENRY SANTOSO, Sp. PD', 'SPESIALIS PENYAKIT DALAM'),
+(2, 'dr. SHINTA HARFINIA, Sp. Rad', 'SPESIALIS RADIOLOGI'),
+(3, 'dr. WAHYU HENDRA PRABOWO, M.Biomed, Sp.B, FINACS', 'SPESIALIS BEDAH'),
+(4, 'dr. ICHDINAVIA HARSAYA, Sp. KJ', 'SPESIALIS KEDOKTERAN JIWA'),
+(5, 'dr. RISMA GAYANTI, Sp.FM', 'SPESIALIS FORENSIK DAN MEDIKOLEGAL'),
+(6, 'dr. RETNO HARTANTI , Sp. KFR', 'SPESIALIS REHABILITASI MEDIK'),
+(7, 'dr. WINRES SAPTO PRIAMBODO, Sp. A', 'SPESIALIS ANAK'),
+(8, 'INDRA DWI PURNOMO, M. Psi., Phd. Psikolog', 'PSIKOLOG KLINIS'),
+(9, 'dr. AGRI VINA BRAHMANTIANI SURYONO, Sp.PK', 'PATOLOGI KLINIK'),
+(10, 'dr. KHUMAYROH RACHMAWATI BUANA, Sp.DVE', 'SPESIALIS KULIT, KELAMIN DAN KECANTIKAN'),
+(11, 'dr. NI MADE ATIKA NURINA YANTI SUTARTA, Sp.KJ', 'SPESIALIS KEDOKTERAN JIWA'),
+(12, 'dr. JOSE TYMOTHY MANUPUTTY, Sp.OG', 'SPESIALIS KANDUNGAN & KEBIDANAN'),
+(13, 'dr. PARAMESTRI SEKAR KINANTHI, Sp.PD', 'SPESIALIS PENYAKIT DALAM');
 
 -- --------------------------------------------------------
 
@@ -96,18 +95,7 @@ CREATE TABLE `jadwal_dokter` (
   `hari` enum('Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu') NOT NULL,
   `jam_mulai` time NOT NULL,
   `jam_selesai` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Jadwal dr. Fandi Ahmad Muttaqin
---
-
-INSERT INTO `jadwal_dokter` (`id_jadwal`, `id_dokter`, `hari`, `jam_mulai`, `jam_selesai`) VALUES
-(1, 5, 'Senin', '07:00:00', '15:00:00'),
-(2, 5, 'Selasa', '07:00:00', '15:00:00'),
-(3, 5, 'Rabu', '07:00:00', '15:00:00'),
-(4, 5, 'Kamis', '07:00:00', '15:00:00'),
-(5, 5, 'Jumat', '07:00:00', '15:00:00');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -173,17 +161,6 @@ CREATE TABLE `pendaftaran` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data untuk tabel `pendaftaran`
---
-
-INSERT INTO `pendaftaran` (`id_pendaftaran`, `no_antrean`, `id_pasien`, `nama_pasien`, `nik_nrp`, `kategori`, `pembayaran`, `id_dokter`, `dokter_nama`, `tanggal_kunjungan`, `status`, `created_at`) VALUES
-(1, 'A-001', NULL, 'windd', '12312312312', 'Umum', 'Umum', NULL, 'dr. WAHYU HENDRA PRABOWO, M.Biomed, Sp.B, FINACS (SPESIALIS BEDAH)', '2026-08-21', 'Menunggu', '2026-08-19 04:31:51'),
-(2, 'A-001', NULL, 'wiwin', '1111111121221', 'Umum', 'Umum', NULL, 'dr. FERRY SANTOSO, Sp. OG (SPESIALIS KANDUNGAN & KEBIDANAN)', '2026-08-24', 'Menunggu', '2026-08-19 04:44:28'),
-(3, 'A-001', NULL, 'velocit', '1111111121221', 'Umum', 'Umum', NULL, 'dr. JOSE TYMOTHY MANUPUTTY, Sp.OG (SPESIALIS KANDUNGAN & KEBIDANAN)', '2026-09-01', 'Menunggu', '2026-08-19 04:51:23'),
-(4, 'A-001', NULL, 'siniia', '12312312312', 'Umum', 'Umum', NULL, 'dr. NI MADE ATIKA NURINA YANTI SUTARTA, Sp.KJ (SPESIALIS KEDOKTERAN JIWA)', '2026-09-02', 'Menunggu', '2026-08-19 05:03:25'),
-(5, 'A-002', NULL, 'khair', '12312312312', 'Umum', 'Umum', NULL, 'dr. WAHYU HENDRA PRABOWO, M.Biomed, Sp.B, FINACS (SPESIALIS BEDAH)', '2026-09-01', 'Menunggu', '2026-08-19 06:33:37');
-
 -- --------------------------------------------------------
 
 --
@@ -208,9 +185,9 @@ CREATE TABLE `pengaduan` (
 --
 
 INSERT INTO `pengaduan` (`id_pengaduan`, `kode_pengaduan`, `nama_pelapor`, `no_hp`, `email`, `kategori_layanan`, `isi_pengaduan`, `tanggapan_admin`, `status`, `created_at`) VALUES
-(1, 'ADU-4342', 'ririn', NULL, NULL, 'Pelayanan Medis', 'nn', NULL, 'Baru', '2026-08-19 05:10:37'),
-(2, 'ADU-4115', 'LALA', NULL, NULL, 'Pelayanan Medis', 'BGOES', NULL, 'Baru', '2026-08-19 05:13:08'),
-(3, 'ADU-4696', 'khaii', NULL, NULL, 'Pelayanan Medis', 'masalah', NULL, 'Baru', '2026-08-19 06:34:21');
+(7, 'ADU-6994', 'winddy', NULL, NULL, 'Pelayanan Medis', 'bkbk', NULL, 'Baru', '2026-09-04 04:16:19'),
+(8, 'ADU-4224', 'BUUDI', NULL, NULL, 'Pelayanan Medis', 'ok', NULL, 'Baru', '2026-09-04 04:25:48'),
+(9, 'ADU-9681', 'anonim', NULL, NULL, 'Administrasi & Loket', 'bbb', NULL, 'Baru', '2026-09-04 05:43:11');
 
 -- --------------------------------------------------------
 
@@ -233,6 +210,36 @@ INSERT INTO `poli` (`id_poli`, `nama_poli`, `deskripsi`) VALUES
 (2, 'Poli Radiologi', 'Pemeriksaan rontgen dan USG'),
 (3, 'Poli Bedah', 'Tindakan bedah umum dan spesialis'),
 (4, 'Poli Anak', 'Layanan kesehatan anak');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `spesialis`
+--
+
+CREATE TABLE `spesialis` (
+  `id_spesialis` int(11) NOT NULL,
+  `nama_spesialis` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `spesialis`
+--
+
+INSERT INTO `spesialis` (`id_spesialis`, `nama_spesialis`) VALUES
+(12, 'PATOLOGI KLINIK'),
+(11, 'PSIKOLOG KLINIS'),
+(10, 'SPESIALIS ANAK'),
+(3, 'SPESIALIS BEDAH'),
+(5, 'SPESIALIS FORENSIK DAN MEDIKOLEGAL'),
+(9, 'SPESIALIS KANDUNGAN & KEBIDANAN'),
+(4, 'SPESIALIS KEDOKTERAN JIWA'),
+(13, 'SPESIALIS KULIT, KELAMIN DAN KECANTIKAN'),
+(7, 'SPESIALIS ORTHOPEDI'),
+(1, 'SPESIALIS PENYAKIT DALAM'),
+(2, 'SPESIALIS RADIOLOGI'),
+(8, 'SPESIALIS REHABILITASI MEDIK'),
+(6, 'SPESIALIS SARAF');
 
 -- --------------------------------------------------------
 
@@ -273,21 +280,20 @@ ALTER TABLE `berita`
 -- Indeks untuk tabel `dokter`
 --
 ALTER TABLE `dokter`
-  ADD PRIMARY KEY (`id_dokter`),
-  ADD KEY `fk_dokter_poli` (`id_poli`);
-
---
--- Indeks untuk tabel `kamar`
---
-ALTER TABLE `kamar`
-  ADD PRIMARY KEY (`id_kamar`);
+  ADD PRIMARY KEY (`id_dokter`);
 
 --
 -- Indeks untuk tabel `jadwal_dokter`
 --
 ALTER TABLE `jadwal_dokter`
   ADD PRIMARY KEY (`id_jadwal`),
-  ADD KEY `fk_jadwal_dokter` (`id_dokter`);
+  ADD KEY `id_dokter` (`id_dokter`);
+
+--
+-- Indeks untuk tabel `kamar`
+--
+ALTER TABLE `kamar`
+  ADD PRIMARY KEY (`id_kamar`);
 
 --
 -- Indeks untuk tabel `pasien`
@@ -319,6 +325,13 @@ ALTER TABLE `poli`
   ADD PRIMARY KEY (`id_poli`);
 
 --
+-- Indeks untuk tabel `spesialis`
+--
+ALTER TABLE `spesialis`
+  ADD PRIMARY KEY (`id_spesialis`),
+  ADD UNIQUE KEY `nama_spesialis` (`nama_spesialis`);
+
+--
 -- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
@@ -340,19 +353,19 @@ ALTER TABLE `berita`
 -- AUTO_INCREMENT untuk tabel `dokter`
 --
 ALTER TABLE `dokter`
-  MODIFY `id_dokter` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_dokter` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT untuk tabel `jadwal_dokter`
+--
+ALTER TABLE `jadwal_dokter`
+  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT untuk tabel `kamar`
 --
 ALTER TABLE `kamar`
   MODIFY `id_kamar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT untuk tabel `jadwal_dokter`
---
-ALTER TABLE `jadwal_dokter`
-  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `pasien`
@@ -364,19 +377,25 @@ ALTER TABLE `pasien`
 -- AUTO_INCREMENT untuk tabel `pendaftaran`
 --
 ALTER TABLE `pendaftaran`
-  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengaduan`
 --
 ALTER TABLE `pengaduan`
-  MODIFY `id_pengaduan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_pengaduan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `poli`
 --
 ALTER TABLE `poli`
   MODIFY `id_poli` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `spesialis`
+--
+ALTER TABLE `spesialis`
+  MODIFY `id_spesialis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
@@ -389,16 +408,10 @@ ALTER TABLE `users`
 --
 
 --
--- Ketidakleluasaan untuk tabel `dokter`
---
-ALTER TABLE `dokter`
-  ADD CONSTRAINT `fk_dokter_poli` FOREIGN KEY (`id_poli`) REFERENCES `poli` (`id_poli`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Ketidakleluasaan untuk tabel `jadwal_dokter`
 --
 ALTER TABLE `jadwal_dokter`
-  ADD CONSTRAINT `fk_jadwal_dokter_dokter` FOREIGN KEY (`id_dokter`) REFERENCES `dokter` (`id_dokter`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `jadwal_dokter_ibfk_1` FOREIGN KEY (`id_dokter`) REFERENCES `dokter` (`id_dokter`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `pendaftaran`
